@@ -42,11 +42,11 @@ def create_labels_info(df, labels):
     return pd.DataFrame(dict_labels_info, index=[0])
 
 def get_densenet121():
-    densenet_121 = torchvision.models.densenet121(pretrained=True)
-    num_ftrs = densenet_121.classifier.in_features
-    densenet_121.classifier = nn.Linear(102400, len(radiographic_findings))
-    densenet_121 = densenet_121.cuda()
-    return densenet_121
+    dn121 = torchvision.models.densenet121(pretrained=True)
+    num_ftrs = dn121.classifier.in_features
+    dn121.classifier = nn.Linear(102400, len(radiographic_findings))
+    dn121 = dn121.cuda()
+    return dn121
 
 if __name__ == '__main__':
 
@@ -86,9 +86,9 @@ if __name__ == '__main__':
     transforms_test = transforms.Compose([Resize(512), ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
 
     # Create data loaders
-    train_dataset = PadChestDataset(csv_train, radiographic_findings, root_folder, transform=transforms_train, testing=True)
-    test_dataset = PadChestDataset(csv_test, radiographic_findings, root_folder, transform=transforms_test, testing=True)
-    val_dataset = PadChestDataset(csv_val, radiographic_findings, root_folder, transform=transforms_test, testing=True)
+    train_dataset = PadChestDataset(csv_train, radiographic_findings, root_folder, transform=transforms_train)
+    test_dataset = PadChestDataset(csv_test, radiographic_findings, root_folder, transform=transforms_test)
+    val_dataset = PadChestDataset(csv_val, radiographic_findings, root_folder, transform=transforms_test)
 
     train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4, drop_last=True)
     test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
