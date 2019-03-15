@@ -74,6 +74,7 @@ if __name__ == '__main__':
     batch_size = 6
     if vars(args)['batch_size'] is not None:
         batch_size = vars(args)['batch_size']
+        batch_size = int(batch_size)
 
 
 
