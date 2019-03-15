@@ -44,8 +44,9 @@ def create_labels_info(df, labels):
 def get_densenet121():
     densenet_121 = torchvision.models.densenet121(pretrained=True)
     num_ftrs = densenet_121.classifier.in_features
-    densenet_121.classifier = nn.Linear(102400, len(radiographic_findings))
+    densenet_121.classifier = nn.Linear(num_ftrs, len(radiographic_findings))
     densenet_121 = densenet_121.cuda()
+    densenet_121 = torch.nn.DataParallel(densenet_121).cuda()
     return densenet_121
 
 if __name__ == '__main__':
