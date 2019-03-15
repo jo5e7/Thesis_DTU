@@ -45,7 +45,7 @@ def get_densenet121():
     densenet_121 = torchvision.models.densenet121(pretrained=True)
     num_ftrs = densenet_121.classifier.in_features
     densenet_121.classifier = nn.Linear(102400, len(radiographic_findings))
-    dn121 = densenet_121.cuda()
+    densenet_121 = densenet_121.cuda()
     return densenet_121
 
 if __name__ == '__main__':
