@@ -42,11 +42,11 @@ def create_labels_info(df, labels):
     return pd.DataFrame(dict_labels_info, index=[0])
 
 def get_densenet121():
-    dn121 = torchvision.models.densenet121(pretrained=True)
-    num_ftrs = dn121.classifier.in_features
-    dn121.classifier = nn.Linear(102400, len(radiographic_findings))
-    dn121 = dn121.cuda()
-    return dn121
+    densenet_121 = torchvision.models.densenet121(pretrained=True)
+    num_ftrs = densenet_121.classifier.in_features
+    densenet_121.classifier = nn.Linear(102400, len(radiographic_findings))
+    dn121 = densenet_121.cuda()
+    return densenet_121
 
 if __name__ == '__main__':
 

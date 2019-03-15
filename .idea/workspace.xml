@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fc40efe7-fe82-4ca3-b755-7477f424e921" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Model_trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model_trainer.py" afterDir="false" />
-    </list>
+    <list default="true" id="fc40efe7-fe82-4ca3-b755-7477f424e921" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,8 +81,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Model_trainer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="76" column="35" selection-start-line="76" selection-start-column="35" selection-end-line="76" selection-end-column="35" />
+            <state relative-caret-position="-20">
+              <caret line="76" column="18" selection-start-line="76" selection-start-column="8" selection-end-line="76" selection-end-column="18" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
                 <marker date="1552659489326" expanded="true" signature="1215:1432" ph="..." />
@@ -387,7 +385,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14011897" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14011897" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -525,8 +523,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Model_trainer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="76" column="35" selection-start-line="76" selection-start-column="35" selection-end-line="76" selection-end-column="35" />
+        <state relative-caret-position="-20">
+          <caret line="76" column="18" selection-start-line="76" selection-start-column="8" selection-end-line="76" selection-end-column="18" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
             <marker date="1552659489326" expanded="true" signature="1215:1432" ph="..." />
