@@ -90,7 +90,8 @@ if __name__ == '__main__':
     test_dataset = PadChestDataset(csv_test, radiographic_findings, root_folder, transform=transforms_test)
     val_dataset = PadChestDataset(csv_val, radiographic_findings, root_folder, transform=transforms_test)
 
-    train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4, drop_last=True)
+    train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
+                                                   drop_last=True)
     test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
                                                    drop_last=True)
     val_dataloader = torch.utils.data.DataLoader(val_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
@@ -118,6 +119,42 @@ if __name__ == '__main__':
     trainable_models = []
     trainable_models_scores = []
 
+    # SGD
+    densenet_121 = get_densenet121()
+    sgd = optim.SGD(densenet_121.parameters(), lr=0.01, momentum=0.9)
+    trainable_1 = TrainableModel(model=densenet_121, optimizer=sgd, loss_criterion=BCE,
+                                 train_loader=train_dataloader,
+                                 test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_BCE_SGD')
+    trainable_models.append(trainable_1)
+    trainable_1.train()
+
+    densenet_121 = get_densenet121()
+    sgd = optim.SGD(densenet_121.parameters(), lr=0.01, momentum=0.9)
+    trainable_1 = TrainableModel(model=densenet_121, optimizer=sgd, loss_criterion=BCE_w,
+                                 train_loader=train_dataloader,
+                                 test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_BCEW_SGD')
+    trainable_models.append(trainable_1)
+    trainable_1.train()
+
+    densenet_121 = get_densenet121()
+    sgd = optim.SGD(densenet_121.parameters(), lr=0.01, momentum=0.9)
+    trainable_1 = TrainableModel(model=densenet_121, optimizer=sgd, loss_criterion=Focal,
+                                 train_loader=train_dataloader,
+                                 test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_FL_SGD')
+    trainable_models.append(trainable_1)
+    trainable_1.train()
+
+    densenet_121 = get_densenet121()
+    sgd = optim.SGD(densenet_121.parameters(), lr=0.01, momentum=0.9)
+    trainable_1 = TrainableModel(model=densenet_121, optimizer=sgd, loss_criterion=Focal_w,
+                                 train_loader=train_dataloader,
+                                 test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_FLW_SGD')
+    trainable_models.append(trainable_1)
+    trainable_1.train()
+
+
+
+    # Adam
     densenet_121 = get_densenet121()
     adam_1 = optim.Adam(densenet_121.parameters())
     trainable_1 = TrainableModel(model=densenet_121, optimizer=adam_1, loss_criterion=BCE, train_loader=train_dataloader,
@@ -130,7 +167,7 @@ if __name__ == '__main__':
     trainable_1 = TrainableModel(model=densenet_121, optimizer=adam_1, loss_criterion=BCE_w, train_loader=train_dataloader,
                                  test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_BCEW_ADAM')
     trainable_models.append(trainable_1)
-    #trainable_1.train()
+    trainable_1.train()
 
     densenet_121 = get_densenet121()
     adam_1 = optim.Adam(densenet_121.parameters())
@@ -138,7 +175,7 @@ if __name__ == '__main__':
                                  train_loader=train_dataloader,
                                  test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_FL_ADAM')
     trainable_models.append(trainable_1)
-    #trainable_1.train()
+    trainable_1.train()
 
     densenet_121 = get_densenet121()
     adam_1 = optim.Adam(densenet_121.parameters())
@@ -149,38 +186,7 @@ if __name__ == '__main__':
     #trainable_1.train()
 
 
-    # SGD
-    densenet_121 = get_densenet121()
-    sgd = optim.SGD(densenet_121.parameters(), momentum=0.9)
-    trainable_1 = TrainableModel(model=densenet_121, optimizer=sgd, loss_criterion=BCE,
-                                 train_loader=train_dataloader,
-                                 test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_BCE_SGD')
-    trainable_models.append(trainable_1)
-    trainable_1.train()
 
-    densenet_121 = get_densenet121()
-    sgd = optim.SGD(densenet_121.parameters(), momentum=0.9)
-    trainable_1 = TrainableModel(model=densenet_121, optimizer=sgd, loss_criterion=BCE_w,
-                                 train_loader=train_dataloader,
-                                 test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_BCE_SGD')
-    trainable_models.append(trainable_1)
-    trainable_1.train()
-
-    densenet_121 = get_densenet121()
-    sgd = optim.SGD(densenet_121.parameters(), momentum=0.9)
-    trainable_1 = TrainableModel(model=densenet_121, optimizer=sgd, loss_criterion=Focal,
-                                 train_loader=train_dataloader,
-                                 test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_BCE_SGD')
-    trainable_models.append(trainable_1)
-    trainable_1.train()
-
-    densenet_121 = get_densenet121()
-    sgd = optim.SGD(densenet_121.parameters(), momentum=0.9)
-    trainable_1 = TrainableModel(model=densenet_121, optimizer=sgd, loss_criterion=Focal_w,
-                                 train_loader=train_dataloader,
-                                 test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_BCE_SGD')
-    trainable_models.append(trainable_1)
-    trainable_1.train()
 
 
 

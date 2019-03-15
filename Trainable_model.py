@@ -116,6 +116,7 @@ class TrainableModel:
             # self.log('********************************')
             self.log('************' + 'Epoch: ' + str(epoch) + '************')
             # self.log('********************************')
+            print('Epoch:', epoch)
             net.train()
             running_loss = 0.0
             epoch_losses = []
@@ -154,9 +155,9 @@ class TrainableModel:
                 # print statistics
                 running_loss += loss.item()
                 epoch_losses.append(loss.item())
-                if i % 400 == 399:  # print every 50 mini-batches
+                if i % 500 == 499:  # print every 50 mini-batches
                     print('[%d, %5d] loss: %.3f' %
-                          (epoch + 1, i + 1, running_loss / 400))
+                          (epoch + 1, i + 1, running_loss / 500))
                     running_loss = 0.0
 
             net.eval()
@@ -177,6 +178,10 @@ class TrainableModel:
 
             epoch += 1
 
+        self.log('Scores list per epoch:')
+        self.log(str(accuracies_list))
+        self.log('Losses list per epoch:')
+        self.log(str(epoch_losses_list))
         if self.test_loader is not None:
             net = torch.load(self.name + '/' + self.name + '.pth')
             self.log('Final Scores for test set')

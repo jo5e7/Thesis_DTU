@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fc40efe7-fe82-4ca3-b755-7477f424e921" name="Default Changelist" comment="" />
+    <list default="true" id="fc40efe7-fe82-4ca3-b755-7477f424e921" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model_trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model_trainer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trainable_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Trainable_model.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,23 +47,24 @@
     <session id="-193334911">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="6" />
-          <entry key="project.open.time.4" value="3" />
+          <entry key="project.closed" value="8" />
+          <entry key="project.open.time.4" value="4" />
           <entry key="project.open.time.5" value="3" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="23" />
-          <entry key="py" value="6844" />
+          <entry key="py" value="7024" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="23" />
-          <entry key="Python" value="6844" />
+          <entry key="Python" value="7024" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -79,11 +84,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Model_trainer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="557">
-              <caret line="182" column="23" selection-start-line="182" selection-start-column="23" selection-end-line="182" selection-end-column="23" />
+            <state relative-caret-position="-197">
+              <caret line="156" column="10" selection-start-line="156" selection-start-column="10" selection-end-line="156" selection-end-column="10" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
-                <marker date="1552577488900" expanded="true" signature="1215:1474" ph="..." />
+                <marker date="1552647494524" expanded="true" signature="1215:1432" ph="..." />
               </folding>
             </state>
           </provider>
@@ -137,11 +142,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Trainable_model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1740">
-              <caret line="90" column="45" selection-start-line="90" selection-start-column="45" selection-end-line="90" selection-end-column="45" />
+            <state relative-caret-position="3118">
+              <caret line="177" selection-start-line="177" selection-end-line="177" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
-                <marker date="1552560140412" expanded="true" signature="788:917" ph="..." />
+                <marker date="1552644364723" expanded="true" signature="788:917" ph="..." />
               </folding>
             </state>
           </provider>
@@ -382,12 +387,12 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14011897" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14011897" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49966952" visible="true" weight="0.2822695" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49966952" weight="0.2822695" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -518,17 +523,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Model_trainer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="557">
-          <caret line="182" column="23" selection-start-line="182" selection-start-column="23" selection-end-line="182" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-            <marker date="1552577488900" expanded="true" signature="1215:1474" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Prediction_scores.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="920">
@@ -568,11 +562,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Trainable_model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1740">
-          <caret line="90" column="45" selection-start-line="90" selection-start-column="45" selection-end-line="90" selection-end-column="45" />
+        <state relative-caret-position="3118">
+          <caret line="177" selection-start-line="177" selection-end-line="177" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
-            <marker date="1552560140412" expanded="true" signature="788:917" ph="..." />
+            <marker date="1552644364723" expanded="true" signature="788:917" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model_trainer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-197">
+          <caret line="156" column="10" selection-start-line="156" selection-start-column="10" selection-end-line="156" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+            <marker date="1552647494524" expanded="true" signature="1215:1432" ph="..." />
           </folding>
         </state>
       </provider>
