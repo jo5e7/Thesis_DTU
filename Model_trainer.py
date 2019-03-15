@@ -55,6 +55,7 @@ if __name__ == '__main__':
     parser.add_argument('--train_csv')
     parser.add_argument('--test_csv')
     parser.add_argument('--val_csv')
+    parser.add_argument('--batch_size')
     args = parser.parse_args()
 
     root_folder = "D:\PADChest\images8"
@@ -70,12 +71,16 @@ if __name__ == '__main__':
         csv_test = vars(args)['test_csv']
         csv_val = vars(args)['val_csv']
 
+    batch_size = 6
+    if vars(args)['batch_size'] is not None:
+        batch_size = vars(args)['batch_size']
+
 
 
     print(csv_train)
     print(len(pd.read_csv(csv_train).index))
     radiographic_findings = ['normal', 'calcified densities', 'nodule', 'fibrotic band', 'volume loss', 'pneumothorax', 'air trapping', 'bronchiectasis', 'infiltrates', 'atelectasis', 'pleural thickening', 'pleural effusion', 'costophrenic angle blunting', 'hilar enlargement', 'cardiomegaly', 'aortic elongation', 'mediastinal enlargement', 'mass', 'thoracic cage deformation', 'vertebral degenerative changes', 'fracture', 'hemidiaphragm elevation']
-    batch_size = 6
+
 
     # Create positive samples weights
     positive_samples_w = get_training_weights(radiographic_findings, create_labels_info(pd.read_csv(csv_train), radiographic_findings), len(pd.read_csv(csv_train).index))
