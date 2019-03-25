@@ -41,13 +41,41 @@ def create_labels_info(df, labels):
     print(dict_labels_info)
     return pd.DataFrame(dict_labels_info, index=[0])
 
-def get_densenet121():
-    densenet_121 = torchvision.models.densenet121(pretrained=True)
-    num_ftrs = densenet_121.classifier.in_features
-    densenet_121.classifier = nn.Linear(num_ftrs, len(radiographic_findings))
-    densenet_121 = densenet_121.cuda()
-    densenet_121 = torch.nn.DataParallel(densenet_121).cuda()
-    return densenet_121
+def get_densenet(target, type=121):
+    if type is 169:
+        densenet = torchvision.models.densenet169(pretrained=True)
+        print("DenseNet_169")
+    elif type is 161:
+        densenet = torchvision.models.densenet161(pretrained=True)
+        print("DenseNet_161")
+    elif type is 201:
+        densenet = torchvision.models.densenet201(pretrained=True)
+        print("DenseNet_201")
+    else:
+        densenet = torchvision.models.densenet121(pretrained=True)
+        print("DenseNet_121")
+
+    num_ftrs = densenet.classifier.in_features
+    densenet.classifier = nn.Linear(num_ftrs, len(target))
+    densenet = densenet.cuda()
+    densenet = torch.nn.DataParallel(densenet).cuda()
+    return densenet
+
+def get_resnet(targets, type=50):
+    if type is 101:
+        resnet = torchvision.models.resnet101(pretrained=True)
+        print("ResNet_101")
+    elif type is 152:
+        resnet = torchvision.models.resnet152(pretrained=True)
+        print("ResNet_152")
+    else:
+        resnet = torchvision.models.resnet50(pretrained=True)
+        print("ResNet_50")
+
+    num_ftrs = resnet.fc.in_features
+    resnet.fc = nn.Linear(num_ftrs, len(targets))
+    resnet = torch.nn.DataParallel(resnet).cuda()
+    return resnet
 
 if __name__ == '__main__':
 
@@ -81,11 +109,11 @@ if __name__ == '__main__':
 
     print(csv_train)
     print(len(pd.read_csv(csv_train).index))
-    radiographic_findings = ['normal', 'calcified densities', 'nodule', 'fibrotic band', 'volume loss', 'pneumothorax', 'air trapping', 'bronchiectasis', 'infiltrates', 'atelectasis', 'pleural thickening', 'pleural effusion', 'costophrenic angle blunting', 'hilar enlargement', 'cardiomegaly', 'aortic elongation', 'mediastinal enlargement', 'mass', 'thoracic cage deformation', 'vertebral degenerative changes', 'fracture', 'hemidiaphragm elevation']
-
+    radiographic_findings_all = ['normal', 'calcified densities', 'nodule', 'fibrotic band', 'volume loss', 'pneumothorax', 'air trapping', 'bronchiectasis', 'infiltrates', 'atelectasis', 'pleural thickening', 'pleural effusion', 'costophrenic angle blunting', 'hilar enlargement', 'cardiomegaly', 'aortic elongation', 'mediastinal enlargement', 'mass', 'thoracic cage deformation', 'vertebral degenerative changes', 'fracture', 'hemidiaphragm elevation']
+    radiographic_findings_new = ['normal', 'calcified densities', 'nodule', 'fibrotic band', 'volume loss', 'pneumothorax', 'infiltrates', 'atelectasis', 'pleural thickening', 'pleural effusion', 'costophrenic angle blunting', 'cardiomegaly', 'aortic elongation', 'mediastinal enlargement', 'mass', 'thoracic cage deformation', 'fracture', 'hemidiaphragm elevation']
 
     # Create positive samples weights
-    positive_samples_w = get_training_weights(radiographic_findings, create_labels_info(pd.read_csv(csv_train), radiographic_findings), len(pd.read_csv(csv_train).index))
+    positive_samples_w = get_training_weights(radiographic_findings_new, create_labels_info(pd.read_csv(csv_train), radiographic_findings_new), len(pd.read_csv(csv_train).index))
     print(np.array(positive_samples_w))
 
     # Transforms
@@ -93,9 +121,9 @@ if __name__ == '__main__':
     transforms_test = transforms.Compose([Resize(512), ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
 
     # Create data loaders
-    train_dataset = PadChestDataset(csv_train, radiographic_findings, root_folder, transform=transforms_train)
-    test_dataset = PadChestDataset(csv_test, radiographic_findings, root_folder, transform=transforms_test)
-    val_dataset = PadChestDataset(csv_val, radiographic_findings, root_folder, transform=transforms_test)
+    train_dataset = PadChestDataset(csv_train, radiographic_findings_new, root_folder, transform=transforms_train)
+    test_dataset = PadChestDataset(csv_test, radiographic_findings_new, root_folder, transform=transforms_test)
+    val_dataset = PadChestDataset(csv_val, radiographic_findings_new, root_folder, transform=transforms_test)
 
     train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
                                                    drop_last=True)
@@ -107,10 +135,7 @@ if __name__ == '__main__':
     # Create Backbones
 
 
-    resenet_50 = torchvision.models.resnet50(pretrained=True)
-    num_ftrs = resenet_50.fc.in_features
-    resenet_50.fc = nn.Linear(204800, len(radiographic_findings))
-    resenet_50 = resenet_50.cuda()
+
 
     # Loss functions
     BCE_pos_weights = torch.FloatTensor(positive_samples_w)
@@ -126,69 +151,72 @@ if __name__ == '__main__':
     trainable_models = []
     trainable_models_scores = []
 
-    # SGD
-    densenet_121 = get_densenet121()
-    sgd = optim.SGD(densenet_121.parameters(), lr=0.01, momentum=0.9)
-    trainable_1 = TrainableModel(model=densenet_121, optimizer=sgd, loss_criterion=BCE,
+    #
+    densenet = get_densenet(radiographic_findings_new)
+    sgd = optim.SGD(densenet.parameters(), lr=0.01, momentum=0.9)
+    trainable_1 = TrainableModel(model=densenet, optimizer=sgd, loss_criterion=BCE,
                                  train_loader=train_dataloader,
                                  test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_BCE_SGD')
     trainable_models.append(trainable_1)
     trainable_1.train()
 
-    densenet_121 = get_densenet121()
-    sgd = optim.SGD(densenet_121.parameters(), lr=0.01, momentum=0.9)
-    trainable_1 = TrainableModel(model=densenet_121, optimizer=sgd, loss_criterion=BCE_w,
-                                 train_loader=train_dataloader,
-                                 test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_BCEW_SGD')
-    trainable_models.append(trainable_1)
-    trainable_1.train()
 
-    densenet_121 = get_densenet121()
-    sgd = optim.SGD(densenet_121.parameters(), lr=0.01, momentum=0.9)
-    trainable_1 = TrainableModel(model=densenet_121, optimizer=sgd, loss_criterion=Focal,
+    densenet = get_densenet(radiographic_findings_new)
+    sgd = optim.SGD(densenet.parameters(), lr=0.01, momentum=0.9)
+    trainable_1 = TrainableModel(model=densenet, optimizer=sgd, loss_criterion=Focal,
                                  train_loader=train_dataloader,
                                  test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_FL_SGD')
     trainable_models.append(trainable_1)
     trainable_1.train()
 
-    densenet_121 = get_densenet121()
-    sgd = optim.SGD(densenet_121.parameters(), lr=0.01, momentum=0.9)
-    trainable_1 = TrainableModel(model=densenet_121, optimizer=sgd, loss_criterion=Focal_w,
+    # DenseNet
+
+    densenet = get_densenet(radiographic_findings_new, type=169)
+    sgd = optim.SGD(densenet.parameters(), lr=0.01, momentum=0.9)
+    trainable_1 = TrainableModel(model=densenet, optimizer=sgd, loss_criterion=Focal,
                                  train_loader=train_dataloader,
-                                 test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_FLW_SGD')
+                                 test_loader=test_dataloader, val_loader=val_dataloader, name='DN169_FL_SGD')
     trainable_models.append(trainable_1)
-    trainable_1.train()
+    #trainable_1.train()
 
-
-
-    # Adam
-    densenet_121 = get_densenet121()
-    adam_1 = optim.Adam(densenet_121.parameters())
-    trainable_1 = TrainableModel(model=densenet_121, optimizer=adam_1, loss_criterion=BCE, train_loader=train_dataloader,
-                                 test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_BCE_ADAM')
-    trainable_models.append(trainable_1)
-    trainable_1.train()
-
-    densenet_121 = get_densenet121()
-    adam_1 = optim.Adam(densenet_121.parameters())
-    trainable_1 = TrainableModel(model=densenet_121, optimizer=adam_1, loss_criterion=BCE_w, train_loader=train_dataloader,
-                                 test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_BCEW_ADAM')
-    trainable_models.append(trainable_1)
-    trainable_1.train()
-
-    densenet_121 = get_densenet121()
-    adam_1 = optim.Adam(densenet_121.parameters())
-    trainable_1 = TrainableModel(model=densenet_121, optimizer=adam_1, loss_criterion=Focal,
+    densenet = get_densenet(radiographic_findings_new, type=161)
+    sgd = optim.SGD(densenet.parameters(), lr=0.01, momentum=0.9)
+    trainable_1 = TrainableModel(model=densenet, optimizer=sgd, loss_criterion=Focal,
                                  train_loader=train_dataloader,
-                                 test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_FL_ADAM')
+                                 test_loader=test_dataloader, val_loader=val_dataloader, name='DN161_FL_SGD')
     trainable_models.append(trainable_1)
-    trainable_1.train()
+    #trainable_1.train()
 
-    densenet_121 = get_densenet121()
-    adam_1 = optim.Adam(densenet_121.parameters())
-    trainable_1 = TrainableModel(model=densenet_121, optimizer=adam_1, loss_criterion=Focal_w,
+    densenet = get_densenet(radiographic_findings_new, type=201)
+    sgd = optim.SGD(densenet.parameters(), lr=0.01, momentum=0.9)
+    trainable_1 = TrainableModel(model=densenet, optimizer=sgd, loss_criterion=Focal,
                                  train_loader=train_dataloader,
-                                 test_loader=test_dataloader, val_loader=val_dataloader, name='DN121_FLW_ADAM')
+                                 test_loader=test_dataloader, val_loader=val_dataloader, name='DN201_FL_SGD')
+    trainable_models.append(trainable_1)
+    #trainable_1.train()
+
+    # ResNet
+    resnet = get_densenet(radiographic_findings_new, type=50)
+    sgd = optim.SGD(resnet.parameters(), lr=0.01, momentum=0.9)
+    trainable_1 = TrainableModel(model=resnet, optimizer=sgd, loss_criterion=Focal,
+                                 train_loader=train_dataloader,
+                                 test_loader=test_dataloader, val_loader=val_dataloader, name='RN50_FL_SGD')
+    trainable_models.append(trainable_1)
+    #trainable_1.train()
+
+    resnet = get_densenet(radiographic_findings_new, type=101)
+    sgd = optim.SGD(resnet.parameters(), lr=0.01, momentum=0.9)
+    trainable_1 = TrainableModel(model=resnet, optimizer=sgd, loss_criterion=Focal,
+                                 train_loader=train_dataloader,
+                                 test_loader=test_dataloader, val_loader=val_dataloader, name='RN101_FL_SGD')
+    trainable_models.append(trainable_1)
+    #trainable_1.train()
+
+    resnet = get_densenet(radiographic_findings_new, type=152)
+    sgd = optim.SGD(resnet.parameters(), lr=0.01, momentum=0.9)
+    trainable_1 = TrainableModel(model=resnet, optimizer=sgd, loss_criterion=Focal,
+                                 train_loader=train_dataloader,
+                                 test_loader=test_dataloader, val_loader=val_dataloader, name='RN152_FL_SGD')
     trainable_models.append(trainable_1)
     #trainable_1.train()
 

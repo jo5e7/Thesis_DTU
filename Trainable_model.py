@@ -64,8 +64,8 @@ class TrainableModel:
             self.log('macro_F1 per class: ' + str(Prediction_scores.get_macro_f1_score(all_y, all_y_pred)))
             self.log('macro_F1: ' + str(np.average(Prediction_scores.get_macro_f1_score(all_y, all_y_pred))))
             self.log('micro_roc_auc: ' + str(Prediction_scores.get_micro_roc_auc_score(all_y, all_y_pred)))
-            self.log('macro_roc_auc per class' + str(Prediction_scores.get_macro_roc_auc_score(all_y, all_y_pred)))
-            self.log('macro_roc_auc' + str(np.average(Prediction_scores.get_macro_roc_auc_score(all_y, all_y_pred))))
+            self.log('macro_roc_auc per class: ' + str(Prediction_scores.get_macro_roc_auc_score(all_y, all_y_pred)))
+            self.log('macro_roc_auc: ' + str(np.average(Prediction_scores.get_macro_roc_auc_score(all_y, all_y_pred))))
             self.log(all_y)
             self.log(all_y_pred)
 
