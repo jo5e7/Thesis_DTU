@@ -73,6 +73,61 @@ class PadChestDataset(Dataset):
         #sample = {'image': image, 'labels': labels_output}
         return image, torch.FloatTensor(labels_output)
 
+
+
+class PadChestDataset_loc(Dataset):
+    """Face Landmarks dataset."""
+
+    def __init__(self, csv_file, labels, position_labels, root_dir, transform=None, testing=False):
+        """
+        Args:
+            csv_file (string): Path to the csv file with annotations.
+            root_dir (string): Directory with all the images.
+            transform (callable, optional): Optional transform to be applied
+                on a sample.
+        """
+        self.pad_chest_df = pd.read_csv(csv_file)
+        if testing:
+            zero_df = self.pad_chest_df["ImageDir"] == 0
+            self.pad_chest_df = self.pad_chest_df[zero_df]
+            self.pad_chest_df = self.pad_chest_df.reset_index(drop=True)
+
+        self.root_dir = root_dir
+        self.transform = transform
+        self.labels = labels
+        self.position_labels = position_labels
+
+    def __len__(self):
+        return len(self.pad_chest_df)
+
+    def __getitem__(self, idx):
+        img_name = os.path.join(self.root_dir,
+                                self.pad_chest_df.loc[idx, "ImageID"])
+
+        labels_output = self.pad_chest_df.loc[idx, self.labels]
+        labels_output = labels_output.tolist()
+
+        position_labels_output = self.pad_chest_df.loc[idx, self.position_labels]
+        position_labels_output = position_labels_output.tolist()
+        #print(idx, labels_output)
+
+        #image = io.imread(img_name)
+        #image = np.stack((image,) * 3, axis=-1)
+
+        image = Image.open(img_name).convert("RGB")
+
+        #image.show()
+        #plt.imshow(image, interpolation='nearest')
+        #plt.show()
+
+
+
+        if self.transform:
+            image = self.transform(image)
+
+        #sample = {'image': image, 'labels': labels_output}
+        return image, torch.FloatTensor(labels_output), torch.FloatTensor(position_labels_output)
+
 # Transforms
 
 class Resize(object):

@@ -1,4 +1,14 @@
 import numpy as np
 from sklearn import metrics
+import torch
 
-metrics.roc_auc_score([0,1,0,1], [0.5, 0.6, 0.6, 0.2], 'micro')
+test = [[0, 0], [0, 1], [1, 1], [1, 0], [0, 0]]
+test = torch.FloatTensor(test)
+
+aux = []
+for i in range(len(test)):
+    aux.append(torch.sum(test[i]))
+
+aux = torch.FloatTensor(aux)
+
+print((aux > 0) * 3)
