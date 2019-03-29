@@ -3,7 +3,6 @@ from torch import nn, optim
 import pandas as pd
 from torchvision import transforms
 from torchvision.transforms import Resize, RandomRotation, ToTensor, Normalize, RandomHorizontalFlip
-from LR.Trainable_Model_LR import Trainable_Model_LR
 from PADChest_DataLoading import PadChestDataset_loc
 import Custome_losses
 import argparse
