@@ -4,13 +4,14 @@ import torch.nn.functional as F
 import numpy as np
 
 class FocalLoss(nn.Module):
-    def __init__(self, alpha=1, gamma=2, logits=False, reduce=True, pos_weight=None):
+    def __init__(self, alpha=1, gamma=2, logits=False, reduce=True, pos_weight=None, groups=None):
         super(FocalLoss, self).__init__()
         self.alpha = alpha
         self.gamma = gamma
         self.logits = logits
         self.reduce = reduce
         self.pos_weight = pos_weight
+        self.groups = groups
 
     def forward(self, inputs, targets):
         if self.logits:
@@ -38,6 +39,7 @@ class BCE_for_non_zero(nn.Module):
             BCE_loss = F.binary_cross_entropy_with_logits(inputs, targets, reduce=False, pos_weight=self.pos_weight)
         else:
             BCE_loss = F.binary_cross_entropy(inputs, targets, reduce=False, pos_weight=self.pos_weight)
+
 
         aux = []
         for i in range(len(targets)):

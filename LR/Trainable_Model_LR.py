@@ -172,11 +172,11 @@ class Trainable_Model_LR:
                 loc_epoch_losses.append(loc_loss.item())
                 if i % 100 == 99:  # print every 500 mini-batches
                     print('[%d, %5d] Total loss: %.3f' %
-                          (epoch, i + 1, total_running_loss / 100))
-                    print('[%d, %5d] Classification loss: %.3f' %
-                          (epoch, i + 1, class_running_loss / 100))
-                    print('[%d, %5d] Localization loss: %.3f' %
-                          (epoch, i + 1, loc_running_loss / 100))
+                          (epoch, i + 1, total_running_loss / 100), end=' | ')
+                    print('Classification loss: %.3f' %
+                          (class_running_loss / 100), end=' | ')
+                    print('Localization loss: %.3f' %
+                          (loc_running_loss / 100))
                     total_running_loss = 0.0
                     class_running_loss = 0.0
                     loc_running_loss = 0.0

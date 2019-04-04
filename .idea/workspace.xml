@@ -2,7 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc40efe7-fe82-4ca3-b755-7477f424e921" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/CheXNet_aproach.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CheXNet_aproach.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/._.DS_Store" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Custome_losses.py" beforeDir="false" afterPath="$PROJECT_DIR$/Custome_losses.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LR/DenseNet_LR.py" beforeDir="false" afterPath="$PROJECT_DIR$/LR/DenseNet_LR.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LR/Model_trainer_loc.py" beforeDir="false" afterPath="$PROJECT_DIR$/LR/Model_trainer_loc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LR/Trainable_Model_LR.py" beforeDir="false" afterPath="$PROJECT_DIR$/LR/Trainable_Model_LR.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground.py" beforeDir="false" afterPath="$PROJECT_DIR$/Playground.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prediction_scores.py" beforeDir="false" afterPath="$PROJECT_DIR$/Prediction_scores.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -10,84 +22,49 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="-193334911">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="5" />
-          <entry key="project.open.time.4" value="1" />
-          <entry key="project.open.time.5" value="3" />
-          <entry key="project.open.time.6" value="1" />
-          <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="6" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="dummy" value="18" />
-          <entry key="py" value="2524" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="PLAIN_TEXT" value="18" />
-          <entry key="Python" value="2524" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="py" value="26" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="Python" value="26" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LR/DenseNet_LR.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="107" column="16" selection-start-line="107" selection-start-column="16" selection-end-line="107" selection-end-column="16" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="78">
+              <caret line="75" column="38" selection-start-line="75" selection-start-column="38" selection-end-line="75" selection-end-column="38" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/torchvision/models/densenet.py">
+        <entry file="file://$PROJECT_DIR$/LR/Model_trainer_loc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
-              <caret line="168" column="35" lean-forward="true" selection-start-line="153" selection-start-column="4" selection-end-line="168" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LR/Trainable_Model_LR.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="104" column="31" selection-start-line="104" selection-start-column="31" selection-end-line="104" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
-                <marker date="1553850431028" expanded="true" signature="94:100" ph="..." />
-                <marker date="1553850431028" expanded="true" signature="1030:3572" ph="..." />
-              </folding>
+            <state relative-caret-position="270">
+              <caret line="28" column="33" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/LR/Model_trainer_loc.py">
+        <entry file="file://$PROJECT_DIR$/Custome_losses.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
+            <state relative-caret-position="117">
+              <caret line="43" column="8" selection-start-line="43" selection-start-column="8" selection-end-line="60" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Playground.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="21" column="47" lean-forward="true" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Datase_stratification/PADChest_create_labels_position.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="328">
+              <caret line="111" column="58" selection-start-line="111" selection-start-column="58" selection-end-line="111" selection-end-column="58" />
             </state>
           </provider>
         </entry>
@@ -124,25 +101,26 @@
         <option value="$PROJECT_DIR$/Datase_stratification/PADChest_create_labels_info.py" />
         <option value="$PROJECT_DIR$/Prediction_scores.py" />
         <option value="$PROJECT_DIR$/Results/Results_plotter.py" />
-        <option value="$PROJECT_DIR$/Datase_stratification/PADChest_create_labels_position.py" />
         <option value="$PROJECT_DIR$/Trainable_model.py" />
         <option value="$PROJECT_DIR$/Model_trainer.py" />
         <option value="$PROJECT_DIR$/Baseline/Model_trainer.py" />
-        <option value="$PROJECT_DIR$/Playground.py" />
         <option value="$PROJECT_DIR$/LR/Model_trainer.py" />
         <option value="$PROJECT_DIR$/PADChest_DataLoading.py" />
-        <option value="$PROJECT_DIR$/Custome_losses.py" />
-        <option value="$PROJECT_DIR$/LR/Trainable_Model_LR.py" />
         <option value="$PROJECT_DIR$/Results/2/Plotter.py" />
         <option value="$PROJECT_DIR$/LR/DenseNet_LR.py" />
         <option value="$PROJECT_DIR$/LR/Model_trainer_loc.py" />
+        <option value="$PROJECT_DIR$/LR/Trainable_Model_LR.py" />
+        <option value="$PROJECT_DIR$/Results/3/Plotter.py" />
+        <option value="$PROJECT_DIR$/Datase_stratification/PADChest_create_labels_position.py" />
+        <option value="$PROJECT_DIR$/Playground.py" />
+        <option value="$PROJECT_DIR$/Custome_losses.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="20" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
     <option name="width" value="1280" />
-    <option name="height" value="780" />
+    <option name="height" value="777" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -156,11 +134,6 @@
             <path>
               <item name="CheXNet_aproach" type="b2602c69:ProjectViewProjectNode" />
               <item name="CheXNet_aproach" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CheXNet_aproach" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CheXNet_aproach" type="462c0819:PsiDirectoryNode" />
-              <item name="Baseline" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="CheXNet_aproach" type="b2602c69:ProjectViewProjectNode" />
@@ -203,7 +176,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Plotter">
+  <component name="RunManager" selected="Python.Playground">
     <configuration name="Model_trainer_loc" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CheXNet_aproach" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -267,6 +240,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Plotter (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="CheXNet_aproach" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Results/3" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Results/3/Plotter.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Plotter" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CheXNet_aproach" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -288,41 +282,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Results_plotter" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="CheXNet_aproach" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Results" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Results/Results_plotter.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
-      <item itemvalue="Python.Results_plotter" />
       <item itemvalue="Python.PADChest_create_labels_position" />
       <item itemvalue="Python.Playground" />
       <item itemvalue="Python.Model_trainer_loc" />
       <item itemvalue="Python.Plotter" />
+      <item itemvalue="Python.Plotter (1)" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Plotter" />
-        <item itemvalue="Python.Model_trainer_loc" />
         <item itemvalue="Python.Playground" />
         <item itemvalue="Python.PADChest_create_labels_position" />
-        <item itemvalue="Python.Results_plotter" />
+        <item itemvalue="Python.Plotter (1)" />
+        <item itemvalue="Python.Model_trainer_loc" />
+        <item itemvalue="Python.Plotter" />
       </list>
     </recent_temporary>
   </component>
@@ -349,15 +322,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="0" y="23" width="1280" height="777" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22670192" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27084988" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49966952" visible="true" weight="0.27943262" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49966952" visible="true" weight="0.2029197" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -370,9 +343,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file:///anaconda3/lib/python3.6/site-packages/sklearn/model_selection/_split.py" />
@@ -400,7 +370,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Prediction_scores.py" />
     <entry file="file://$PROJECT_DIR$/Results/DN121_BCE_SGD_log.txt" />
     <entry file="file://$PROJECT_DIR$/Results/DN121_BCEW_SGD_log.txt" />
     <entry file="file://$PROJECT_DIR$/Results/DN121_FL_SGD_log.txt" />
@@ -411,20 +380,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="401">
           <caret line="94" column="8" selection-start-line="94" selection-start-column="8" selection-end-line="94" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Datase_stratification/PADChest_clean_corrupt_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="39" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Datase_stratification/PADChest_create_labels_info.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" column="31" lean-forward="true" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -443,20 +398,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Datase_stratification/PADChest_create_labels_position.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1700">
-          <caret line="86" selection-start-line="86" selection-end-line="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Playground.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="7" selection-start-line="7" selection-end-line="11" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Baseline/Model_trainer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -471,20 +412,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/torch/utils/data/dataloader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2420">
-          <caret line="137" selection-start-line="137" selection-end-line="137" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Custome_losses.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="820">
-          <caret line="56" column="10" selection-start-line="56" selection-start-column="10" selection-end-line="56" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/torch/utils/data/dataloader.py" />
     <entry file="file://$PROJECT_DIR$/Baseline/Trainable_model.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
@@ -492,59 +420,87 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Results/2/Plotter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Results/1/Results_plotter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="33" selection-start-line="33" selection-end-line="45" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/torchvision/models/densenet.py">
+    <entry file="file://$PROJECT_DIR$/Prediction_scores.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/torchvision/models/densenet.py" />
+    <entry file="file://$PROJECT_DIR$/Datase_stratification/PADChest_create_labels_info.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="168" column="35" lean-forward="true" selection-start-line="153" selection-start-column="4" selection-end-line="168" selection-end-column="35" />
+        <state relative-caret-position="-217">
+          <caret line="5" column="31" lean-forward="true" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Datase_stratification/PADChest_clean_corrupt_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="39" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Results/2/Plotter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="19" selection-start-line="19" selection-end-line="29" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LR/Trainable_Model_LR.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="104" column="31" selection-start-line="104" selection-start-column="31" selection-end-line="104" selection-end-column="31" />
+        <state relative-caret-position="617">
+          <caret line="175" column="27" selection-start-line="175" selection-start-column="27" selection-end-line="175" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Results/3/Plotter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="945">
+          <caret line="64" column="22" selection-start-line="64" selection-start-column="22" selection-end-line="64" selection-end-column="22" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
-            <marker date="1553850431028" expanded="true" signature="94:100" ph="..." />
-            <marker date="1553850431028" expanded="true" signature="1030:3572" ph="..." />
+            <element signature="e#0#31#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Datase_stratification/PADChest_create_labels_position.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="111" column="58" selection-start-line="111" selection-start-column="58" selection-end-line="111" selection-end-column="58" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LR/DenseNet_LR.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="107" column="16" selection-start-line="107" selection-start-column="16" selection-end-line="107" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="78">
+          <caret line="75" column="38" selection-start-line="75" selection-start-column="38" selection-end-line="75" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LR/Model_trainer_loc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        <state relative-caret-position="270">
+          <caret line="28" column="33" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Playground.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="21" column="47" lean-forward="true" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Custome_losses.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="43" column="8" selection-start-line="43" selection-start-column="8" selection-end-line="60" selection-end-column="40" />
         </state>
       </provider>
     </entry>
