@@ -33,26 +33,38 @@ class Trainable_Model_LR:
     def get_model_accuracy(self, model, data_loader, data_name, score_type, save_samples=False):
         all_y = []
         all_y_pred = []
+        all_locs = []
+        all_locs_pred = []
         with torch.no_grad():
             for data in data_loader:
-                images, labels, _ = data
+                images, labels, locs = data
                 images = images.cuda()
                 labels = labels.cuda()
+                locs = locs.cuda()
                 # print("test images shape", images.shape)
 
-                outputs, _ = model(images)
+                outputs, outputs_loc = model(images)
                 outputs = torch.sigmoid(outputs)
+                outputs_loc = torch.sigmoid(outputs_loc)
                 # print('labels:', labels)
                 # print('outputs:', outputs)
 
                 labels = labels.cpu().numpy()
                 outputs = outputs.cpu().numpy()
+                locs = locs.cpu().numpy()
+                outputs_loc = outputs_loc.cpu().numpy()
 
                 for a in labels:
                     all_y.append(a)
 
                 for a in outputs:
                     all_y_pred.append(a)
+
+                for l in locs:
+                    all_locs.append(l)
+
+                for l in outputs_loc:
+                    all_locs_pred.append(l)
 
         # print(all_y)
         # print(all_y_pred)
@@ -64,8 +76,13 @@ class Trainable_Model_LR:
             self.log('micro_roc_auc: ' + str(Prediction_scores.get_micro_roc_auc_score(all_y, all_y_pred)))
             self.log('macro_roc_auc per class: ' + str(Prediction_scores.get_macro_roc_auc_score(all_y, all_y_pred)))
             self.log('macro_roc_auc: ' + str(np.average(Prediction_scores.get_macro_roc_auc_score(all_y, all_y_pred))))
-            self.log(all_y)
-            self.log(all_y_pred)
+            # self.log(all_y)
+            # self.log(all_y_pred)
+            self.log("________________________________")
+            self.log('macro_F1 per class: ' + str(Prediction_scores.get_macro_f1_score(all_locs, all_locs_pred)))
+            self.log('macro_F1: ' + str(np.average(Prediction_scores.get_macro_f1_score(all_locs, all_locs_pred))))
+            self.log('macro_roc_auc per class: ' + str(Prediction_scores.get_macro_roc_auc_score(all_locs, all_locs_pred)))
+            self.log('macro_roc_auc: ' + str(np.average(Prediction_scores.get_macro_roc_auc_score(all_locs, all_locs_pred))))
 
         if score_type == 'micro_F1':
             f1_score = Prediction_scores.get_micro_f1_score(all_y, all_y_pred)
@@ -82,8 +99,19 @@ class Trainable_Model_LR:
             return score
         elif score_type == 'macro_roc_auc':
             score = Prediction_scores.get_macro_roc_auc_score(all_y, all_y_pred)
+            score_loc = Prediction_scores.get_macro_roc_auc_score(all_locs, all_locs_pred)
+            #print('All y:')
+            #print(all_y)
+            #print('All y predictions:')
+            #print(all_y_pred)
+            #print('All locs:')
+            #print(all_locs)
+            #print('All locs predictions:')
+            #print(all_locs_pred)
             print(self.name, data_name, 'ROC_AUC_score per clase:', score)
             print(self.name, data_name, 'ROC_AUC_score:', np.average(score))
+            print(self.name, data_name, 'ROC_AUC_score per clase:', score_loc)
+            print(self.name, data_name, 'ROC_AUC_score:', np.average(score_loc))
             return np.average(score)
 
     def train_LR(self, epochs=100, tolerance=2):

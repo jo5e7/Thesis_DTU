@@ -52,7 +52,7 @@ class DenseNet(nn.Module):
         self.classifier = nn.Linear(num_features, num_classes)
 
         # Linear layer for localization
-        self.classifier_locations = nn.Linear(num_classes, 2)
+        self.classifier_locations = nn.Linear(num_features, 2)
 
         # Official init from torch repo.
         for m in self.modules():

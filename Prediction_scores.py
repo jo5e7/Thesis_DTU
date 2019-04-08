@@ -37,6 +37,7 @@ def get_macro_f1_score(true_labels, predicted_labels, weights=None):
         # print(true_labels_per_class[i])
         # print(np.round(predicted_labels_per_class[i]))
         try:
+            #predicted_labels_per_class[i] = (predicted_labels_per_class[i]>th).float()
             score_per_class.append(
                 metrics.f1_score(true_labels_per_class[i], np.round(predicted_labels_per_class[i]), average='micro', labels=[1]))
         except ValueError:
