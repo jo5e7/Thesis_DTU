@@ -98,12 +98,12 @@ if __name__ == '__main__':
 
     #
     densenet = get_densenet(radiographic_findings_new, locations_labels, type=169)
-    Focal_non_zero = Custome_losses.FocalLoss_for_non_zero(logits=True, class_factor=0.25, groups=location_groups)
+    Focal_non_zero = Custome_losses.FocalLoss_for_non_zero(logits=True, class_factor=1, groups=location_groups)
     sgd = optim.SGD(densenet.parameters(), lr=0.01, momentum=0.9)
     trainable_1 = Trainable_Model_LR(model=densenet, optimizer=sgd, loss_criterion_1=Focal,
                                      loss_criterion_2=Focal_non_zero, train_loader=train_dataloader,
-                                     test_loader=test_dataloader, val_loader=val_dataloader, name='2_Focal_BCE_A0.25',
-                                     description='alpha = 0.25')
+                                     test_loader=test_dataloader, val_loader=val_dataloader, name='Test',
+                                     description='alpha = 1')
     trainable_models.append(trainable_1)
     trainable_1.train_LR()
 

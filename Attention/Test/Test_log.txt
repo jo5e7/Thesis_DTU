@@ -1,0 +1,4 @@
+Test
+alpha = 1
+Train criteria: macro_roc_auc
+************Epoch: 0************
