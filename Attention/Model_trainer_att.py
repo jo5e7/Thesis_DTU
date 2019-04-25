@@ -124,7 +124,19 @@ if __name__ == '__main__':
     sgd = optim.SGD(densenet.parameters(), lr=0.01, momentum=0.9)
     trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                       loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
-                                      test_loader=test_dataloader, val_loader=val_dataloader, name='Test',
+                                      test_loader=test_dataloader, val_loader=val_dataloader,
+                                      name='BCE_SGD_a1_opacity_allloc_MA',
+                                      description='alpha = 1')
+    trainable_models.append(trainable_1)
+    trainable_1.train_Att()
+
+    densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169)
+    Focal_non_zero = Custome_losses.FocalLoss_for_non_zero(logits=True, class_factor=1, groups=location_groups)
+    sgd = optim.SGD(densenet.parameters(), lr=0.01, momentum=0.9)
+    trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=Focal,
+                                      loss_criterion_2=Focal_non_zero, train_loader=train_dataloader,
+                                      test_loader=test_dataloader, val_loader=val_dataloader,
+                                      name='FL_SGD_a1_opacity_allloc_MA',
                                       description='alpha = 1')
     trainable_models.append(trainable_1)
     trainable_1.train_Att()
