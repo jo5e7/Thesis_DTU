@@ -98,8 +98,9 @@ class DenseNet_att(nn.Module):
         attention_layer = self.attention(attention_input)
 
         if self.bp_elementwise:
+            out_aux = out.detach()
             out = out * attention_layer
-            attention_layer = out * attention_layer
+            attention_layer = attention_layer * out_aux
         else:
             with torch.no_grad():
                 out = out * attention_layer
@@ -154,8 +155,13 @@ class DenseNet_multi_att(nn.Module):
         # Final batch norm
         self.features.add_module('norm5', nn.BatchNorm2d(num_features))
 
+        # Convolution to reduce dimesion
+        self.conv_reducer = nn.Conv2d(1664, 64, 1)
+
         #Attention
         self.multu_attention = AttentionNet(16)
+
+
         # Linear layer for localization
         self.classifier_locations = nn.Linear(num_features, 2)
 
@@ -176,26 +182,37 @@ class DenseNet_multi_att(nn.Module):
     def forward(self, x):
         features = self.features(x)
         out = F.relu(features, inplace=True)
-        print(out.shape)
+
+        # Embeddings from features to positions
+        attention_input = out.detach()
+
+
+        attention_layer = self.multu_attention(attention_input)
+
+
+
+        out_pos = self.conv_reducer(attention_layer)
+        out_pos = out_pos.view(out_pos.shape[0], -1)
+        LR = self.classifier_locations(out_pos)
+        #print(out_pos.shape)
+        #print(attention_layer.shape)
 
         # attention
-        attention_input = out.detach()
-        attention_layer = self.multu_attention(attention_input)
-        print(attention_layer.shape)
+        # print(attention_layer.shape)
 
         if self.bp_elementwise:
             out = out * attention_layer
-            attention_layer = out * attention_layer
+            #attention_layer = out * attention_layer
         else:
             with torch.no_grad():
                 out = out * attention_layer
-                attention_layer = out * attention_layer
-        print(attention_layer.shape)
+                #attention_layer = out * attention_layer
+        # print(attention_layer.shape)
 
         out = F.adaptive_avg_pool2d(out, (1, 1)).view(features.size(0), -1)
-        attention_layer = F.adaptive_avg_pool2d(attention_layer, (1, 1)).view(features.size(0), -1)
+        #attention_layer = F.adaptive_avg_pool2d(attention_layer, (1, 1)).view(features.size(0), -1)
         RF = self.classifier(out)
-        LR = self.classifier_locations(attention_layer)
+
         return RF, LR
 
 
@@ -241,7 +258,6 @@ def densenet_att_169(pretrained=False, bp_elementwise=False, **kwargs):
     """
     model = DenseNet_att(num_init_features=64, growth_rate=32, block_config=(6, 12, 32, 32), bp_elementwise=bp_elementwise,
                      **kwargs)
-    model.attention = AttentionNet(1664)
     mModel_dict = model.state_dict()
 
     if pretrained:
@@ -294,5 +310,6 @@ def densenet_multi_att_169(pretrained=False, bp_elementwise=False, **kwargs):
 
         mModel_dict.update(state_dict)
         model.load_state_dict(mModel_dict)
+        model.classifier_locations.in_features = 16384
 
     return model

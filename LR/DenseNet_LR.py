@@ -48,6 +48,9 @@ class DenseNet(nn.Module):
         # Final batch norm
         self.features.add_module('norm5', nn.BatchNorm2d(num_features))
 
+        # Convolution to reduce dimesion
+        self.conv_reducer = nn.Conv2d(1664, 64, 1)
+
         # Linear layer for radiographic finding
         self.classifier = nn.Linear(num_features, num_classes)
 
@@ -67,9 +70,16 @@ class DenseNet(nn.Module):
     def forward(self, x):
         features = self.features(x)
         out = F.relu(features, inplace=True)
+        out_pos = self.conv_reducer(out)
+        # print(out_pos.shape)
+
         out = F.adaptive_avg_pool2d(out, (1, 1)).view(features.size(0), -1)
+        out_pos = out_pos.view(out_pos.shape[0], -1)
+        # print(out_pos.shape)
+
+
         RF = self.classifier(out)
-        LR = self.classifier_locations(out)
+        LR = self.classifier_locations(out_pos)
         return RF, LR
 
 
@@ -133,5 +143,6 @@ def densenet_loc_169(pretrained=False, **kwargs):
 
         mModel_dict.update(state_dict)
         model.load_state_dict(mModel_dict)
+        model.classifier_locations.in_features = 16384
 
     return model
