@@ -3,10 +3,12 @@ from sklearn import metrics
 import torch
 
 
-def get_micro_f1_score(true_labels, predicted_labels):
+def get_micro_f1_score(true_labels, predicted_labels, threshold=0.5):
     true_labels = np.array(true_labels)
     predicted_labels = np.array(predicted_labels)
     true_labels = np.round(true_labels.flatten())
+    threshold = 0.5 - threshold
+    predicted_labels = predicted_labels + threshold
     predicted_labels = np.round(predicted_labels.flatten())
     # print(len(true_labels))
     # print(true_labels)
@@ -17,7 +19,8 @@ def get_micro_f1_score(true_labels, predicted_labels):
     F1 = metrics.f1_score(true_labels, predicted_labels, average='micro', labels=[1])
     return F1
 
-def get_macro_f1_score(true_labels, predicted_labels, weights=None):
+def get_macro_f1_score(true_labels, predicted_labels, weights=None, threshold=0.5):
+    threshold = 0.5 - threshold
     true_labels_per_class = []
     predicted_labels_per_class = []
     score_per_class = []
@@ -39,7 +42,7 @@ def get_macro_f1_score(true_labels, predicted_labels, weights=None):
         try:
             #predicted_labels_per_class[i] = (predicted_labels_per_class[i]>th).float()
             score_per_class.append(
-                metrics.f1_score(true_labels_per_class[i], np.round(predicted_labels_per_class[i]), average='micro', labels=[1]))
+                metrics.f1_score(true_labels_per_class[i], np.round(predicted_labels_per_class[i] + threshold), average='micro', labels=[1]))
         except ValueError:
             print('ValueError, class', i, 'do not have positive samples and F1 score is not defined in that case.')
             pass
@@ -93,5 +96,14 @@ def get_macro_roc_auc_score(true_labels, predicted_labels, weights = None):
     else:
         return weights * score_per_class
 
+
+def get_precision_recall_curve(true_labels, predicted_labels):
+    true_labels = np.array(true_labels)
+    predicted_labels = np.array(predicted_labels)
+    true_labels.flatten()
+    predicted_labels.flatten()
+    precision, recall, thresholds = metrics.precision_recall_curve(true_labels, predicted_labels)
+
+    return precision, recall, thresholds
 
 

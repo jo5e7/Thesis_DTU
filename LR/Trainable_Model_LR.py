@@ -76,13 +76,22 @@ class Trainable_Model_LR:
             self.log('micro_roc_auc: ' + str(Prediction_scores.get_micro_roc_auc_score(all_y, all_y_pred)))
             self.log('macro_roc_auc per class: ' + str(Prediction_scores.get_macro_roc_auc_score(all_y, all_y_pred)))
             self.log('macro_roc_auc: ' + str(np.average(Prediction_scores.get_macro_roc_auc_score(all_y, all_y_pred))))
+            presicion, recall, thresholds = Prediction_scores.get_precision_recall_curve(all_y, all_y_pred)
+            self.log('presicion class: ' + str(presicion))
+            self.log('recall class: ' + str(recall))
+            self.log('threshold class: ' + str(thresholds))
             # self.log(all_y)
             # self.log(all_y_pred)
             self.log("________________________________")
-            self.log('macro_F1 per class: ' + str(Prediction_scores.get_macro_f1_score(all_locs, all_locs_pred)))
+            self.log('macro_F1 per loc: ' + str(Prediction_scores.get_macro_f1_score(all_locs, all_locs_pred)))
             self.log('macro_F1: ' + str(np.average(Prediction_scores.get_macro_f1_score(all_locs, all_locs_pred))))
-            self.log('macro_roc_auc per class: ' + str(Prediction_scores.get_macro_roc_auc_score(all_locs, all_locs_pred)))
+            self.log('macro_roc_auc per loc: ' + str(Prediction_scores.get_macro_roc_auc_score(all_locs, all_locs_pred)))
             self.log('macro_roc_auc: ' + str(np.average(Prediction_scores.get_macro_roc_auc_score(all_locs, all_locs_pred))))
+            #presicion, recall, thresholds = Prediction_scores.get_precision_recall_curve(all_locs, all_locs_pred)
+            #self.log('presicion loc: ' + str(presicion))
+            #self.log('recall loc: ' + str(recall))
+            #self.log('threshold loc: ' + str(thresholds))
+            #self.log("")
 
         if score_type == 'micro_F1':
             f1_score = Prediction_scores.get_micro_f1_score(all_y, all_y_pred)
@@ -112,6 +121,11 @@ class Trainable_Model_LR:
             print(self.name, data_name, 'ROC_AUC_score:', np.average(score))
             print(self.name, data_name, 'ROC_AUC_score per clase:', score_loc)
             print(self.name, data_name, 'ROC_AUC_score:', np.average(score_loc))
+
+
+            #self.log('presicion class: ' + str(presicion))
+            #self.log('recall class: ' + str(recall))
+            #self.log('threshold class: ' + str(thresholds))
             return np.average(score)
 
     def train_LR(self, epochs=100, tolerance=2):
@@ -205,6 +219,7 @@ class Trainable_Model_LR:
                           (class_running_loss / 100), end=' | ')
                     print('Localization loss: %.3f' %
                           (loc_running_loss / 100))
+                    #print(class_running_loss)
                     total_running_loss = 0.0
                     class_running_loss = 0.0
                     loc_running_loss = 0.0

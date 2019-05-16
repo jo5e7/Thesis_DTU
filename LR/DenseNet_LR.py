@@ -21,9 +21,12 @@ class DenseNet(nn.Module):
     """
 
     def __init__(self, growth_rate=32, block_config=(6, 12, 24, 16),
-                 num_init_features=64, bn_size=4, drop_rate=0, num_classes=1000):
+                 num_init_features=64, bn_size=4, drop_rate=0, num_classes=1000,
+                 all_in_1_reduction=False):
 
         super(DenseNet, self).__init__()
+
+        self.all_in_1_reduction = all_in_1_reduction
 
         # First convolution
         self.features = nn.Sequential(OrderedDict([
@@ -49,7 +52,16 @@ class DenseNet(nn.Module):
         self.features.add_module('norm5', nn.BatchNorm2d(num_features))
 
         # Convolution to reduce dimesion
-        self.conv_reducer = nn.Conv2d(1664, 64, 1)
+        self.conv_reducer_1 = nn.Conv2d(1664, 900, 1)
+        self.con_relu_1 = nn.ReLU()
+        self.conv_reducer_2 = nn.Conv2d(900, 400, 1)
+        self.con_relu_2 = nn.ReLU()
+        self.conv_reducer_3 = nn.Conv2d(400, 150, 1)
+        self.con_relu_3 = nn.ReLU()
+        self.conv_reducer_4 = nn.Conv2d(150, 64, 1)
+        self.con_relu_4 = nn.ReLU()
+
+        self.conv_reducer_all_in_1 = nn.Conv2d(1664, 64, 1)
 
         # Linear layer for radiographic finding
         self.classifier = nn.Linear(num_features, num_classes)
@@ -70,17 +82,28 @@ class DenseNet(nn.Module):
     def forward(self, x):
         features = self.features(x)
         out = F.relu(features, inplace=True)
-        out_pos = self.conv_reducer(out)
+        if self.all_in_1_reduction:
+            out_pos = self.conv_reducer_all_in_1(out)
+            out_pos = self.con_relu_1(out_pos)
+        else:
+            out_pos = self.conv_reducer_1(out)
+            out_pos = self.con_relu_1(out_pos)
+            out_pos = self.conv_reducer_2(out_pos)
+            out_pos = self.con_relu_2(out_pos)
+            out_pos = self.conv_reducer_3(out_pos)
+            out_pos = self.con_relu_3(out_pos)
+            out_pos = self.conv_reducer_4(out_pos)
+            out_pos = self.con_relu_4(out_pos)
         # print(out_pos.shape)
 
         out = F.adaptive_avg_pool2d(out, (1, 1)).view(features.size(0), -1)
         out_pos = out_pos.view(out_pos.shape[0], -1)
-        # print(out_pos.shape)
+        #print(out_pos.shape)
+        #print(out.shape)
 
-
+        locations = self.classifier_locations(out_pos)
         RF = self.classifier(out)
-        LR = self.classifier_locations(out_pos)
-        return RF, LR
+        return RF, locations
 
 
 def densenet_loc_121(pretrained=False, **kwargs):
@@ -115,14 +138,14 @@ def densenet_loc_121(pretrained=False, **kwargs):
     return model
 
 
-def densenet_loc_169(pretrained=False, **kwargs):
+def densenet_loc_169(pretrained=False, all_in_1_reduction=False, **kwargs):
     r"""Densenet-121 model from
     `"Densely Connected Convolutional Networks" <https://arxiv.org/pdf/1608.06993.pdf>`_
 
     Args:
         pretrained (bool): If True, returns a model pre-trained on ImageNet
     """
-    model = DenseNet(num_init_features=64, growth_rate=32, block_config=(6, 12, 32, 32),
+    model = DenseNet(num_init_features=64, growth_rate=32, block_config=(6, 12, 32, 32), all_in_1_reduction=all_in_1_reduction,
                      **kwargs)
     mModel_dict = model.state_dict()
 

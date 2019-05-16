@@ -76,6 +76,10 @@ class Trainable_Model_Att:
             self.log('micro_roc_auc: ' + str(Prediction_scores.get_micro_roc_auc_score(all_y, all_y_pred)))
             self.log('macro_roc_auc per class: ' + str(Prediction_scores.get_macro_roc_auc_score(all_y, all_y_pred)))
             self.log('macro_roc_auc: ' + str(np.average(Prediction_scores.get_macro_roc_auc_score(all_y, all_y_pred))))
+            presicion, recall, thresholds = Prediction_scores.get_precision_recall_curve(all_y, all_y_pred)
+            self.log('presicion: ' + str(presicion))
+            self.log('recall: ' + str(recall))
+            self.log('threshold: ' + str(thresholds))
             # self.log(all_y)
             # self.log(all_y_pred)
             self.log("________________________________")
@@ -83,6 +87,11 @@ class Trainable_Model_Att:
             self.log('macro_F1 loc: ' + str(np.average(Prediction_scores.get_macro_f1_score(all_locs, all_locs_pred))))
             self.log('macro_roc_auc per loc: ' + str(Prediction_scores.get_macro_roc_auc_score(all_locs, all_locs_pred)))
             self.log('macro_roc_auc loc: ' + str(np.average(Prediction_scores.get_macro_roc_auc_score(all_locs, all_locs_pred))))
+            #presicion, recall, thresholds = Prediction_scores.get_precision_recall_curve(all_locs, all_locs_pred)
+            #self.log('presicion: ' + str(presicion))
+            #self.log('recall: ' + str(recall))
+            #self.log('threshold: ' + str(thresholds))
+            #self.log("")
 
         if score_type == 'micro_F1':
             f1_score = Prediction_scores.get_micro_f1_score(all_y, all_y_pred)
@@ -112,6 +121,11 @@ class Trainable_Model_Att:
             print(self.name, data_name, 'ROC_AUC_score:', np.average(score))
             print(self.name, data_name, 'ROC_AUC_score per clase:', score_loc)
             print(self.name, data_name, 'ROC_AUC_score:', np.average(score_loc))
+
+            #presicion, recall, thresholds = Prediction_scores.get_precision_recall_curve(all_y, all_y_pred)
+            #print(presicion)
+            #print(recall)
+            #print(thresholds)
             return np.average(score)
 
     def train_Att(self, epochs=100, tolerance=2):
