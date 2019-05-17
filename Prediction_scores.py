@@ -41,8 +41,13 @@ def get_macro_f1_score(true_labels, predicted_labels, weights=None, threshold=0.
         # print(np.round(predicted_labels_per_class[i]))
         try:
             #predicted_labels_per_class[i] = (predicted_labels_per_class[i]>th).float()
+            print(predicted_labels_per_class[i])
+            print(threshold)
+            predicted_labels_per_class[i] = [x+threshold for x in predicted_labels_per_class[i]]
+            print(predicted_labels_per_class[i])
+
             score_per_class.append(
-                metrics.f1_score(true_labels_per_class[i], np.round(predicted_labels_per_class[i] + threshold), average='micro', labels=[1]))
+                metrics.f1_score(true_labels_per_class[i], np.round(predicted_labels_per_class[i]), average='micro', labels=[1]))
         except ValueError:
             print('ValueError, class', i, 'do not have positive samples and F1 score is not defined in that case.')
             pass

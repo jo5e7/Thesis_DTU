@@ -122,7 +122,12 @@ class Trainable_Model_LR:
             print(self.name, data_name, 'ROC_AUC_score per clase:', score_loc)
             print(self.name, data_name, 'ROC_AUC_score:', np.average(score_loc))
 
+            f1_score = Prediction_scores.get_macro_f1_score(all_y, all_y_pred)
+            print(self.name, data_name, 'F1:', f1_score)
 
+            f1_score = Prediction_scores.get_macro_f1_score(all_y, all_y_pred)
+            print(self.name, data_name, 'F1 per class:', f1_score)
+            print(self.name, data_name, 'F1:', np.average(f1_score))
             #self.log('presicion class: ' + str(presicion))
             #self.log('recall class: ' + str(recall))
             #self.log('threshold class: ' + str(thresholds))
