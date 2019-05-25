@@ -4,7 +4,7 @@ import pandas as pd
 from torchvision import transforms
 from torchvision.transforms import Resize, RandomRotation, ToTensor, Normalize, RandomHorizontalFlip
 from Attention.Trainable_Model_att import Trainable_Model_Att
-from PADChest_DataLoading import PadChestDataset_loc
+from PADChest_DataLoading import PadChestDataset_loc, Resize_loc, RandomRotation_loc, ToTensor_loc, Normalize_loc, RandomHorizontalFlip_loc
 import Custome_losses
 import argparse
 
@@ -90,13 +90,21 @@ if __name__ == '__main__':
     locations_labels = ['loc left', 'loc right', 'loc upper', 'loc middle', 'loc lower', 'loc pleural', 'loc mediastinum']
 
     # Transforms
-    transforms_train = transforms.Compose([Resize(512), RandomHorizontalFlip(), RandomRotation(10), ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
-    transforms_test = transforms.Compose([Resize(512), ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
+    transforms_train = transforms.Compose([Resize(512), RandomHorizontalFlip(), RandomRotation(10), ToTensor(),
+                                           Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
+    transforms_train_loc = transforms.Compose(
+        [Resize_loc(512), RandomHorizontalFlip_loc(), RandomRotation_loc(10), ToTensor_loc(),
+         Normalize_loc(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
+
+    transforms_test = transforms.Compose(
+        [Resize(512), ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
+    transforms_test_loc = transforms.Compose(
+        [Resize_loc(512), ToTensor_loc(), Normalize_loc(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
 
     # Create data loaders
-    train_dataset = PadChestDataset_loc(csv_train, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_train, testing=False)
-    test_dataset = PadChestDataset_loc(csv_test, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_test, testing=False)
-    val_dataset = PadChestDataset_loc(csv_val, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_test, testing=False)
+    train_dataset = PadChestDataset_loc(csv_train, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_train_loc, testing=True)
+    test_dataset = PadChestDataset_loc(csv_test, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_test_loc, testing=True)
+    val_dataset = PadChestDataset_loc(csv_val, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_test_loc, testing=True)
 
     train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
                                                    drop_last=True)
@@ -119,7 +127,7 @@ if __name__ == '__main__':
     location_groups = [1, 1, 2, 2, 2, 0, 0]
 
     #
-    densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169, bp_position=False,
+    densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169, bp_position=True,
                                       all_in_1_reduction=False)
     BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
     sgd = optim.SGD(densenet.parameters(), lr=0.01, momentum=0.9)

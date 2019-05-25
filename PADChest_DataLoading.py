@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms, utils
 from PIL import Image
-from torch import functional as F
+from torchvision.transforms import functional as F
 from torch import nn
 import collections
 import sys
@@ -121,16 +121,56 @@ class PadChestDataset_loc(Dataset):
         #plt.show()
 
 
-
+        sample = {'image': image, 'labels_output': labels_output, 'position_labels_output': position_labels_output}
         if self.transform:
-            image = self.transform(image)
+            sample = self.transform(sample)
 
         #sample = {'image': image, 'labels': labels_output}
-        return image, torch.FloatTensor(labels_output), torch.FloatTensor(position_labels_output)
+        return sample['image'], torch.FloatTensor(sample['labels_output']), torch.FloatTensor(sample['position_labels_output'])
 
 # Transforms
 
-class Resize(object):
+class RandomHorizontalFlip_loc(object):
+    """Horizontally flip the given PIL Image randomly with a given probability.
+
+    Args:
+        p (float): probability of the image being flipped. Default value is 0.5
+    """
+
+    def __init__(self, p=0.5):
+        self.p = p
+
+    def __call__(self, sample):
+        """
+        Args:
+            img (PIL Image): Image to be flipped.
+
+        Returns:
+            PIL Image: Randomly flipped image.
+        """
+
+        if random.random() < self.p:
+            img = sample['image']
+            radiograhical_findings = sample['labels_output']
+            locations = sample['position_labels_output']
+
+            #print(locations)
+            left = locations[0]
+            right = locations[1]
+            locations[0] = right
+            locations[1] = left
+            #print(locations)
+
+            sample = {'image': F.hflip(img), 'labels_output': radiograhical_findings, 'position_labels_output': locations}
+            return sample
+
+        return sample
+
+    def __repr__(self):
+        return self.__class__.__name__ + '(p={})'.format(self.p)
+
+
+class Resize_loc(object):
     """Resize the input PIL Image to the given size.
 
     Args:
@@ -143,9 +183,10 @@ class Resize(object):
             ``PIL.Image.BILINEAR``
     """
 
-    def __init__(self, size):
+    def __init__(self, size, interpolation=Image.BILINEAR):
         assert isinstance(size, int) or (isinstance(size, Iterable) and len(size) == 2)
         self.size = size
+        self.interpolation = interpolation
 
     def __call__(self, sample):
         """
@@ -155,16 +196,19 @@ class Resize(object):
         Returns:
             PIL Image: Rescaled image.
         """
-        print(sample)
         img = sample['image']
+        radiograhical_findings = sample['labels_output']
+        locations = sample['position_labels_output']
+        #print(img)
+        sample = {'image': F.resize(img, self.size, self.interpolation), 'labels_output': radiograhical_findings, 'position_labels_output': locations}
 
-        return {'image': transform.resize(img, (self.size, self.size)), 'labels': sample['labels']}
+        return sample
 
 
 import numbers
 import random
 
-class RandomRotation(object):
+class RandomRotation_loc(object):
     """Rotate the image by angle.
 
     Args:
@@ -218,16 +262,18 @@ class RandomRotation(object):
         Returns:
             PIL Image: Rotated image.
         """
-        print('****************************')
-        print(sample)
+        #print('rotation')
         img = sample['image']
-
+        radiograhical_findings = sample['labels_output']
+        locations = sample['position_labels_output']
         angle = self.get_params(self.degrees)
 
-        return {'image': transform.rotate(img, angle), 'labels': sample['labels']}
+        sample = {'image': F.rotate(img, angle, self.resample, self.expand), 'labels_output': radiograhical_findings, 'position_labels_output': locations}
+
+        return sample
 
 
-class ToTensor(object):
+class ToTensor_loc(object):
     """Convert a ``PIL Image`` or ``numpy.ndarray`` to tensor.
 
     Converts a PIL Image or numpy.ndarray (H x W x C) in the range
@@ -246,15 +292,19 @@ class ToTensor(object):
         Returns:
             Tensor: Converted image.
         """
-        image = sample['image']
-        print(image.shape)
-        image = image.transpose((2, 0, 1))
+        img = sample['image']
+        radiograhical_findings = sample['labels_output']
+        locations = sample['position_labels_output']
 
-        print(sample['labels'])
-        return {'image': torch.from_numpy(image), 'labels': sample['labels']}
+        sample = {'image': F.to_tensor(img), 'labels_output': radiograhical_findings, 'position_labels_output': locations}
+
+        return sample
+
+    def __repr__(self):
+        return self.__class__.__name__ + '()'
 
 
-class Normalize(object):
+class Normalize_loc(object):
     """Normalize a tensor image with mean and standard deviation.
     Given mean: ``(M1,...,Mn)`` and std: ``(S1,..,Sn)`` for ``n`` channels, this transform
     will normalize each channel of the input ``torch.*Tensor`` i.e.
@@ -281,9 +331,15 @@ class Normalize(object):
         Returns:
             Tensor: Normalized Tensor image.
         """
-        tensor = sample['image']
 
-        return F.normalize(tensor, self.mean, self.std, self.inplace)
+        img = sample['image']
+        radiograhical_findings = sample['labels_output']
+        locations = sample['position_labels_output']
+
+        sample = {'image': F.normalize(img, self.mean, self.std, self.inplace), 'labels_output': radiograhical_findings,
+                  'position_labels_output': locations}
+
+        return sample
 
 
     def __repr__(self):
