@@ -31,9 +31,9 @@ def get_densenet_att(target, target_loc, type=169, bp_elementwise=False):
     densenet_att = torch.nn.DataParallel(densenet_att).cuda()
     return densenet_att
 
-def get_densenet_multi_att(target, target_loc, type=169, bp_position=False, all_in_1_reduction=False):
+def get_densenet_multi_att(target, target_loc, type=169, bp_position=False, all_in_1_reduction=False, hidden_layers_att=1):
     if type is 169:
-        densenet_MA = models.densenet_multi_att_169(pretrained=True, bp_position=bp_position, all_in_1_reduction=all_in_1_reduction)
+        densenet_MA = models.densenet_multi_att_169(pretrained=True, bp_position=bp_position, all_in_1_reduction=all_in_1_reduction, hidden_layers_att=hidden_layers_att)
         print("DenseNet_169")
     elif type is 161:
         densenet_MA = models.densenet161(pretrained=True)
@@ -130,78 +130,115 @@ if __name__ == '__main__':
     densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169, bp_position=True,
                                       all_in_1_reduction=False)
     BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
-    sgd = optim.SGD(densenet.parameters(), lr=0.01, momentum=0.9)
+    sgd = optim.SGD(densenet.parameters(), lr=0.003, momentum=0.9)
     trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                       loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
                                       test_loader=test_dataloader, val_loader=val_dataloader,
-                                      name='BCE_SGD_a1_opacity_allloc_MA',
+                                      name='BCE_SGD0.003_a1_opacity_MAr_BPpos',
                                       description='alpha = 1')
     trainable_models.append(trainable_1)
     trainable_1.train_Att()
 
-    densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169, bp_position=False,
+    densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169, bp_position=True,
                                       all_in_1_reduction=False)
     BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=0.5, groups=location_groups)
-    sgd = optim.SGD(densenet.parameters(), lr=0.01, momentum=0.9)
+    sgd = optim.SGD(densenet.parameters(), lr=0.003, momentum=0.9)
     trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                       loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
                                       test_loader=test_dataloader, val_loader=val_dataloader,
-                                      name='BCE_SGD_a0.5_opacity_allloc_MA',
+                                      name='BCE_SGD0.003_a0.5_opacity_MAr_BPpos',
                                       description='alpha = 0.5')
     trainable_models.append(trainable_1)
     trainable_1.train_Att()
 
-    densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169, bp_position=False,
+    densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169, bp_position=True,
                                       all_in_1_reduction=False)
     BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=0.1, groups=location_groups)
-    sgd = optim.SGD(densenet.parameters(), lr=0.01, momentum=0.9)
+    sgd = optim.SGD(densenet.parameters(), lr=0.003, momentum=0.9)
     trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                       loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
                                       test_loader=test_dataloader, val_loader=val_dataloader,
-                                      name='BCE_SGD_a0.1_opacity_allloc_MA',
+                                      name='BCE_SGD0.003_a0.1_opacity_MAr_BPpos',
                                       description='alpha = 0.1')
     trainable_models.append(trainable_1)
     trainable_1.train_Att()
 
-    #
+
+
+#
     densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169, bp_position=True,
-                                      all_in_1_reduction=False)
+                                      all_in_1_reduction=False, hidden_layers_att=2)
     BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
-    sgd = optim.SGD(densenet.parameters(), lr=0.01, momentum=0.9)
+    sgd = optim.SGD(densenet.parameters(), lr=0.003, momentum=0.9)
     trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                       loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
                                       test_loader=test_dataloader, val_loader=val_dataloader,
-                                      name='BCE_SGD_a1_opacity_allloc_MA_BPpos',
+                                      name='BCE_SGD0.003_a1_opacity_MAr_BPpos_HLA2',
                                       description='alpha = 1')
     trainable_models.append(trainable_1)
     trainable_1.train_Att()
 
     densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169, bp_position=True,
-                                      all_in_1_reduction=False)
+                                      all_in_1_reduction=False, hidden_layers_att=2)
     BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=0.5, groups=location_groups)
-    sgd = optim.SGD(densenet.parameters(), lr=0.01, momentum=0.9)
+    sgd = optim.SGD(densenet.parameters(), lr=0.003, momentum=0.9)
     trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                       loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
                                       test_loader=test_dataloader, val_loader=val_dataloader,
-                                      name='BCE_SGD_a0.5_opacity_allloc_MA_BPpos',
+                                      name='BCE_SGD0.003_a0.5_opacity_MAr_BPpos_HLA2',
                                       description='alpha = 0.5')
     trainable_models.append(trainable_1)
     trainable_1.train_Att()
 
     densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169, bp_position=True,
-                                      all_in_1_reduction=False)
+                                      all_in_1_reduction=False, hidden_layers_att=2)
     BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=0.1, groups=location_groups)
-    sgd = optim.SGD(densenet.parameters(), lr=0.01, momentum=0.9)
+    sgd = optim.SGD(densenet.parameters(), lr=0.003, momentum=0.9)
     trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                       loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
                                       test_loader=test_dataloader, val_loader=val_dataloader,
-                                      name='BCE_SGD_a0.1_opacity_allloc_MA_BPpos',
+                                      name='BCE_SGD0.003_a0.1_opacity_MAr_BPpos_HLA2',
                                       description='alpha = 0.1')
     trainable_models.append(trainable_1)
     trainable_1.train_Att()
 
 
+#
+    densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169, bp_position=True,
+                                      all_in_1_reduction=False, hidden_layers_att=4)
+    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
+    sgd = optim.SGD(densenet.parameters(), lr=0.003, momentum=0.9)
+    trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
+                                      loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
+                                      test_loader=test_dataloader, val_loader=val_dataloader,
+                                      name='BCE_SGD0.003_a1_opacity_MAr_BPpos_HLA4',
+                                      description='alpha = 1')
+    trainable_models.append(trainable_1)
+    trainable_1.train_Att()
 
+    densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169, bp_position=True,
+                                      all_in_1_reduction=False, hidden_layers_att=4)
+    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=0.5, groups=location_groups)
+    sgd = optim.SGD(densenet.parameters(), lr=0.003, momentum=0.9)
+    trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
+                                      loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
+                                      test_loader=test_dataloader, val_loader=val_dataloader,
+                                      name='BCE_SGD0.003_a0.5_opacity_MAr_BPpos_HLA4',
+                                      description='alpha = 0.5')
+    trainable_models.append(trainable_1)
+    trainable_1.train_Att()
+
+    densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169, bp_position=True,
+                                      all_in_1_reduction=False, hidden_layers_att=4)
+    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=0.1, groups=location_groups)
+    sgd = optim.SGD(densenet.parameters(), lr=0.003, momentum=0.9)
+    trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
+                                      loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
+                                      test_loader=test_dataloader, val_loader=val_dataloader,
+                                      name='BCE_SGD0.003_a0.1_opacity_MAr_BPpos_HLA4',
+                                      description='alpha = 0.1')
+    trainable_models.append(trainable_1)
+    trainable_1.train_Att()
 
 
 

@@ -52,16 +52,16 @@ class DenseNet(nn.Module):
         self.features.add_module('norm5', nn.BatchNorm2d(num_features))
 
         # Convolution to reduce dimesion
-        self.conv_reducer_1 = nn.Conv2d(1664, 900, 1)
+        self.conv_reducer_1 = nn.Conv2d(1664, 64, 1)
         self.con_relu_1 = nn.ReLU()
-        self.conv_reducer_2 = nn.Conv2d(900, 400, 1)
+        self.conv_reducer_2 = nn.Conv2d(64, 32, 1)
         self.con_relu_2 = nn.ReLU()
-        self.conv_reducer_3 = nn.Conv2d(400, 150, 1)
+        self.conv_reducer_3 = nn.Conv2d(32, 16, 1)
         self.con_relu_3 = nn.ReLU()
-        self.conv_reducer_4 = nn.Conv2d(150, 64, 1)
+        self.conv_reducer_4 = nn.Conv2d(16, 8, 1)
         self.con_relu_4 = nn.ReLU()
 
-        self.conv_reducer_all_in_1 = nn.Conv2d(1664, 64, 1)
+        self.conv_reducer_all_in_1 = nn.Conv2d(1664, 8, 1)
 
         # Linear layer for radiographic finding
         self.classifier = nn.Linear(num_features, num_classes)
@@ -167,5 +167,6 @@ def densenet_loc_169(pretrained=False, all_in_1_reduction=False, **kwargs):
         mModel_dict.update(state_dict)
         model.load_state_dict(mModel_dict)
         model.classifier_locations.in_features = 16384
+        model.classifier_locations.in_features = 2048
 
     return model

@@ -7,17 +7,32 @@ from collections import OrderedDict
 from torchvision.models.densenet import _DenseBlock, _DenseLayer, _Transition, model_urls
 
 class AttentionNet(nn.Module):
-    def __init__(self, size):
+    def __init__(self, size, hidden_layers=1):
         super(AttentionNet, self).__init__()
+        self.hidden_layers = hidden_layers
+
         self.l1 = nn.Linear(size, size)
-        self.relu1 = nn.ReLU()
+        self.relu = nn.ReLU()
         self.l2 = nn.Linear(size, size)
+        self.l3 = nn.Linear(size, size)
+        self.l4 = nn.Linear(size, size)
+        self.l5 = nn.Linear(size, size)
         self.sig = nn.Sigmoid()
 
     def forward(self, x):
         x = self.l1(x)
-        x = self.relu1(x)
-        x = self.l2(x)
+        x = self.relu(x)
+        if self.hidden_layers >= 2:
+            x = self.l2(x)
+            x = self.relu(x)
+        if self.hidden_layers >= 3:
+            x = self.l3(x)
+            x = self.relu(x)
+        if self.hidden_layers >= 4:
+            x = self.l4(x)
+            x = self.relu(x)
+        x = self.l5(x)
+
 
         return self.sig(x)
 
@@ -120,12 +135,13 @@ class DenseNet_multi_att(nn.Module):
 
     def __init__(self, growth_rate=32, block_config=(6, 12, 24, 16),
                  num_init_features=64, bn_size=4, drop_rate=0, num_classes=1000,
-                 bp_position=False, all_in_1_reduction=False):
+                 bp_position=False, all_in_1_reduction=False, hidden_layers_att=1):
 
         super(DenseNet_multi_att, self).__init__()
 
         self.bp_position = bp_position
         self.all_in_1_reduction = all_in_1_reduction
+        self.hidden_layers_att = hidden_layers_att
 
 
         # First convolution
@@ -152,19 +168,19 @@ class DenseNet_multi_att(nn.Module):
         self.features.add_module('norm5', nn.BatchNorm2d(num_features))
 
         # Convolution to reduce dimesion
-        self.conv_reducer_1 = nn.Conv2d(1664, 900, 1)
+        self.conv_reducer_1 = nn.Conv2d(1664, 64, 1)
         self.con_relu_1 = nn.ReLU()
-        self.conv_reducer_2 = nn.Conv2d(900, 400, 1)
+        self.conv_reducer_2 = nn.Conv2d(64, 32, 1)
         self.con_relu_2 = nn.ReLU()
-        self.conv_reducer_3 = nn.Conv2d(400, 150, 1)
+        self.conv_reducer_3 = nn.Conv2d(32, 16, 1)
         self.con_relu_3 = nn.ReLU()
-        self.conv_reducer_4 = nn.Conv2d(150, 64, 1)
+        self.conv_reducer_4 = nn.Conv2d(16, 8, 1)
         self.con_relu_4 = nn.ReLU()
 
-        self.conv_reducer_all_in_1 = nn.Conv2d(1664, 64, 1)
+        self.conv_reducer_all_in_1 = nn.Conv2d(1664, 8, 1)
 
         #Attention
-        self.multu_attention = AttentionNet(16)
+        self.multu_attention = AttentionNet(16, self.hidden_layers_att)
 
 
         # Linear layer for localization
@@ -266,6 +282,7 @@ def densenet_att_169(pretrained=False, bp_elementwise=False, **kwargs):
         pretrained (bool): If True, returns a model pre-trained on ImageNet
     """
     model = DenseNet_att(num_init_features=64, growth_rate=32, block_config=(6, 12, 32, 32), bp_elementwise=bp_elementwise,
+                         hiddel_layers_att=1,
                      **kwargs)
     mModel_dict = model.state_dict()
 
@@ -290,7 +307,7 @@ def densenet_att_169(pretrained=False, bp_elementwise=False, **kwargs):
     return model
 
 
-def densenet_multi_att_169(pretrained=False, bp_position=False, all_in_1_reduction=False, **kwargs):
+def densenet_multi_att_169(pretrained=False, bp_position=False, all_in_1_reduction=False, hidden_layers_att=1, **kwargs):
     r"""Densenet-121 model from
     `"Densely Connected Convolutional Networks" <https://arxiv.org/pdf/1608.06993.pdf>`_
 
@@ -298,9 +315,9 @@ def densenet_multi_att_169(pretrained=False, bp_position=False, all_in_1_reducti
         pretrained (bool): If True, returns a model pre-trained on ImageNet
     """
     model = DenseNet_multi_att(num_init_features=64, growth_rate=32, block_config=(6, 12, 32, 32), bp_position=bp_position,
-                               all_in_1_reduction=all_in_1_reduction,
+                               all_in_1_reduction=all_in_1_reduction, hidden_layers_att=hidden_layers_att,
                      **kwargs)
-    model.multu_attention = AttentionNet(16)
+    model.multu_attention = AttentionNet(16, hidden_layers_att)
     mModel_dict = model.state_dict()
 
     if pretrained:
@@ -321,5 +338,6 @@ def densenet_multi_att_169(pretrained=False, bp_position=False, all_in_1_reducti
         mModel_dict.update(state_dict)
         model.load_state_dict(mModel_dict)
         model.classifier_locations.in_features = 16384
+        model.classifier_locations.in_features = 2048
 
     return model
