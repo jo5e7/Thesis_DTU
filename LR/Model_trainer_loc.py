@@ -104,6 +104,19 @@ if __name__ == '__main__':
 
     #
 
+
+
+    densenet = get_densenet(radiographic_findings_opacity, locations_labels, type=169, all_in_1_reduction=False)
+    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
+    sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
+    trainable_1 = Trainable_Model_LR(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
+                                     loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
+                                     test_loader=test_dataloader, val_loader=val_dataloader,
+                                     name='BCE_SGD0.001_a1_opacity_MLr',
+                                     description='alpha = 1')
+    trainable_models.append(trainable_1)
+    trainable_1.train_LR()
+
     densenet = get_densenet(radiographic_findings_opacity, locations_labels, type=169, all_in_1_reduction=False)
     BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
     sgd = optim.SGD(densenet.parameters(), lr=0.003, momentum=0.9)
@@ -116,62 +129,61 @@ if __name__ == '__main__':
     trainable_1.train_LR()
 
     densenet = get_densenet(radiographic_findings_opacity, locations_labels, type=169, all_in_1_reduction=False)
-    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=0.5, groups=location_groups)
-    sgd = optim.SGD(densenet.parameters(), lr=0.003, momentum=0.9)
+    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
+    sgd = optim.SGD(densenet.parameters(), lr=0.005, momentum=0.9)
     trainable_1 = Trainable_Model_LR(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                      loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
                                      test_loader=test_dataloader, val_loader=val_dataloader,
-                                     name='BCE_SGD0.003_a0.5_opacity_MLr',
-                                     description='alpha = 0.5')
+                                     name='BCE_SGD0.005_a1_opacity_MLr',
+                                     description='alpha = 1')
     trainable_models.append(trainable_1)
     trainable_1.train_LR()
 
     densenet = get_densenet(radiographic_findings_opacity, locations_labels, type=169, all_in_1_reduction=False)
-    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=0.1, groups=location_groups)
-    sgd = optim.SGD(densenet.parameters(), lr=0.003, momentum=0.9)
-    trainable_1 = Trainable_Model_LR(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
-                                     loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
-                                     test_loader=test_dataloader, val_loader=val_dataloader,
-                                     name='BCE_SGD0.003_a0.1_opacity_MLr',
-                                     description='alpha = 0.1')
-    trainable_models.append(trainable_1)
-    trainable_1.train_LR()
-
-    #
-
-    #
-    densenet = get_densenet(radiographic_findings_opacity, locations_labels, type=169, all_in_1_reduction=True)
     BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
-    sgd = optim.SGD(densenet.parameters(), lr=0.003, momentum=0.9)
+    sgd = optim.SGD(densenet.parameters(), lr=0.007, momentum=0.9)
     trainable_1 = Trainable_Model_LR(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                      loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
                                      test_loader=test_dataloader, val_loader=val_dataloader,
-                                     name='BCE_SGD0.003_a1_opacity_MLr_AI1R',
-                                     description='alpha = 1, All_in_1_red')
+                                     name='BCE_SGD0.007_a1_opacity_MLr',
+                                     description='alpha = 1')
     trainable_models.append(trainable_1)
     trainable_1.train_LR()
 
-    densenet = get_densenet(radiographic_findings_opacity, locations_labels, type=169, all_in_1_reduction=True)
-    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=0.5, groups=location_groups)
-    sgd = optim.SGD(densenet.parameters(), lr=0.003, momentum=0.9)
+    densenet = get_densenet(radiographic_findings_opacity, locations_labels, type=169, all_in_1_reduction=False)
+    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
+    sgd = optim.SGD(densenet.parameters(), lr=0.009, momentum=0.9)
     trainable_1 = Trainable_Model_LR(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                      loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
                                      test_loader=test_dataloader, val_loader=val_dataloader,
-                                     name='BCE_SGD0.003_a0.5_opacity_MLr_AI1R',
-                                     description='alpha = 0.5, All_in_1_red')
+                                     name='BCE_SGD0.009_a1_opacity_MLr',
+                                     description='alpha = 1')
     trainable_models.append(trainable_1)
     trainable_1.train_LR()
 
-    densenet = get_densenet(radiographic_findings_opacity, locations_labels, type=169, all_in_1_reduction=True)
-    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=0.1, groups=location_groups)
-    sgd = optim.SGD(densenet.parameters(), lr=0.003, momentum=0.9)
+    densenet = get_densenet(radiographic_findings_opacity, locations_labels, type=169, all_in_1_reduction=False)
+    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
+    sgd = optim.SGD(densenet.parameters(), lr=0.01, momentum=0.9)
     trainable_1 = Trainable_Model_LR(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                      loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
                                      test_loader=test_dataloader, val_loader=val_dataloader,
-                                     name='BCE_SGD0.003_a0.1_opacity_MLr_AI1R',
-                                     description='alpha = 0.1, All_in_1_red')
+                                     name='BCE_SGD0.01_a1_opacity_MLr',
+                                     description='alpha = 1')
     trainable_models.append(trainable_1)
     trainable_1.train_LR()
+
+    densenet = get_densenet(radiographic_findings_opacity, locations_labels, type=169, all_in_1_reduction=False)
+    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
+    sgd = optim.SGD(densenet.parameters(), lr=0.012, momentum=0.9)
+    trainable_1 = Trainable_Model_LR(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
+                                     loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
+                                     test_loader=test_dataloader, val_loader=val_dataloader,
+                                     name='BCE_SGD0.012_a1_opacity_MLr',
+                                     description='alpha = 1')
+    trainable_models.append(trainable_1)
+    trainable_1.train_LR()
+
+
 
 
 
