@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4cebb6a-a70d-429f-a405-e2cd87c714ee" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Baseline/With_HM/DenseNet_HM.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/With_HM/Model_trainer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Baseline/With_HM/Trainable_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HeatMap/Test_heat_Map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LR/Model_trainer_loc.py" beforeDir="false" afterPath="$PROJECT_DIR$/LR/Model_trainer_loc.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,22 +19,22 @@
     <session id="-193334911">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="25" />
+          <entry key="project.closed" value="26" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.10" value="1" />
-          <entry key="project.open.time.4" value="4" />
+          <entry key="project.open.time.4" value="5" />
           <entry key="project.open.time.5" value="9" />
           <entry key="project.open.time.6" value="6" />
           <entry key="project.open.time.7" value="3" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="27" />
+          <entry key="project.opened" value="28" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="png" value="1" />
-          <entry key="py" value="110" />
+          <entry key="py" value="123" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
@@ -38,31 +42,73 @@
         <counts>
           <entry key="Image" value="1" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="110" />
+          <entry key="Python" value="123" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="7602" />
+          <entry key="py" value="8919" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="7602" />
+          <entry key="Python" value="8919" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/LR/Model_trainer_loc.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Baseline/With_HM/Trainable_model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1420">
-              <caret line="171" column="40" lean-forward="true" selection-start-line="171" selection-start-column="40" selection-end-line="171" selection-end-column="40" />
+            <state relative-caret-position="209">
+              <caret line="274" column="23" selection-start-line="274" selection-start-column="16" selection-end-line="274" selection-end-column="23" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PADChest_DataLoading.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Baseline/With_HM/Model_trainer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="914">
+              <caret line="151" selection-start-line="151" selection-end-line="151" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Baseline/With_HM/DenseNet_HM.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="263">
+              <caret line="48" column="23" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LR/DenseNet_LR.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="6">
+              <caret line="99" column="31" selection-start-line="99" selection-start-column="31" selection-end-line="99" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -98,15 +144,19 @@
         <option value="$PROJECT_DIR$/LR/Trainable_Model_LR.py" />
         <option value="$PROJECT_DIR$/Results/3 Positional LR/2/plotter.py" />
         <option value="$PROJECT_DIR$/Results/1 Baseline_ChexNet/plotter.py" />
-        <option value="$PROJECT_DIR$/Results/Plot_NN.py" />
         <option value="$PROJECT_DIR$/Results/5 Attention() ML/multi_att_2/plotter.py" />
         <option value="$PROJECT_DIR$/Results/4 Positional ML/2/plotter.py" />
         <option value="$PROJECT_DIR$/PADChest_DataLoading.py" />
         <option value="$PROJECT_DIR$/LR/DenseNet_LR.py" />
         <option value="$PROJECT_DIR$/Attention/DenseNet_Att.py" />
-        <option value="$PROJECT_DIR$/Attention/Model_trainer_att.py" />
-        <option value="$PROJECT_DIR$/Results/Plot_from_folder.py" />
         <option value="$PROJECT_DIR$/LR/Model_trainer_loc.py" />
+        <option value="$PROJECT_DIR$/Attention/Model_trainer_att.py" />
+        <option value="$PROJECT_DIR$/Results/Plot_NN.py" />
+        <option value="$PROJECT_DIR$/Results/Plot_from_folder.py" />
+        <option value="$PROJECT_DIR$/HeatMap/Test_heat_Map.py" />
+        <option value="$PROJECT_DIR$/Baseline/With_HM/DenseNet_HM.py" />
+        <option value="$PROJECT_DIR$/Baseline/With_HM/Model_trainer.py" />
+        <option value="$PROJECT_DIR$/Baseline/With_HM/Trainable_model.py" />
       </list>
     </option>
   </component>
@@ -120,7 +170,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -131,7 +180,18 @@
             <path>
               <item name="CheXNet_aproach" type="b2602c69:ProjectViewProjectNode" />
               <item name="CheXNet_aproach" type="462c0819:PsiDirectoryNode" />
-              <item name="Attention" type="462c0819:PsiDirectoryNode" />
+              <item name="Baseline" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CheXNet_aproach" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CheXNet_aproach" type="462c0819:PsiDirectoryNode" />
+              <item name="Baseline" type="462c0819:PsiDirectoryNode" />
+              <item name="With_HM" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CheXNet_aproach" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CheXNet_aproach" type="462c0819:PsiDirectoryNode" />
+              <item name="HeatMap" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="CheXNet_aproach" type="b2602c69:ProjectViewProjectNode" />
@@ -142,18 +202,20 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\maest\OneDrive\DTU\Semestre 4\Thesis\Code\CheXNet_aproach\Attention" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\maest\OneDrive\DTU\Semestre 4\Thesis\Code\CheXNet_aproach\Results\5 Attention() ML\multi_att_2" />
       <recent name="C:\Users\maest\OneDrive\DTU\Semestre 4\Thesis\Code\CheXNet_aproach\Results" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\maest\OneDrive\DTU\Semestre 4\Thesis\Code\CheXNet_aproach\Baseline\With_HM" />
+      <recent name="C:\Users\maest\OneDrive\DTU\Semestre 4\Thesis\Code\CheXNet_aproach\Attention" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -168,7 +230,28 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Plot_from_folder">
+  <component name="RunManager" selected="Python.Model_trainer">
+    <configuration name="Model_trainer" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="CheXNet_aproach" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Baseline/With_HM" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Baseline/With_HM/Model_trainer.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Model_trainer_att" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CheXNet_aproach" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -232,27 +315,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Plotter" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="CheXNet_aproach" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Results/3 Positional LR/1" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Results/3 Positional LR/1/Plotter.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="plotter (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CheXNet_aproach" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -277,17 +339,17 @@
     <list>
       <item itemvalue="Python.Model_trainer_att" />
       <item itemvalue="Python.plotter (1)" />
-      <item itemvalue="Python.Plotter" />
       <item itemvalue="Python.Model_trainer_loc" />
       <item itemvalue="Python.Plot_from_folder" />
+      <item itemvalue="Python.Model_trainer" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Model_trainer" />
         <item itemvalue="Python.Plot_from_folder" />
         <item itemvalue="Python.Model_trainer_att" />
         <item itemvalue="Python.Model_trainer_loc" />
         <item itemvalue="Python.plotter (1)" />
-        <item itemvalue="Python.Plotter" />
       </list>
     </recent_temporary>
   </component>
@@ -313,7 +375,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30780143" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3602837" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -441,13 +503,6 @@
     <entry file="file://$PROJECT_DIR$/Results/1 Baseline_ChexNet/1/Dataseet_split.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Baseline/Model_trainer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="93" column="4" selection-start-line="93" selection-start-column="4" selection-end-line="95" selection-end-column="137" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Results/1 Baseline_ChexNet/Opacity_DN169_BCE_SGD_log.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-660" />
@@ -504,27 +559,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PADChest_DataLoading.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="264" column="9" selection-start-line="264" selection-start-column="9" selection-end-line="264" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Attention/Trainable_Model_att.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1500">
           <caret line="78" column="67" selection-start-line="78" selection-start-column="67" selection-end-line="78" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Attention/Model_trainer_att.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="222" column="73" selection-start-line="222" selection-start-column="73" selection-end-line="222" selection-end-column="73" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -535,34 +573,115 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Results/Plot_from_folder.py">
+    <entry file="file://$PROJECT_DIR$/LR/Model_trainer_loc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1854">
-          <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+        <state relative-caret-position="3420">
+          <caret line="171" column="40" selection-start-line="171" selection-start-column="40" selection-end-line="171" selection-end-column="40" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Attention/Model_trainer_att.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="113" column="65" selection-start-line="113" selection-start-column="65" selection-end-line="113" selection-end-column="65" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Results/Plot_NN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="85" selection-start-line="85" selection-end-line="85" />
+        <state relative-caret-position="20">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Baseline/Model_trainer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="700">
+          <caret line="93" column="4" selection-start-line="93" selection-start-column="4" selection-end-line="95" selection-end-column="137" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Results/Plot_from_folder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="140" column="37" selection-start-line="140" selection-start-column="37" selection-end-line="140" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <marker date="1559569422315" expanded="true" signature="3114:7385" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Baseline/With_HM/CheXNet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HeatMap/Test_heat_Map.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="7" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Baseline/Trainable_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14">
+          <caret line="44" selection-start-line="44" selection-end-line="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LR/DenseNet_LR.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="169" column="53" selection-start-line="169" selection-start-column="53" selection-end-line="169" selection-end-column="53" />
+        <state relative-caret-position="6">
+          <caret line="99" column="31" selection-start-line="99" selection-start-column="31" selection-end-line="99" selection-end-column="51" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LR/Model_trainer_loc.py">
+    <entry file="file://$PROJECT_DIR$/Baseline/With_HM/DenseNet_HM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1420">
-          <caret line="171" column="40" lean-forward="true" selection-start-line="171" selection-start-column="40" selection-end-line="171" selection-end-column="40" />
+        <state relative-caret-position="263">
+          <caret line="48" column="23" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PADChest_DataLoading.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Baseline/With_HM/Trainable_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="274" column="23" selection-start-line="274" selection-start-column="16" selection-end-line="274" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Baseline/With_HM/Model_trainer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="914">
+          <caret line="151" selection-start-line="151" selection-end-line="151" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
