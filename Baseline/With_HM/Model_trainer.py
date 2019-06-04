@@ -69,6 +69,7 @@ if __name__ == '__main__':
     parser.add_argument('--train_csv')
     parser.add_argument('--test_csv')
     parser.add_argument('--val_csv')
+    parser.add_argument('--hm_csv')
     parser.add_argument('--batch_size')
     args = parser.parse_args()
 

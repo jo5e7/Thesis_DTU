@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from torch.utils import data
 from torchvision.models import densenet169
 
@@ -17,9 +18,6 @@ class DenseNet(nn.Module):
         # disect the network to access its last convolutional layer
         self.features_conv = self.densenet.features
 
-        # add the average global pool
-        self.global_avg_pool = nn.AvgPool2d(kernel_size=7, stride=1)
-
         # get the classifier of the densenet
         self.classifier = self.densenet.classifier
 
@@ -31,14 +29,15 @@ class DenseNet(nn.Module):
         self.gradients = grad
 
     def forward(self, x, no_grad=False):
-        x = self.features_conv(x)
+        features = self.features_conv(x)
+        x = F.relu(features, inplace=True)
 
         # register the hook
         if no_grad is False:
             h = x.register_hook(self.activations_hook)
 
         # don't forget the pooling
-        x = self.global_avg_pool(x)
+        x = F.adaptive_avg_pool2d(x, (1, 1)).view(features.size(0), -1)
         x = x.view(x.shape[0], -1)
         x = self.classifier(x)
         return x
