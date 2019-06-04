@@ -29,15 +29,19 @@ class DenseNet(nn.Module):
         self.gradients = grad
 
     def forward(self, x, no_grad=False):
-        features = self.features_conv(x)
-        x = F.relu(features, inplace=True)
-
+        x = self.features_conv(x)
         # register the hook
-        if no_grad is False:
+        if (no_grad is False) and (self.training is False):
             h = x.register_hook(self.activations_hook)
+        x = F.relu(x)
+
+
+
 
         # don't forget the pooling
-        x = F.adaptive_avg_pool2d(x, (1, 1)).view(features.size(0), -1)
+        #print(x)
+        #print(features.size(0))
+        x = F.adaptive_avg_pool2d(x, (1, 1)).view(x.size(0), -1)
         x = x.view(x.shape[0], -1)
         x = self.classifier(x)
         return x

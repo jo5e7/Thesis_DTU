@@ -56,7 +56,7 @@ def get_densenet(target, type=121):
         print("DenseNet_121")
 
     num_ftrs = densenet.classifier.in_features
-    densenet.classifier = nn.Linear(166400, len(target))
+    densenet.classifier = nn.Linear(num_ftrs, len(target))
     densenet = densenet.cuda()
     densenet = torch.nn.DataParallel(densenet).cuda()
     return densenet

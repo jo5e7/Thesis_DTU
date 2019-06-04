@@ -108,7 +108,7 @@ class TrainableModel:
             print(self.name, data_name, 'ROC_AUC_score:', np.average(score))
             return np.average(score)
 
-    def train(self, epochs=1, tolerance=2):
+    def train(self, epochs=2, tolerance=2):
 
         net = self.model
         optimizer = self.optimizer
@@ -233,6 +233,7 @@ class TrainableModel:
 
 
                 print(pred)
+                print(pred[:, 0])
                 pred[:, 0].backward()
                 print(pred.shape)
 
@@ -274,7 +275,7 @@ class TrainableModel:
                 # draw the heatmap
                 heatmap = heatmap.cpu().numpy()
                 plt.matshow(heatmap.squeeze())
-                #plt.show()
+                plt.show()
                 #plt.savefig(str(enum)+'.png', bbox_inches='tight')
 
                 # heatmanp on image
