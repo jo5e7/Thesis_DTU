@@ -152,9 +152,9 @@ if __name__ == '__main__':
     transforms_test = transforms.Compose([Resize(512), ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
 
     # Create data loaders
-    train_dataset = PadChestDataset(csv_train, radiographic_findings_opacity, root_folder, transform=transforms_train, testing=True)
-    test_dataset = PadChestDataset(csv_test, radiographic_findings_opacity, root_folder, transform=transforms_test, testing=True)
-    val_dataset = PadChestDataset(csv_val, radiographic_findings_opacity, root_folder, transform=transforms_test, testing=True)
+    train_dataset = PadChestDataset(csv_train, radiographic_findings_opacity, root_folder, transform=transforms_train, testing=False)
+    test_dataset = PadChestDataset(csv_test, radiographic_findings_opacity, root_folder, transform=transforms_test, testing=False)
+    val_dataset = PadChestDataset(csv_val, radiographic_findings_opacity, root_folder, transform=transforms_test, testing=False)
     hm_dataset = PadChestDataset(csv_hm, radiographic_findings_opacity, root_folder, transform=transforms_test)
 
     sampler = get_WeightedRandomSampler(csv_train, radiographic_findings_opacity, False)
