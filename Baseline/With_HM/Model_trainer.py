@@ -26,6 +26,47 @@ def get_training_weights(labels, df, data_lenght):
 
     return positive_samples_weights
 
+def get_WeightedRandomSampler(csv, single_class, testing=False):
+    class_sample_counts = []
+    df = pd.read_csv(csv)
+
+    if testing:
+        zero_df = df["ImageDir"] == 0
+        df = df[zero_df]
+        df = df.reset_index(drop=True)
+
+    for c in range(len(single_class)):
+        class_sample_counts.append(0)
+        class_sample_counts.append(0)
+        pass
+
+    train_targets = []
+    for i in range(len(df.index)):
+        if df.loc[i, single_class[0]] == 1:
+            class_sample_counts[1] += 1
+            train_targets.append(1)
+        else:
+            class_sample_counts[0] += 1
+            train_targets.append(0)
+        pass
+
+    print(len(df.index))
+    print(single_class[0])
+    print(class_sample_counts)
+
+    weights = 1. / torch.tensor(class_sample_counts, dtype=torch.float)
+    samples_weights = weights[train_targets]
+    print(samples_weights, len(samples_weights))
+
+    sampler = torch.utils.data.WeightedRandomSampler(
+        weights=samples_weights,
+        num_samples=len(samples_weights),
+        replacement=True)
+
+    return sampler
+
+    pass
+
 def create_labels_info(df, labels):
     dict_labels_info = {}
     for l in labels:
@@ -43,7 +84,7 @@ def create_labels_info(df, labels):
 
 def get_densenet(target, type=121):
     if type is 169:
-        densenet = DenseNet_HM.DenseNet()
+        densenet = DenseNet_HM.DenseNet_MH()
         print("DenseNet_169")
     elif type is 161:
         densenet = torchvision.models.densenet161(pretrained=True)
@@ -111,13 +152,16 @@ if __name__ == '__main__':
     transforms_test = transforms.Compose([Resize(512), ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
 
     # Create data loaders
-    train_dataset = PadChestDataset(csv_train, radiographic_findings_opacity, root_folder, transform=transforms_train, testing=False)
-    test_dataset = PadChestDataset(csv_test, radiographic_findings_opacity, root_folder, transform=transforms_test, testing=False)
-    val_dataset = PadChestDataset(csv_val, radiographic_findings_opacity, root_folder, transform=transforms_test, testing=False)
+    train_dataset = PadChestDataset(csv_train, radiographic_findings_opacity, root_folder, transform=transforms_train, testing=True)
+    test_dataset = PadChestDataset(csv_test, radiographic_findings_opacity, root_folder, transform=transforms_test, testing=True)
+    val_dataset = PadChestDataset(csv_val, radiographic_findings_opacity, root_folder, transform=transforms_test, testing=True)
     hm_dataset = PadChestDataset(csv_hm, radiographic_findings_opacity, root_folder, transform=transforms_test)
 
+    sampler = get_WeightedRandomSampler(csv_train, radiographic_findings_opacity, False)
     train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
                                                    drop_last=True)
+    #train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, sampler=sampler, num_workers=4,
+    #                                               drop_last=True)
     test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
                                                    drop_last=True)
     val_dataloader = torch.utils.data.DataLoader(val_dataset, batch_size=batch_size, shuffle=True, num_workers=4,

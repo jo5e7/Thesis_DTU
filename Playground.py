@@ -3,9 +3,11 @@ from sklearn import metrics
 import torch
 from torch import nn
 
-m = nn.Linear(2, 2)
-input = torch.randn(2, 2, 2)
-output = m(input)
-print(output.size())
-print(input)
-print(output)
+test = [0, 0, 0]
+test_1 = [0, 0, 1, 1]
+
+if 1 in test:
+    print('test')
+
+if 1 in test_1:
+    print('test_1')

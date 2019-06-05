@@ -8,9 +8,9 @@ from torchvision import datasets
 import matplotlib.pyplot as plt
 import numpy as np
 
-class DenseNet(nn.Module):
+class DenseNet_MH(nn.Module):
     def __init__(self):
-        super(DenseNet, self).__init__()
+        super(DenseNet_MH, self).__init__()
 
         # get the pretrained DenseNet201 network
         self.densenet = densenet169(pretrained=True)
@@ -32,6 +32,7 @@ class DenseNet(nn.Module):
         x = self.features_conv(x)
         # register the hook
         if (no_grad is False) and (self.training is False):
+            print('Gradients Hooked')
             h = x.register_hook(self.activations_hook)
         x = F.relu(x)
 

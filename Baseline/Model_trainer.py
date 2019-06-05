@@ -122,9 +122,9 @@ if __name__ == '__main__':
     transforms_test = transforms.Compose([Resize(512), ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
 
     # Create data loaders
-    train_dataset = PadChestDataset(csv_train, radiographic_findings_opacity, root_folder, transform=transforms_train)
-    test_dataset = PadChestDataset(csv_test, radiographic_findings_opacity, root_folder, transform=transforms_test)
-    val_dataset = PadChestDataset(csv_val, radiographic_findings_opacity, root_folder, transform=transforms_test)
+    train_dataset = PadChestDataset(csv_train, radiographic_findings_opacity, root_folder, transform=transforms_train, testing=True)
+    test_dataset = PadChestDataset(csv_test, radiographic_findings_opacity, root_folder, transform=transforms_test, testing=True)
+    val_dataset = PadChestDataset(csv_val, radiographic_findings_opacity, root_folder, transform=transforms_test, testing=True)
 
     train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
                                                    drop_last=True)

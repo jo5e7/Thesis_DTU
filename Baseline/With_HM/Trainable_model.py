@@ -108,7 +108,7 @@ class TrainableModel:
             print(self.name, data_name, 'ROC_AUC_score:', np.average(score))
             return np.average(score)
 
-    def train(self, epochs=2, tolerance=2):
+    def train(self, epochs=1, tolerance=2):
 
         net = self.model
         optimizer = self.optimizer
@@ -235,6 +235,7 @@ class TrainableModel:
                 print(pred)
                 print(pred[:, 0])
                 pred[:, 0].backward()
+                print(pred)
                 print(pred.shape)
 
                 # pull the gradients out of the model
@@ -263,10 +264,14 @@ class TrainableModel:
                 # expression (2) in https://arxiv.org/pdf/1610.02391.pdf
                 # heatmap = np.maximum(heatmap, 0)
                 heatmap = F.relu(heatmap)
+                print('heatmap_relu', heatmap.shape)
+                print('heatmap_relu', heatmap)
 
                 # normalize the heatmap
                 # print(torch.from_numpy(heatmap).float())
                 heatmap /= torch.max(heatmap)
+                print('heatmap_/=', heatmap.shape)
+                print('heatmap_/=', heatmap)
 
 
                 # Print class
@@ -274,6 +279,8 @@ class TrainableModel:
 
                 # draw the heatmap
                 heatmap = heatmap.cpu().numpy()
+                print('heatmap_numpy', heatmap.shape)
+                print('heatmap_numpy', heatmap)
                 plt.matshow(heatmap.squeeze())
                 plt.show()
                 #plt.savefig(str(enum)+'.png', bbox_inches='tight')
