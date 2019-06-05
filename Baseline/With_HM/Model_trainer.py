@@ -160,10 +160,10 @@ if __name__ == '__main__':
     sampler = get_WeightedRandomSampler(csv_train, radiographic_findings_opacity, False)
     train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
                                                    drop_last=True)
-    #train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, sampler=sampler, num_workers=4,
-    #                                               drop_last=True)
-    test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
+    train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, sampler=sampler, num_workers=4,
                                                    drop_last=True)
+    #test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
+    #                                               drop_last=True)
     val_dataloader = torch.utils.data.DataLoader(val_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
                                                    drop_last=True)
     hm_dataloader = torch.utils.data.DataLoader(hm_dataset, batch_size=1)

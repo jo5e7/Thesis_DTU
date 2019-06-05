@@ -137,7 +137,6 @@ class TrainableModel:
             self.log('************' + 'Epoch: ' + str(epoch) + '************')
             # self.log('********************************')
             print('Epoch:', epoch)
-            net.train()
             running_loss = 0.0
             epoch_losses = []
 
@@ -152,6 +151,7 @@ class TrainableModel:
                     print('Learning rate', g['lr'])
                     self.log('Learning rate changed to: ' + str(g['lr']))
 
+            net.train()
             for i, data in enumerate(self.train_loader, 0):
                 # get the inputs
                 inputs, labels = data
