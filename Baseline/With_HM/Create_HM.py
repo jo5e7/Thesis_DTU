@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../../')
 import torch
 import matplotlib.pyplot as plt
 import numpy as np
@@ -8,6 +10,7 @@ from torchvision.transforms import Resize, RandomRotation, ToTensor, Normalize, 
 import torch.nn.functional as F
 from torchvision.transforms import functional as FVision
 import cv2
+from Baseline.With_HM.DenseNet_HM import DenseNet_MH, loadSD_densenet_hm_169
 
 class UnNormalize(object):
     def __init__(self, mean, std):
@@ -65,7 +68,10 @@ for enum, data in enumerate(hm_loader, 0):
     image_hm = images
     images = images.cuda()
     labels = labels.cuda()
-    net = torch.load(model_url)
+    # net = DenseNet_MH()
+    # net.load_state_dict(torch.load(self.name + '/' + self.name + '.pth'))
+    sd = torch.load(model_url)
+    net = loadSD_densenet_hm_169(model_url=sd)
     net.eval()
 
     pred = net(images)

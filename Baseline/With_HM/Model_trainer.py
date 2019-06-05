@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../../')
 import torch
 from torch import nn, optim
 import pandas as pd
@@ -152,18 +154,18 @@ if __name__ == '__main__':
     transforms_test = transforms.Compose([Resize(512), ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
 
     # Create data loaders
-    train_dataset = PadChestDataset(csv_train, radiographic_findings_opacity, root_folder, transform=transforms_train, testing=False)
-    test_dataset = PadChestDataset(csv_test, radiographic_findings_opacity, root_folder, transform=transforms_test, testing=False)
-    val_dataset = PadChestDataset(csv_val, radiographic_findings_opacity, root_folder, transform=transforms_test, testing=False)
+    train_dataset = PadChestDataset(csv_train, radiographic_findings_opacity, root_folder, transform=transforms_train, testing=True)
+    test_dataset = PadChestDataset(csv_test, radiographic_findings_opacity, root_folder, transform=transforms_test, testing=True)
+    val_dataset = PadChestDataset(csv_val, radiographic_findings_opacity, root_folder, transform=transforms_test, testing=True)
     hm_dataset = PadChestDataset(csv_hm, radiographic_findings_opacity, root_folder, transform=transforms_test)
 
     sampler = get_WeightedRandomSampler(csv_train, radiographic_findings_opacity, False)
     train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
                                                    drop_last=True)
-    train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, sampler=sampler, num_workers=4,
-                                                   drop_last=True)
-    #test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
+    #train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, sampler=sampler, num_workers=4,
     #                                               drop_last=True)
+    test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
+                                                   drop_last=True)
     val_dataloader = torch.utils.data.DataLoader(val_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
                                                    drop_last=True)
     hm_dataloader = torch.utils.data.DataLoader(hm_dataset, batch_size=1)

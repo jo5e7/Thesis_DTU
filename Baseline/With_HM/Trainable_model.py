@@ -4,6 +4,7 @@ import Prediction_scores
 import numpy as np
 import os
 import cv2
+from Baseline.With_HM.DenseNet_HM import DenseNet_MH, loadSD_densenet_hm_169
 
 class UnNormalize(object):
     def __init__(self, mean, std):
@@ -143,7 +144,10 @@ class TrainableModel:
             # Learning rate decay if accuracy is not improving
             if (epochs_without_imporving == 2) & (decays < 2):
                 decays += 1
-                net = torch.load(self.name + '/' + self.name + '.pth')
+                #net = DenseNet_MH()
+                #net.load_state_dict(torch.load(self.name + '/' + self.name + '.pth'))
+                sd = torch.load(self.name + '/' + self.name + '.pth')
+                net = loadSD_densenet_hm_169(model_url=sd)
                 epochs_without_imporving = 0
                 for g in optimizer.param_groups:
                     g['lr'] = g['lr'] / 10
@@ -190,8 +194,8 @@ class TrainableModel:
 
             if temp_net_accuracy > final_net_accuracy:
                 final_net_accuracy = temp_net_accuracy
-                torch.save(net, self.name + '/' + self.name + '_{}_{}.pth'.format(epoch, round(temp_net_accuracy, 2)))
-                torch.save(net, self.name + '/' + self.name + '.pth')
+                torch.save(net.state_dict(), self.name + '/' + self.name + '_{}_{}.pth'.format(epoch, round(temp_net_accuracy, 2)))
+                torch.save(net.state_dict(), self.name + '/' + self.name + '.pth')
                 epochs_without_imporving = 0
             else:
                 epochs_without_imporving += 1
@@ -203,7 +207,9 @@ class TrainableModel:
         self.log('Losses list per epoch:')
         self.log(str(epoch_losses_list))
         if self.test_loader is not None:
-            net = torch.load(self.name + '/' + self.name + '.pth')
+            # net = DenseNet_MH()
+            sd = torch.load(self.name + '/' + self.name + '.pth')
+            net = loadSD_densenet_hm_169(model_url=sd)
             net.eval()
             self.log('Final Scores for test set')
             final_score = self.get_model_accuracy(net, self.test_loader, 'test', self.score_type, save_samples=True)
@@ -225,7 +231,9 @@ class TrainableModel:
                 image_hm = images
                 images = images.cuda()
                 labels = labels.cuda()
-                net = torch.load(self.name + '/' + self.name + '.pth')
+                #net = DenseNet_MH()
+                sd = torch.load(self.name + '/' + self.name + '.pth')
+                net = loadSD_densenet_hm_169(model_url=sd)
                 net.eval()
 
                 pred = net(images)
