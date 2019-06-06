@@ -109,7 +109,13 @@ class PadChestDataset_loc(Dataset):
 
         position_labels_output = self.pad_chest_df.loc[idx, self.position_labels]
         position_labels_output = position_labels_output.tolist()
+
+        # Positional labels only if there is a radiographical finding
+        if 0 in labels_output:
+            for i in range(len(position_labels_output)):
+                position_labels_output[i] = 0
         #print(idx, labels_output)
+        #print(idx, position_labels_output)
 
         #image = io.imread(img_name)
         #image = np.stack((image,) * 3, axis=-1)
