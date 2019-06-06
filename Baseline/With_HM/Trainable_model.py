@@ -109,7 +109,7 @@ class TrainableModel:
             print(self.name, data_name, 'ROC_AUC_score:', np.average(score))
             return np.average(score)
 
-    def train(self, epochs=1, tolerance=2):
+    def train(self, epochs=100, tolerance=2):
 
         net = self.model
         optimizer = self.optimizer

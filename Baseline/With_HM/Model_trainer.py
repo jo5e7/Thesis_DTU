@@ -86,7 +86,7 @@ def create_labels_info(df, labels):
 
 def get_densenet(target, type=121):
     if type is 169:
-        densenet = DenseNet_HM.DenseNet_MH()
+        densenet = DenseNet_HM.densenet_hm_169(pretrained=True)
         print("DenseNet_169")
     elif type is 161:
         densenet = torchvision.models.densenet161(pretrained=True)
