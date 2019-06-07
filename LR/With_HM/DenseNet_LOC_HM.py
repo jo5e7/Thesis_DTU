@@ -165,6 +165,8 @@ def loadSD_densenet_loc_hm_169(pretrained=True, model_state_dict='', **kwargs):
     """
     model = DenseNet_LOC_HM(num_init_features=64, growth_rate=32, block_config=(6, 12, 32, 32),
                      **kwargs)
+    model = model.cuda()
+    model = torch.nn.DataParallel(model).cuda()
     #mModel_dict = model.state_dict()
 
     if pretrained:
@@ -183,8 +185,8 @@ def loadSD_densenet_loc_hm_169(pretrained=True, model_state_dict='', **kwargs):
                 del state_dict[key]
 
         #mModel_dict.update(state_dict)
-        #model.load_state_dict(mModel_dict)
-        model = model.cuda()
-        model = torch.nn.DataParallel(model).cuda()
+        model.load_state_dict(state_dict)
+        #model = model.cuda()
+        #model = torch.nn.DataParallel(model).cuda()
 
     return model

@@ -123,7 +123,9 @@ def loadSD_densenet_hm_169(pretrained=True, model_url='', **kwargs):
     """
     model = DenseNet_MH(num_init_features=64, growth_rate=32, block_config=(6, 12, 32, 32),
                      **kwargs)
-    #mModel_dict = model.state_dict()
+    model = model.cuda()
+    model = torch.nn.DataParallel(model).cuda()
+    #model = model.state_dict()
 
     if pretrained:
         # '.'s are no longer allowed in module names, but pervious _DenseLayer
@@ -140,9 +142,8 @@ def loadSD_densenet_hm_169(pretrained=True, model_url='', **kwargs):
                 state_dict[new_key] = state_dict[key]
                 del state_dict[key]
 
-        #mModel_dict.update(state_dict)
-        #model.load_state_dict(mModel_dict)
-        model = model.cuda()
-        model = torch.nn.DataParallel(model).cuda()
+        #model.update(state_dict)
+        model.load_state_dict(state_dict)
+
 
     return model

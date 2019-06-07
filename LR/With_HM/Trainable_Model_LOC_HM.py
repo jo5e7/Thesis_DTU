@@ -181,6 +181,7 @@ class Trainable_Model_LR:
                     print('Learning rate', g['lr'])
                     self.log('Learning rate changed to: ' + str(g['lr']))
 
+            net.train()
             for i, data in enumerate(self.train_loader, 0):
                 # get the inputs
                 inputs, labels, locations = data
