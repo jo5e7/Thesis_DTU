@@ -78,7 +78,7 @@ class PadChestDataset(Dataset):
 class PadChestDataset_loc(Dataset):
     """Face Landmarks dataset."""
 
-    def __init__(self, csv_file, labels, position_labels, root_dir, transform=None, testing=False):
+    def __init__(self, csv_file, labels, position_labels, root_dir, transform=None, testing=False, pos_labels_always=False):
         """
         Args:
             csv_file (string): Path to the csv file with annotations.
@@ -96,6 +96,7 @@ class PadChestDataset_loc(Dataset):
         self.transform = transform
         self.labels = labels
         self.position_labels = position_labels
+        self.pos_labels_always = pos_labels_always
 
     def __len__(self):
         return len(self.pad_chest_df)
@@ -111,9 +112,10 @@ class PadChestDataset_loc(Dataset):
         position_labels_output = position_labels_output.tolist()
 
         # Positional labels only if there is a radiographical finding
-        if 0 in labels_output:
-            for i in range(len(position_labels_output)):
-                position_labels_output[i] = 0
+        if not self.pos_labels_always:
+            if 0 in labels_output:
+                for i in range(len(position_labels_output)):
+                    position_labels_output[i] = 0
         #print(idx, labels_output)
         #print(idx, position_labels_output)
 
