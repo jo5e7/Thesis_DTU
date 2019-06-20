@@ -109,9 +109,9 @@ if __name__ == '__main__':
         [Resize_loc(512), ToTensor_loc(), Normalize_loc(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
 
     # Create data loaders
-    train_dataset = PadChestDataset_loc(csv_train, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_train_loc, testing=True, pos_labels_always=True)
-    test_dataset = PadChestDataset_loc(csv_test, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_test_loc, testing=True, pos_labels_always=True)
-    val_dataset = PadChestDataset_loc(csv_val, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_test_loc, testing=True, pos_labels_always=True)
+    train_dataset = PadChestDataset_loc(csv_train, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_train_loc, testing=False, pos_labels_always=True)
+    test_dataset = PadChestDataset_loc(csv_test, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_test_loc, testing=False, pos_labels_always=True)
+    val_dataset = PadChestDataset_loc(csv_val, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_test_loc, testing=False, pos_labels_always=True)
 
     train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
                                                    drop_last=True)
@@ -153,7 +153,7 @@ if __name__ == '__main__':
     sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
     #sgd = optim.Adam(densenet.parameters())
     trainable_1 = Trainable_Model_AttQKV(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
-                                      loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
+                                      loss_criterion_2=BCE, train_loader=train_dataloader,
                                       test_loader=test_dataloader, val_loader=val_dataloader,
                                       name='BCE_SGD0.001_a1_MAr_BPpos_selfAtt_d1664_Hn4',
                                       description='alpha = 1', bp_att=bp_position, hidden_layers_att=hidden_layers_att,
@@ -182,7 +182,7 @@ if __name__ == '__main__':
     sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
     # sgd = optim.Adam(densenet.parameters())
     trainable_1 = Trainable_Model_AttQKV(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
-                                         loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
+                                         loss_criterion_2=BCE, train_loader=train_dataloader,
                                          test_loader=test_dataloader, val_loader=val_dataloader,
                                          name='BCE_SGD0.001_a1_MAr_BPpos_selfAtt_d832_Hn4',
                                          description='alpha = 1', bp_att=bp_position,
@@ -213,7 +213,7 @@ if __name__ == '__main__':
     sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
     # sgd = optim.Adam(densenet.parameters())
     trainable_1 = Trainable_Model_AttQKV(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
-                                         loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
+                                         loss_criterion_2=BCE, train_loader=train_dataloader,
                                          test_loader=test_dataloader, val_loader=val_dataloader,
                                          name='BCE_SGD0.001_a1_MAr_BPpos_selfAtt_d416_Hn4',
                                          description='alpha = 1', bp_att=bp_position,
@@ -244,7 +244,7 @@ if __name__ == '__main__':
     sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
     # sgd = optim.Adam(densenet.parameters())
     trainable_1 = Trainable_Model_AttQKV(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
-                                         loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
+                                         loss_criterion_2=BCE, train_loader=train_dataloader,
                                          test_loader=test_dataloader, val_loader=val_dataloader,
                                          name='BCE_SGD0.001_a1_MAr_BPpos_selfAtt_d3328_Hn4',
                                          description='alpha = 1', bp_att=bp_position,
