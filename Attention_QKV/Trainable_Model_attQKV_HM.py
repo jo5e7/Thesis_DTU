@@ -2,13 +2,15 @@ import torch
 import os
 import numpy as np
 import Prediction_scores
-from LR.With_HM.DenseNet_LOC_HM import loadSD_densenet_loc_hm_169
+from Attention_QKV.DenseNet_AttQKV_HM import loadSD_densenet_attQKV_hm_169
 
 
-class Trainable_Model_LR:
+class Trainable_Model_AttQKV:
 
     def __init__(self, model, optimizer, loss_criterion_1, loss_criterion_2, train_loader, val_loader,
-                 test_loader=None, name=None, description='', score_type='macro_roc_auc'):
+                 test_loader=None, name=None, description='', score_type='macro_roc_auc',
+                 bp_att=True, hidden_layers_att=1, dq=16, dv=16, Att_heads=4, non_linearity_att='softmax',
+                         kernel_att=3, stride_att=1, self_att=False):
 
         self.model = model
         self.optimizer = optimizer
@@ -18,6 +20,16 @@ class Trainable_Model_LR:
         self.val_loader = val_loader
         self.score_type = score_type
         self.description = description
+
+        self.bp_att = bp_att
+        self.hidden_layers_att = hidden_layers_att
+        self.dq = dq
+        self.dv = dv
+        self.Att_heads = Att_heads
+        self.kernel_att = kernel_att
+        self.stride_att = stride_att
+        self.non_linearity_att = non_linearity_att
+        self.self_att = self_att
 
         if test_loader is not None:
             self.test_loader = test_loader
@@ -84,17 +96,18 @@ class Trainable_Model_LR:
             self.log('fp: ' + str(fp))
             self.log('fn: ' + str(fn))
             self.log('tp: ' + str(tp))
+
             # self.log(all_y)
             # self.log(all_y_pred)
             self.log("________________________________")
-            self.log('macro_F1 per loc: ' + str(Prediction_scores.get_macro_f1_score(all_locs, all_locs_pred)))
-            self.log('macro_F1: ' + str(np.average(Prediction_scores.get_macro_f1_score(all_locs, all_locs_pred))))
+            self.log('macro_F1 per loc : ' + str(Prediction_scores.get_macro_f1_score(all_locs, all_locs_pred)))
+            self.log('macro_F1 loc: ' + str(np.average(Prediction_scores.get_macro_f1_score(all_locs, all_locs_pred))))
             self.log('macro_roc_auc per loc: ' + str(Prediction_scores.get_macro_roc_auc_score(all_locs, all_locs_pred)))
-            self.log('macro_roc_auc: ' + str(np.average(Prediction_scores.get_macro_roc_auc_score(all_locs, all_locs_pred))))
+            self.log('macro_roc_auc loc: ' + str(np.average(Prediction_scores.get_macro_roc_auc_score(all_locs, all_locs_pred))))
             #presicion, recall, thresholds = Prediction_scores.get_precision_recall_curve(all_locs, all_locs_pred)
-            #self.log('presicion loc: ' + str(presicion))
-            #self.log('recall loc: ' + str(recall))
-            #self.log('threshold loc: ' + str(thresholds))
+            #self.log('presicion: ' + str(presicion))
+            #self.log('recall: ' + str(recall))
+            #self.log('threshold: ' + str(thresholds))
             #self.log("")
 
         if score_type == 'micro_F1':
@@ -115,24 +128,24 @@ class Trainable_Model_LR:
             score_loc = Prediction_scores.get_macro_roc_auc_score(all_locs, all_locs_pred)
             #print('All y:')
             #print(all_y)
-            #print('All y predictions:')
+            print('All y predictions:')
             #print(all_y_pred)
             #print('All locs:')
             #print(all_locs)
-            #print('All locs predictions:')
+            print('All locs predictions:')
             #print(all_locs_pred)
             print(self.name, data_name, 'ROC_AUC_score per clase:', score)
             print(self.name, data_name, 'ROC_AUC_score:', np.average(score))
             print(self.name, data_name, 'ROC_AUC_score per clase:', score_loc)
             print(self.name, data_name, 'ROC_AUC_score:', np.average(score_loc))
 
-
-            #self.log('presicion class: ' + str(presicion))
-            #self.log('recall class: ' + str(recall))
-            #self.log('threshold class: ' + str(thresholds))
+            #presicion, recall, thresholds = Prediction_scores.get_precision_recall_curve(all_y, all_y_pred)
+            #print(presicion)
+            #print(recall)
+            #print(thresholds)
             return np.average(score)
 
-    def train_LR(self, epochs=100, tolerance=2):
+    def train_Att(self, epochs=100, tolerance=1):
         net = self.model
         optimizer = self.optimizer
         criterion = self.loss_criterion_1
@@ -176,7 +189,11 @@ class Trainable_Model_LR:
             if (epochs_without_imporving == 2) & (decays < 2):
                 decays += 1
                 sd = torch.load(self.name + '/' + self.name + '.pth')
-                net = loadSD_densenet_loc_hm_169(model_state_dict=sd)
+                net = loadSD_densenet_attQKV_hm_169(model_state_dict=sd, hidden_layers_att=self.hidden_layers_att,
+                                                    bp_elementwise=self.bp_att, dq=self.dq, dv=self.dv,
+                                                    Att_heads=self.Att_heads, kernel_att=self.kernel_att,
+                                                    stride_att=self.stride_att, non_linearity_att=self.non_linearity_att,
+                                                    self_att=self.self_att)
                 epochs_without_imporving = 0
                 for g in optimizer.param_groups:
                     g['lr'] = g['lr'] / 10
@@ -225,7 +242,6 @@ class Trainable_Model_LR:
                           (class_running_loss / 100), end=' | ')
                     print('Localization loss: %.3f' %
                           (loc_running_loss / 100))
-                    #print(class_running_loss)
                     total_running_loss = 0.0
                     class_running_loss = 0.0
                     loc_running_loss = 0.0
@@ -263,11 +279,20 @@ class Trainable_Model_LR:
         self.log(str(loc_epoch_losses_list))
         if self.test_loader is not None:
             sd = torch.load(self.name + '/' + self.name + '.pth')
-            net = loadSD_densenet_loc_hm_169(model_state_dict=sd)
+            net = loadSD_densenet_attQKV_hm_169(model_state_dict=sd, hidden_layers_att=self.hidden_layers_att,
+                                                bp_elementwise=self.bp_att, dq=self.dq, dv=self.dv,
+                                                Att_heads=self.Att_heads, kernel_att=self.kernel_att,
+                                                stride_att=self.stride_att, non_linearity_att=self.non_linearity_att,
+                                                self_att=self.self_att)
             net.eval()
             self.log('Final Scores for test set')
             final_score = self.get_model_accuracy(net, self.test_loader, 'test', self.score_type, save_samples=True)
             self.log('Final Score for test set: ' + str(final_score))
+
+        from Attention_QKV.Create_HM import save_heatmaps
+        save_heatmaps(self.bp_att, self.hidden_layers_att, self.dq, self.dv, self.Att_heads, self.kernel_att,
+                      self.stride_att, self.non_linearity_att,  self.self_att,
+                      self.name + '/' + self.name + '.pth', self.name + '/',)
 
 
     pass

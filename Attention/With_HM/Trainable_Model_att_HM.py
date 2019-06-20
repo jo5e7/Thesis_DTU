@@ -1,41 +1,28 @@
 import torch
-import torchvision
-import Prediction_scores
-import numpy as np
 import os
-import cv2
-from Baseline.With_HM.DenseNet_HM import DenseNet_MH, loadSD_densenet_hm_169
+import numpy as np
+import Prediction_scores
+from Attention.With_HM.DenseNet_Att_HM import loadSD_densenet_att_hm_169
 
-class UnNormalize(object):
-    def __init__(self, mean, std):
-        self.mean = mean
-        self.std = std
 
-    def __call__(self, tensor):
-        """
-        Args:
-            tensor (Tensor): Tensor image of size (C, H, W) to be normalized.
-        Returns:
-            Tensor: Normalized image.
-        """
-        for t, m, s in zip(tensor, self.mean, self.std):
-            t.mul_(s).add_(m)
-            # The normalize code -> t.sub_(m).div_(s)
-        return tensor
+class Trainable_Model_Att:
 
-class TrainableModel:
-
-    def __init__(self, model, optimizer, loss_criterion, train_loader, val_loader,
-                 test_loader=None, hm_loader=None, name=None, description='', score_type='macro_roc_auc'):
+    def __init__(self, model, optimizer, loss_criterion_1, loss_criterion_2, train_loader, val_loader,
+                 test_loader=None, name=None, description='', score_type='macro_roc_auc', bp_att=True, hidden_layers_att=1,
+                 kernel_att=3, stride_att=1):
 
         self.model = model
         self.optimizer = optimizer
-        self.loss_criterion = loss_criterion
+        self.loss_criterion_1 = loss_criterion_1
+        self.loss_criterion_2 = loss_criterion_2
         self.train_loader = train_loader
         self.val_loader = val_loader
         self.score_type = score_type
         self.description = description
-        self.hm_loader = hm_loader
+        self.bp_att = bp_att
+        self.hidden_layers_att = hidden_layers_att
+        self.kernel_att = kernel_att
+        self.stride_att = stride_att
 
         if test_loader is not None:
             self.test_loader = test_loader
@@ -45,10 +32,6 @@ class TrainableModel:
         else:
             self.name = ''
 
-
-    def set_name(self, name):
-        self.name = name
-
     def log(self, str):
         with open(self.name + '/' + self.name + '_log' + '.txt', "a") as text_file:
             print(str, file=text_file)
@@ -56,26 +39,38 @@ class TrainableModel:
     def get_model_accuracy(self, model, data_loader, data_name, score_type, save_samples=False):
         all_y = []
         all_y_pred = []
+        all_locs = []
+        all_locs_pred = []
         with torch.no_grad():
             for data in data_loader:
-                images, labels = data
+                images, labels, locs = data
                 images = images.cuda()
                 labels = labels.cuda()
+                locs = locs.cuda()
                 # print("test images shape", images.shape)
 
-                outputs = model(images, True)
+                outputs, outputs_loc = model(images, True)
                 outputs = torch.sigmoid(outputs)
+                outputs_loc = torch.sigmoid(outputs_loc)
                 # print('labels:', labels)
                 # print('outputs:', outputs)
 
                 labels = labels.cpu().numpy()
                 outputs = outputs.cpu().numpy()
+                locs = locs.cpu().numpy()
+                outputs_loc = outputs_loc.cpu().numpy()
 
                 for a in labels:
                     all_y.append(a)
 
                 for a in outputs:
                     all_y_pred.append(a)
+
+                for l in locs:
+                    all_locs.append(l)
+
+                for l in outputs_loc:
+                    all_locs_pred.append(l)
 
         # print(all_y)
         # print(all_y_pred)
@@ -95,8 +90,18 @@ class TrainableModel:
             self.log('fn: ' + str(fn))
             self.log('tp: ' + str(tp))
 
-            #self.log(all_y)
-            #self.log(all_y_pred)
+            # self.log(all_y)
+            # self.log(all_y_pred)
+            self.log("________________________________")
+            self.log('macro_F1 per loc : ' + str(Prediction_scores.get_macro_f1_score(all_locs, all_locs_pred)))
+            self.log('macro_F1 loc: ' + str(np.average(Prediction_scores.get_macro_f1_score(all_locs, all_locs_pred))))
+            self.log('macro_roc_auc per loc: ' + str(Prediction_scores.get_macro_roc_auc_score(all_locs, all_locs_pred)))
+            self.log('macro_roc_auc loc: ' + str(np.average(Prediction_scores.get_macro_roc_auc_score(all_locs, all_locs_pred))))
+            #presicion, recall, thresholds = Prediction_scores.get_precision_recall_curve(all_locs, all_locs_pred)
+            #self.log('presicion: ' + str(presicion))
+            #self.log('recall: ' + str(recall))
+            #self.log('threshold: ' + str(thresholds))
+            #self.log("")
 
         if score_type == 'micro_F1':
             f1_score = Prediction_scores.get_micro_f1_score(all_y, all_y_pred)
@@ -113,15 +118,31 @@ class TrainableModel:
             return score
         elif score_type == 'macro_roc_auc':
             score = Prediction_scores.get_macro_roc_auc_score(all_y, all_y_pred)
+            score_loc = Prediction_scores.get_macro_roc_auc_score(all_locs, all_locs_pred)
+            #print('All y:')
+            #print(all_y)
+            #print('All y predictions:')
+            #print(all_y_pred)
+            #print('All locs:')
+            #print(all_locs)
+            #print('All locs predictions:')
+            #print(all_locs_pred)
             print(self.name, data_name, 'ROC_AUC_score per clase:', score)
             print(self.name, data_name, 'ROC_AUC_score:', np.average(score))
+            print(self.name, data_name, 'ROC_AUC_score per clase:', score_loc)
+            print(self.name, data_name, 'ROC_AUC_score:', np.average(score_loc))
+
+            #presicion, recall, thresholds = Prediction_scores.get_precision_recall_curve(all_y, all_y_pred)
+            #print(presicion)
+            #print(recall)
+            #print(thresholds)
             return np.average(score)
 
-    def train(self, epochs=100, tolerance=2):
-
+    def train_Att(self, epochs=100, tolerance=2):
         net = self.model
         optimizer = self.optimizer
-        criterion = self.loss_criterion
+        criterion = self.loss_criterion_1
+        criterion_non_zero = self.loss_criterion_2
 
         epoch = 0
 
@@ -133,6 +154,8 @@ class TrainableModel:
         epochs_without_imporving = 0
         final_net_accuracy = 0
         epoch_losses_list = []
+        class_epoch_losses_list = []
+        loc_epoch_losses_list = []
         accuracies_list = []
         decays = 0
 
@@ -140,22 +163,27 @@ class TrainableModel:
         self.log(self.name)
         self.log(self.description)
         self.log('Train criteria: ' + self.score_type)
+        pass
 
         while (epoch != epochs) & (epochs_without_imporving <= tolerance):
             # self.log('********************************')
             self.log('************' + 'Epoch: ' + str(epoch) + '************')
             # self.log('********************************')
             print('Epoch:', epoch)
-            running_loss = 0.0
+            net.train()
+            total_running_loss = 0.0
+            class_running_loss = 0.0
+            loc_running_loss = 0.0
             epoch_losses = []
+            class_epoch_losses = []
+            loc_epoch_losses = []
 
             # Learning rate decay if accuracy is not improving
             if (epochs_without_imporving == 2) & (decays < 2):
                 decays += 1
-                #net = DenseNet_MH()
-                #net.load_state_dict(torch.load(self.name + '/' + self.name + '.pth'))
                 sd = torch.load(self.name + '/' + self.name + '.pth')
-                net = loadSD_densenet_hm_169(model_url=sd)
+                net = loadSD_densenet_att_hm_169(model_state_dict=sd, bp_elementwise=self.bp_att, hidden_layers_att=self.hidden_layers_att,
+                                                 kernel_att=self.kernel_att, stride_att=self.stride_att)
                 epochs_without_imporving = 0
                 for g in optimizer.param_groups:
                     g['lr'] = g['lr'] / 10
@@ -166,43 +194,64 @@ class TrainableModel:
             net.train()
             for i, data in enumerate(self.train_loader, 0):
                 # get the inputs
-                inputs, labels = data
+                inputs, labels, locations = data
                 # print(labels.shape)
                 if torch.cuda.is_available():
                     inputs = inputs.cuda()
                     labels = labels.cuda()
+                    locations = locations.cuda()
 
                 # zero the parameter gradients
                 optimizer.zero_grad()
 
                 # forward + backward + optimize
 
-                outputs = net(inputs)
+                outputs_class, outputs_locations = net(inputs)
                 # print(labels.shape)
                 # print(outputs.shape)
-                loss = criterion(outputs, labels)
+                class_loss = criterion(outputs_class, labels)
+                loc_loss = criterion_non_zero(outputs_locations, locations)
+                loss = class_loss + loc_loss
                 loss.backward()
                 optimizer.step()
+                # print('L', loss)
+                # print('CL', class_loss)
+                # print('LL', loc_loss)
 
                 # print statistics
-                running_loss += loss.item()
+                total_running_loss += loss.item()
+                class_running_loss += class_loss.item()
+                loc_running_loss += loc_loss.item()
                 epoch_losses.append(loss.item())
-                if i % 100 == 99:  # print every 50 mini-batches
-                    print('[%d, %5d] loss: %.3f' %
-                          (epoch + 1, i + 1, running_loss / 100))
-                    running_loss = 0.0
+                class_epoch_losses.append(class_loss.item())
+                loc_epoch_losses.append(loc_loss.item())
+                if i % 100 == 99:  # print every 500 mini-batches
+                    print('[%d, %5d] Total loss: %.3f' %
+                          (epoch, i + 1, total_running_loss / 100), end=' | ')
+                    print('Classification loss: %.3f' %
+                          (class_running_loss / 100), end=' | ')
+                    print('Localization loss: %.3f' %
+                          (loc_running_loss / 100))
+                    total_running_loss = 0.0
+                    class_running_loss = 0.0
+                    loc_running_loss = 0.0
 
             net.eval()
             temp_net_accuracy = self.get_model_accuracy(net, self.val_loader, 'val', self.score_type)
             accuracies_list.append(temp_net_accuracy)
             epoch_losses_list.append(np.average(np.array(epoch_losses)))
+            class_epoch_losses_list.append(np.average(np.array(class_epoch_losses)))
+            loc_epoch_losses_list.append(np.average(np.array(loc_epoch_losses)))
 
             self.log('Score : ' + str(temp_net_accuracy))
-            self.log('Loss : ' + str(np.average(np.array(epoch_losses))))
+            self.log('Total Loss : ' + str(np.average(np.array(epoch_losses))))
+            self.log('Classification Loss : ' + str(np.average(np.array(class_epoch_losses))))
+            self.log('Localization Loss : ' + str(np.average(np.array(loc_epoch_losses))))
 
             if temp_net_accuracy > final_net_accuracy:
                 final_net_accuracy = temp_net_accuracy
-                torch.save(net.state_dict(), self.name + '/' + self.name + '_{}_{}.pth'.format(epoch, round(temp_net_accuracy, 2)))
+                torch.save(net.state_dict(),
+                           self.name + '/' + self.name + '_{}_{}.pth'.format(epoch, round(temp_net_accuracy, 2)))
                 torch.save(net.state_dict(), self.name + '/' + self.name + '.pth')
                 epochs_without_imporving = 0
             else:
@@ -214,115 +263,23 @@ class TrainableModel:
         self.log(str(accuracies_list))
         self.log('Losses list per epoch:')
         self.log(str(epoch_losses_list))
+        self.log('Classification losses list per epoch:')
+        self.log(str(class_epoch_losses_list))
+        self.log('Localization losses list per epoch:')
+        self.log(str(loc_epoch_losses_list))
         if self.test_loader is not None:
-            # net = DenseNet_MH()
             sd = torch.load(self.name + '/' + self.name + '.pth')
-            net = loadSD_densenet_hm_169(model_url=sd)
+            net = loadSD_densenet_att_hm_169(model_state_dict=sd, bp_elementwise=self.bp_att,
+                                             hidden_layers_att=self.hidden_layers_att,
+                                             kernel_att=self.kernel_att, stride_att=self.stride_att)
             net.eval()
             self.log('Final Scores for test set')
             final_score = self.get_model_accuracy(net, self.test_loader, 'test', self.score_type, save_samples=True)
             self.log('Final Score for test set: ' + str(final_score))
 
-            # Heatmap creation
-
-            import matplotlib.pyplot as plt
-            import torch.nn.functional as F
-            from torchvision.transforms import functional as FVision
-            unorm = UnNormalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
+        from Attention.With_HM.Create_HM import save_heatmaps
+        save_heatmaps(self.bp_att, self.hidden_layers_att, self.kernel_att, self.stride_att,
+                      self.name + '/' + self.name + '.pth', self.name + '/')
 
 
-            imagelist = []
-
-            for enum, data in enumerate(self.hm_loader, 0):
-                print(enum)
-                images, labels = data
-                image_hm = images
-                images = images.cuda()
-                labels = labels.cuda()
-                #net = DenseNet_MH()
-                sd = torch.load(self.name + '/' + self.name + '.pth')
-                net = loadSD_densenet_hm_169(model_url=sd)
-                net.eval()
-
-                pred = net(images)
-                # get the gradient of the output with respect to the parameters of the model
-
-
-                print(pred)
-                print(pred[:, 0])
-                pred[:, 0].backward()
-                print(pred)
-                print(pred.shape)
-
-                # pull the gradients out of the model
-                gradients = net.module.get_activations_gradient()
-                print('gradients', gradients.shape)
-
-                # pool the gradients across the channels
-                pooled_gradients = torch.mean(gradients, dim=[0, 2, 3])
-                print('pooled_gradients', pooled_gradients.shape)
-
-                # get the activations of the last convolutional layer
-                activations = net.module.get_activations(images).detach()
-                print('activations', activations.shape)
-
-                # weight the channels by corresponding gradients
-                print('gradients.shape[1]', gradients.shape[1])
-                for i in range(gradients.shape[1]):
-                    activations[:, i, :, :] *= pooled_gradients[i]
-
-                # average the channels of the activations
-                heatmap = torch.mean(activations, dim=1).squeeze()
-                print('heatmap', heatmap.shape)
-                # heatmap = heatmap.cpu().numpy()
-
-                # relu on top of the heatmap
-                # expression (2) in https://arxiv.org/pdf/1610.02391.pdf
-                # heatmap = np.maximum(heatmap, 0)
-                heatmap = F.relu(heatmap)
-                print('heatmap_relu', heatmap.shape)
-                print('heatmap_relu', heatmap)
-
-                # normalize the heatmap
-                # print(torch.from_numpy(heatmap).float())
-                heatmap /= torch.max(heatmap)
-                print('heatmap_/=', heatmap.shape)
-                print('heatmap_/=', heatmap)
-
-
-                # Print class
-                print('class', labels.cpu().numpy())
-
-                # draw the heatmap
-                heatmap = heatmap.cpu().numpy()
-                print('heatmap_numpy', heatmap.shape)
-                print('heatmap_numpy', heatmap)
-                plt.matshow(heatmap.squeeze())
-                plt.show()
-                #plt.savefig(str(enum)+'.png', bbox_inches='tight')
-
-                # heatmanp on image
-
-                #img = cv2.imread('./data/Elephant/data/05fig34.jpg')
-                print(image_hm.shape)
-                image_hm = image_hm.view(image_hm.shape[1], image_hm.shape[2], image_hm.shape[3])
-                print(image_hm.shape)
-                unorm(image_hm)
-                img = FVision.to_pil_image(image_hm, 'RGB')
-                #print(img.shape)
-                img = np.array(img)
-                print(img.shape)
-                img = img[:, :, ::-1].copy()
-                print(img.shape)
-                heatmap = cv2.resize(heatmap, (img.shape[1], img.shape[0]))
-                heatmap = np.uint8(255 * heatmap)
-                heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_JET)
-                print('heatmap-shape', heatmap.shape)
-                print('img-shape', img.shape)
-                superimposed_img = heatmap * 0.4 + img
-                cv2.imwrite(str(enum) + '_img.png', img)
-                cv2.imwrite(str(enum) + '_heatmap.png', heatmap)
-                cv2.imwrite(str(enum)+'.png', superimposed_img)
-                pass
-
-
+    pass

@@ -41,10 +41,10 @@ def get_macro_f1_score(true_labels, predicted_labels, weights=None, threshold=0.
         # print(np.round(predicted_labels_per_class[i]))
         try:
             #predicted_labels_per_class[i] = (predicted_labels_per_class[i]>th).float()
-            print(predicted_labels_per_class[i])
-            print(threshold)
+            #print(predicted_labels_per_class[i])
+            #print(threshold)
             predicted_labels_per_class[i] = [x+threshold for x in predicted_labels_per_class[i]]
-            print(predicted_labels_per_class[i])
+            #print(predicted_labels_per_class[i])
 
             score_per_class.append(
                 metrics.f1_score(true_labels_per_class[i], np.round(predicted_labels_per_class[i]), average='micro', labels=[1]))
@@ -102,13 +102,23 @@ def get_macro_roc_auc_score(true_labels, predicted_labels, weights = None):
         return weights * score_per_class
 
 
-def get_precision_recall_curve(true_labels, predicted_labels):
+def get_avg_precision_score(true_labels, predicted_labels):
     true_labels = np.array(true_labels)
     predicted_labels = np.array(predicted_labels)
     true_labels.flatten()
     predicted_labels.flatten()
-    precision, recall, thresholds = metrics.precision_recall_curve(true_labels, predicted_labels)
 
-    return precision, recall, thresholds
+    avg_precision_score = metrics.average_precision_score(true_labels, predicted_labels)
+
+    return avg_precision_score
+
+def get_confusion_matrix(true_labels, predicted_labels):
+    true_labels = np.array(true_labels)
+    predicted_labels = np.array(predicted_labels)
+    true_labels.flatten()
+    predicted_labels.flatten()
+    tn, fp, fn, tp = metrics.confusion_matrix(np.round(true_labels), np.round(predicted_labels)).ravel()
+
+    return tn, fp, fn, tp
 
 
