@@ -2,20 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4cebb6a-a70d-429f-a405-e2cd87c714ee" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Attention/With_HM/Create_HM.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Attention/With_HM/DenseNet_Att_HM.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Attention/With_HM/Model_trainer_att_HM.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Attention/With_HM/Trainable_Model_att_HM.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Attention_QKV/Create_HM.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Attention_QKV/DenseNet_AttQKV_HM.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Attention_QKV/Model_trainer_attQKV_HM.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Attention_QKV/Trainable_Model_attQKV_HM.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baseline/With_HM/Trainable_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/With_HM/Trainable_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LR/With_HM/Model_trainer_LOC_HM.py" beforeDir="false" afterPath="$PROJECT_DIR$/LR/With_HM/Model_trainer_LOC_HM.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LR/With_HM/Trainable_Model_LOC_HM.py" beforeDir="false" afterPath="$PROJECT_DIR$/LR/With_HM/Trainable_Model_LOC_HM.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Playground.py" beforeDir="false" afterPath="$PROJECT_DIR$/Playground.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prediction_scores.py" beforeDir="false" afterPath="$PROJECT_DIR$/Prediction_scores.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Attention/With_HM/Model_trainer_att_HM.py" beforeDir="false" afterPath="$PROJECT_DIR$/Attention/With_HM/Model_trainer_att_HM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Attention_QKV/DenseNet_AttQKV_HM.py" beforeDir="false" afterPath="$PROJECT_DIR$/Attention_QKV/DenseNet_AttQKV_HM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Attention_QKV/Model_trainer_attQKV_HM.py" beforeDir="false" afterPath="$PROJECT_DIR$/Attention_QKV/Model_trainer_attQKV_HM.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +32,7 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="png" value="1" />
-          <entry key="py" value="248" />
+          <entry key="py" value="254" />
           <entry key="pyi" value="1" />
           <entry key="txt" value="1" />
         </counts>
@@ -52,20 +41,20 @@
         <counts>
           <entry key="Image" value="1" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="248" />
+          <entry key="Python" value="254" />
           <entry key="PythonStub" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="22" />
-          <entry key="py" value="17343" />
+          <entry key="py" value="17414" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="22" />
-          <entry key="Python" value="17343" />
+          <entry key="Python" value="17414" />
         </counts>
       </usages-collector>
     </session>
@@ -73,42 +62,26 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Attention/With_HM/DenseNet_Att_HM.py">
+        <entry file="file://$PROJECT_DIR$/Attention_QKV/DenseNet_AttQKV_HM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="263" column="16" lean-forward="true" selection-start-line="263" selection-start-column="16" selection-end-line="263" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Attention/With_HM/Trainable_Model_att_HM.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="281" column="22" selection-start-line="281" selection-start-column="22" selection-end-line="281" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Attention/With_HM/Model_trainer_att_HM.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1291">
-              <caret line="187" column="67" lean-forward="true" selection-start-line="187" selection-start-column="67" selection-end-line="187" selection-end-column="113" />
+            <state relative-caret-position="-257">
+              <caret line="145" column="24" selection-start-line="145" selection-start-column="24" selection-end-line="145" selection-end-column="24" />
               <folding>
-                <element signature="e#0#12#0" expanded="true" />
+                <marker date="1561048421970" expanded="true" signature="6834:6840" ph="..." />
+                <marker date="1561048421970" expanded="true" signature="7354:7607" ph="..." />
+                <marker date="1561048421970" expanded="true" signature="7515:7607" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Attention/With_HM/Create_HM.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Attention_QKV/Model_trainer_attQKV_HM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
-              <caret line="75" column="85" selection-start-line="75" selection-start-column="85" selection-end-line="75" selection-end-column="85" />
+            <state relative-caret-position="377">
+              <caret line="228" column="13" selection-start-line="228" selection-start-column="13" selection-end-line="228" selection-end-column="13" />
               <folding>
-                <marker date="1561047010379" expanded="true" signature="2161:2162" ph="..." />
+                <element signature="e#0#12#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -171,14 +144,14 @@
         <option value="$PROJECT_DIR$/LR/With_HM/Model_trainer_LOC_HM.py" />
         <option value="$PROJECT_DIR$/Playground.py" />
         <option value="$PROJECT_DIR$/Attention/With_HM/DenseNet_Att_HM.py" />
-        <option value="$PROJECT_DIR$/Attention_QKV/DenseNet_AttQKV_HM.py" />
         <option value="$PROJECT_DIR$/Attention_QKV/Trainable_Model_attQKV_HM.py" />
         <option value="$PROJECT_DIR$/Attention_QKV/Create_HM.py" />
         <option value="$PROJECT_DIR$/Results/Plot_from_folder.py" />
-        <option value="$PROJECT_DIR$/Attention_QKV/Model_trainer_attQKV_HM.py" />
-        <option value="$PROJECT_DIR$/Attention/With_HM/Model_trainer_att_HM.py" />
         <option value="$PROJECT_DIR$/Attention/With_HM/Create_HM.py" />
         <option value="$PROJECT_DIR$/Attention/With_HM/Trainable_Model_att_HM.py" />
+        <option value="$PROJECT_DIR$/Attention/With_HM/Model_trainer_att_HM.py" />
+        <option value="$PROJECT_DIR$/Attention_QKV/DenseNet_AttQKV_HM.py" />
+        <option value="$PROJECT_DIR$/Attention_QKV/Model_trainer_attQKV_HM.py" />
       </list>
     </option>
   </component>
@@ -402,7 +375,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.35177305" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.35177305" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -641,24 +614,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LR/With_HM/Model_trainer_LOC_HM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="160" column="82" selection-start-line="160" selection-start-column="82" selection-end-line="160" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Baseline/With_HM/Model_trainer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
           <caret line="164" column="4" selection-start-line="164" selection-start-column="4" selection-end-line="165" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LR/With_HM/DenseNet_LOC_HM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="118" column="33" selection-start-line="118" selection-start-column="33" selection-end-line="118" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -697,25 +656,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Attention_QKV/DenseNet_AttQKV_HM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="343" column="49" selection-start-line="343" selection-start-column="49" selection-end-line="343" selection-end-column="49" />
-          <folding>
-            <marker date="1561045653909" expanded="true" signature="6876:6882" ph="..." />
-            <marker date="1561045653909" expanded="true" signature="7396:7649" ph="..." />
-            <marker date="1561045653909" expanded="true" signature="7557:7649" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Attention_QKV/Create_HM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="66" column="79" selection-start-line="66" selection-start-column="79" selection-end-line="66" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Attention_QKV/Trainable_Model_attQKV_HM.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="543">
@@ -733,16 +673,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Attention_QKV/Model_trainer_attQKV_HM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="142" column="18" lean-forward="true" selection-start-line="142" selection-start-column="18" selection-end-line="142" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Attention/With_HM/DenseNet_Att_HM.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -750,9 +680,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Attention/With_HM/Model_trainer_att_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="1" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Attention/With_HM/Trainable_Model_att_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5540">
+          <caret line="281" column="22" selection-start-line="281" selection-start-column="22" selection-end-line="281" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LR/With_HM/Model_trainer_LOC_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="1" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Attention/With_HM/Create_HM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
+        <state relative-caret-position="-905">
           <caret line="75" column="85" selection-start-line="75" selection-start-column="85" selection-end-line="75" selection-end-column="85" />
           <folding>
             <marker date="1561047010379" expanded="true" signature="2161:2162" ph="..." />
@@ -760,20 +711,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Attention/With_HM/Model_trainer_att_HM.py">
+    <entry file="file://$PROJECT_DIR$/Attention_QKV/Create_HM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1291">
-          <caret line="187" column="67" lean-forward="true" selection-start-line="187" selection-start-column="67" selection-end-line="187" selection-end-column="113" />
+        <state relative-caret-position="-1305">
+          <caret line="66" column="79" selection-start-line="66" selection-start-column="79" selection-end-line="66" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LR/With_HM/DenseNet_LOC_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="93" column="53" lean-forward="true" selection-start-line="93" selection-start-column="53" selection-end-line="93" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Attention_QKV/DenseNet_AttQKV_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-257">
+          <caret line="145" column="24" selection-start-line="145" selection-start-column="24" selection-end-line="145" selection-end-column="24" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
+            <marker date="1561048421970" expanded="true" signature="6834:6840" ph="..." />
+            <marker date="1561048421970" expanded="true" signature="7354:7607" ph="..." />
+            <marker date="1561048421970" expanded="true" signature="7515:7607" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Attention/With_HM/Trainable_Model_att_HM.py">
+    <entry file="file://$PROJECT_DIR$/Attention_QKV/Model_trainer_attQKV_HM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="281" column="22" selection-start-line="281" selection-start-column="22" selection-end-line="281" selection-end-column="22" />
+        <state relative-caret-position="377">
+          <caret line="228" column="13" selection-start-line="228" selection-start-column="13" selection-end-line="228" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -142,7 +142,7 @@ if __name__ == '__main__':
     kernel_att = 3
     stride_att = 1
     non_linearity_att = 'softmax'
-    self_att = False
+    self_att = True
     densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169, bp_position=bp_position, hidden_layers_att=hidden_layers_att,
                                       dq=dq, dv=dv, Att_heads=Att_heads,
                                       kernel_att=kernel_att, stride_att=stride_att, non_linearity_att=non_linearity_att,
@@ -155,10 +155,103 @@ if __name__ == '__main__':
     trainable_1 = Trainable_Model_AttQKV(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                       loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
                                       test_loader=test_dataloader, val_loader=val_dataloader,
-                                      name='BCE_SGD0.003_a1_opacity_MAr_BPpos',
+                                      name='BCE_SGD0.001_a1_MAr_BPpos_selfAtt_d1664_Hn4',
                                       description='alpha = 1', bp_att=bp_position, hidden_layers_att=hidden_layers_att,
                                          dq=dq, dv=dv, Att_heads=Att_heads, self_att=self_att,
                                                  kernel_att=kernel_att, stride_att=stride_att, non_linearity_att=non_linearity_att)
+    trainable_models.append(trainable_1)
+    trainable_1.train_Att()
+
+    bp_position = True
+    hidden_layers_att = 1
+    dq = 832
+    dv = 832
+    Att_heads = 4
+    kernel_att = 3
+    stride_att = 1
+    non_linearity_att = 'softmax'
+    self_att = True
+    densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169,
+                                      bp_position=bp_position, hidden_layers_att=hidden_layers_att,
+                                      dq=dq, dv=dv, Att_heads=Att_heads,
+                                      kernel_att=kernel_att, stride_att=stride_att, non_linearity_att=non_linearity_att,
+                                      self_att=self_att)
+
+    print(densenet.module.parameters())
+    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
+    sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
+    # sgd = optim.Adam(densenet.parameters())
+    trainable_1 = Trainable_Model_AttQKV(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
+                                         loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
+                                         test_loader=test_dataloader, val_loader=val_dataloader,
+                                         name='BCE_SGD0.001_a1_MAr_BPpos_selfAtt_d832_Hn4',
+                                         description='alpha = 1', bp_att=bp_position,
+                                         hidden_layers_att=hidden_layers_att,
+                                         dq=dq, dv=dv, Att_heads=Att_heads, self_att=self_att,
+                                         kernel_att=kernel_att, stride_att=stride_att,
+                                         non_linearity_att=non_linearity_att)
+    trainable_models.append(trainable_1)
+    trainable_1.train_Att()
+
+    bp_position = True
+    hidden_layers_att = 1
+    dq = 416
+    dv = 416
+    Att_heads = 4
+    kernel_att = 3
+    stride_att = 1
+    non_linearity_att = 'softmax'
+    self_att = True
+    densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169,
+                                      bp_position=bp_position, hidden_layers_att=hidden_layers_att,
+                                      dq=dq, dv=dv, Att_heads=Att_heads,
+                                      kernel_att=kernel_att, stride_att=stride_att, non_linearity_att=non_linearity_att,
+                                      self_att=self_att)
+
+    print(densenet.module.parameters())
+    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
+    sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
+    # sgd = optim.Adam(densenet.parameters())
+    trainable_1 = Trainable_Model_AttQKV(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
+                                         loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
+                                         test_loader=test_dataloader, val_loader=val_dataloader,
+                                         name='BCE_SGD0.001_a1_MAr_BPpos_selfAtt_d416_Hn4',
+                                         description='alpha = 1', bp_att=bp_position,
+                                         hidden_layers_att=hidden_layers_att,
+                                         dq=dq, dv=dv, Att_heads=Att_heads, self_att=self_att,
+                                         kernel_att=kernel_att, stride_att=stride_att,
+                                         non_linearity_att=non_linearity_att)
+    trainable_models.append(trainable_1)
+    trainable_1.train_Att()
+
+    bp_position = True
+    hidden_layers_att = 1
+    dq = 3328
+    dv = 3328
+    Att_heads = 4
+    kernel_att = 3
+    stride_att = 1
+    non_linearity_att = 'softmax'
+    self_att = True
+    densenet = get_densenet_multi_att(radiographic_findings_opacity, locations_labels, type=169,
+                                      bp_position=bp_position, hidden_layers_att=hidden_layers_att,
+                                      dq=dq, dv=dv, Att_heads=Att_heads,
+                                      kernel_att=kernel_att, stride_att=stride_att, non_linearity_att=non_linearity_att,
+                                      self_att=self_att)
+
+    print(densenet.module.parameters())
+    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
+    sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
+    # sgd = optim.Adam(densenet.parameters())
+    trainable_1 = Trainable_Model_AttQKV(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
+                                         loss_criterion_2=BCE_non_zero, train_loader=train_dataloader,
+                                         test_loader=test_dataloader, val_loader=val_dataloader,
+                                         name='BCE_SGD0.001_a1_MAr_BPpos_selfAtt_d3328_Hn4',
+                                         description='alpha = 1', bp_att=bp_position,
+                                         hidden_layers_att=hidden_layers_att,
+                                         dq=dq, dv=dv, Att_heads=Att_heads, self_att=self_att,
+                                         kernel_att=kernel_att, stride_att=stride_att,
+                                         non_linearity_att=non_linearity_att)
     trainable_models.append(trainable_1)
     trainable_1.train_Att()
 

@@ -141,9 +141,9 @@ class DenseNet_att_QKV_HM(nn.Module):
 
     def get_K_self_att(self, features_map, dq, Nh):
         if self.bp_position:
-            embedding = self.conv_embedding(features_map)
+            embedding = features_map
         else:
-            embedding = self.conv_embedding(features_map.detach())
+            embedding = features_map.detach()
 
         K = self.conv_get_K(features_map)
         B, _, H, W = K.size()
