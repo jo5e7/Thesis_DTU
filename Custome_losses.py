@@ -156,3 +156,25 @@ class BCE_for_non_zero(nn.Module):
             return torch.mean(BCE_loss)
         else:
             return BCE_loss
+
+
+class BCE_alpha(nn.Module):
+    def __init__(self, logits=False, reduce=True, pos_weight=None, alpha=1):
+        super(BCE_alpha, self).__init__()
+        self.alpha = alpha
+        self.logits = logits
+        self.reduce = reduce
+        self.pos_weight = pos_weight
+
+    def forward(self, inputs, targets):
+        if self.logits:
+            BCE_loss = F.binary_cross_entropy_with_logits(inputs, targets, reduce=False, pos_weight=self.pos_weight)
+        else:
+            BCE_loss = F.binary_cross_entropy(inputs, targets, reduce=False, pos_weight=self.pos_weight)
+
+        BCE_loss = BCE_loss * self.alpha
+
+        if self.reduce:
+            return torch.mean(BCE_loss)
+        else:
+            return BCE_loss

@@ -2,7 +2,7 @@ import torch
 import os
 import numpy as np
 import Prediction_scores
-from Attention_QKV.DenseNet_AttQKV_HM import loadSD_densenet_attQKV_hm_169
+from Attention_QKV_Avg_Poll.DenseNet_AttQKV_HM import loadSD_densenet_attQKV_hm_169
 
 
 class Trainable_Model_AttQKV:

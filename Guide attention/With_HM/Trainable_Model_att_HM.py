@@ -8,7 +8,7 @@ from Attention.With_HM.DenseNet_Att_HM import loadSD_densenet_att_hm_169
 class Trainable_Model_Att:
 
     def __init__(self, model, optimizer, loss_criterion_1, loss_criterion_2, train_loader, val_loader,
-                 test_loader=None, name=None, description='', score_type='macro_roc_auc', bp_att=True, hidden_layers_att=1,
+                 test_loader=None, hm_loader=None, name=None, description='', score_type='macro_roc_auc', bp_att=True, hidden_layers_att=1,
                  kernel_att=3, stride_att=1):
 
         self.model = model
@@ -17,6 +17,7 @@ class Trainable_Model_Att:
         self.loss_criterion_2 = loss_criterion_2
         self.train_loader = train_loader
         self.val_loader = val_loader
+        self.hm_loader = hm_loader
         self.score_type = score_type
         self.description = description
         self.bp_att = bp_att
@@ -250,8 +251,8 @@ class Trainable_Model_Att:
 
             if temp_net_accuracy > final_net_accuracy:
                 final_net_accuracy = temp_net_accuracy
-                torch.save(net.state_dict(),
-                           self.name + '/' + self.name + '_{}_{}.pth'.format(epoch, round(temp_net_accuracy, 2)))
+                #torch.save(net.state_dict(),
+                #           self.name + '/' + self.name + '_{}_{}.pth'.format(epoch, round(temp_net_accuracy, 2)))
                 torch.save(net.state_dict(), self.name + '/' + self.name + '.pth')
                 epochs_without_imporving = 0
             else:
@@ -277,9 +278,10 @@ class Trainable_Model_Att:
             final_score = self.get_model_accuracy(net, self.test_loader, 'test', self.score_type, save_samples=True)
             self.log('Final Score for test set: ' + str(final_score))
 
-        from Attention.With_HM.Create_HM import save_heatmaps
-        save_heatmaps(self.bp_att, self.hidden_layers_att, self.kernel_att, self.stride_att,
-                      self.name + '/' + self.name + '.pth', self.name + '/')
+        if self.hm_loader is not None:
+            from Attention.With_HM.Create_HM import save_heatmaps
+            #save_heatmaps(self.bp_att, self.hidden_layers_att, self.kernel_att, self.stride_att, self.hm_loader,
+            #              self.name + '/' + self.name + '.pth', self.name + '/')
 
 
     pass

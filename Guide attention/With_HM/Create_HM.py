@@ -4,13 +4,13 @@ import torch
 import matplotlib.pyplot as plt
 import numpy as np
 import argparse
-from PADChest_DataLoading import PadChestDataset
+from PADChest_DataLoading import PadChestDataset_loc, Resize_loc, RandomRotation_loc, ToTensor_loc, Normalize_loc, RandomHorizontalFlip_loc
 from torchvision import transforms
 from torchvision.transforms import Resize, RandomRotation, ToTensor, Normalize, RandomHorizontalFlip
 import torch.nn.functional as F
 from torchvision.transforms import functional as FVision
 import cv2
-from Attention.With_HM.DenseNet_Att_HM import DenseNet_multi_att_HM, loadSD_densenet_att_hm_169
+from Attention.With_HM.DenseNet_Att_HM import loadSD_densenet_att_hm_169
 
 class UnNormalize(object):
     def __init__(self, mean, std):
@@ -29,49 +29,63 @@ class UnNormalize(object):
             # The normalize code -> t.sub_(m).div_(s)
         return tensor
 
-
 parser = argparse.ArgumentParser()
 parser.add_argument('--root')
-parser.add_argument('--hm_csv')
-parser.add_argument('--model_url')
+parser.add_argument('--model_name')
+parser.add_argument('--bp_pos')
+parser.add_argument('--hidden_layers_att')
+parser.add_argument('--kernel_att')
+parser.add_argument('--stride_att')
 args = parser.parse_args()
 
 root_folder = "D:\PADChest\images8"
 if vars(args)['root'] is not None:
     root_folder = vars(args)['root']
-
-model_url = r'BCE_SGD0.005_a1_opacity_MLr\BCE_SGD0.005_a1_opacity_MLr.pth'
-if vars(args)['model_url'] is not None:
-    model_url = vars(args)['model_url']
-
-
-csv_hm = r"C:\Users\maest\OneDrive\DTU\Semestre 4\Thesis\Code\CheXNet_aproach\Datase_stratification\PADChest_hm_LRUMDP_opacity.csv"
-if vars(args)['hm_csv'] is not None:
-    csv_hm = vars(args)['hm_csv']
-
-batch_size = 1
+    bp_pos = bool(vars(args)['bp_pos'])
+    hidden_layers_att = int(vars(args)['hidden_layers_att'])
+    kernel_att = int(vars(args)['kernel_att'])
+    stride_att = int(vars(args)['stride_att'])
 
 
+model_name = ""
+if vars(args)['root'] is not None:
+    model_name = vars(args)['model_name']
+model_url = model_name + '/' + model_name + '.pth'
+save_parh = model_name + '/'
+
+csv_hm = 'PADChest_hm_LRUMDP_opacity.csv'
 radiographic_findings_opacity = ['opacity']
-transforms_test = transforms.Compose(
-    [Resize(512), ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
-hm_dataset = PadChestDataset(csv_hm, radiographic_findings_opacity, root_folder, transform=transforms_test)
-hm_loader = torch.utils.data.DataLoader(hm_dataset, batch_size=1)
+locations_labels = ['loc left', 'loc right', 'loc upper', 'loc middle', 'loc lower', 'loc pleural', 'loc mediastinum']
 
+transforms_test_loc = transforms.Compose(
+        [Resize_loc(512), ToTensor_loc(), Normalize_loc(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
+hm_dataset = PadChestDataset_loc(csv_hm, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_test_loc)
+hm_loader = torch.utils.data.DataLoader(hm_dataset, batch_size=1, num_workers=1)
 
 
 unorm = UnNormalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
 
-def save_heatmaps(bp_pos, hidden_layers_att, kernel_att, stride_att, model_url=model_url, save_path=''):
+def save_heatmaps(bp_pos=bp_pos, hidden_layers_att=hidden_layers_att, kernel_att=kernel_att, stride_att=stride_att, hm_loader=hm_loader, model_url=model_url, save_path=save_parh):
     for enum, data in enumerate(hm_loader, 0):
         print(enum)
-        images, labels = data
+        images, labels, _ = data
         image_hm = images
         images = images.cuda()
         labels = labels.cuda()
         # net = DenseNet_MH()
         # net.load_state_dict(torch.load(self.name + '/' + self.name + '.pth'))
         sd = torch.load(model_url)
+
+        if hidden_layers_att <= 1:
+            sd.pop('module.multu_attention.c2.weight')
+            sd.pop('module.multu_attention.c2.bias')
+        if hidden_layers_att <= 2:
+            sd.pop('module.multu_attention.c3.weight')
+            sd.pop('module.multu_attention.c3.bias')
+        if hidden_layers_att <= 3:
+            sd.pop('module.multu_attention.c4.weight')
+            sd.pop('module.multu_attention.c4.bias')
+
         net = loadSD_densenet_att_hm_169(model_state_dict=sd, bp_elementwise=bp_pos, hidden_layers_att=hidden_layers_att,
                                          kernel_att=kernel_att, stride_att=stride_att)
         net.eval()
@@ -154,3 +168,5 @@ def save_heatmaps(bp_pos, hidden_layers_att, kernel_att, stride_att, model_url=m
         cv2.imwrite(save_path + str(enum) + '_heatmap.png', heatmap)
         cv2.imwrite(save_path + str(enum) + '.png', superimposed_img)
         pass
+
+save_heatmaps(bp_pos=bp_pos, hidden_layers_att=hidden_layers_att, kernel_att=kernel_att, stride_att=stride_att, hm_loader=hm_loader, model_url=model_url, save_path=save_parh)

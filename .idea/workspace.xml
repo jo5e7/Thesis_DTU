@@ -2,9 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4cebb6a-a70d-429f-a405-e2cd87c714ee" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Attention_QKV_2/Create_HM.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Attention_QKV_2/DenseNet_AttQKV_HM.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Attention_QKV_2/Model_trainer_attQKV_HM.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Attention_QKV_2/Trainable_Model_attQKV_HM.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scores_playground.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Attention/With_HM/Create_HM.py" beforeDir="false" afterPath="$PROJECT_DIR$/Attention/With_HM/Create_HM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Attention/With_HM/DenseNet_Att_HM.py" beforeDir="false" afterPath="$PROJECT_DIR$/Attention/With_HM/DenseNet_Att_HM.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Attention/With_HM/Model_trainer_att_HM.py" beforeDir="false" afterPath="$PROJECT_DIR$/Attention/With_HM/Model_trainer_att_HM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Attention/With_HM/Trainable_Model_att_HM.py" beforeDir="false" afterPath="$PROJECT_DIR$/Attention/With_HM/Trainable_Model_att_HM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Attention_QKV/Create_HM.py" beforeDir="false" afterPath="$PROJECT_DIR$/Attention_QKV/Create_HM.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Attention_QKV/DenseNet_AttQKV_HM.py" beforeDir="false" afterPath="$PROJECT_DIR$/Attention_QKV/DenseNet_AttQKV_HM.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Attention_QKV/Model_trainer_attQKV_HM.py" beforeDir="false" afterPath="$PROJECT_DIR$/Attention_QKV/Model_trainer_attQKV_HM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Attention_QKV/Trainable_Model_attQKV_HM.py" beforeDir="false" afterPath="$PROJECT_DIR$/Attention_QKV/Trainable_Model_attQKV_HM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baseline/Model_trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Baseline/Model_trainer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Custome_losses.py" beforeDir="false" afterPath="$PROJECT_DIR$/Custome_losses.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HeatMap/Test_heat_Map.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LR/With_HM/Create_HM.py" beforeDir="false" afterPath="$PROJECT_DIR$/LR/With_HM/Create_HM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LR/With_HM/Model_trainer_LOC_HM.py" beforeDir="false" afterPath="$PROJECT_DIR$/LR/With_HM/Model_trainer_LOC_HM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PADChest_DataLoading.py" beforeDir="false" afterPath="$PROJECT_DIR$/PADChest_DataLoading.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Playground.py" beforeDir="false" afterPath="$PROJECT_DIR$/Playground.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prediction_scores.py" beforeDir="false" afterPath="$PROJECT_DIR$/Prediction_scores.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,23 +35,24 @@
     <session id="-193334911">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="38" />
-          <entry key="project.open.time.0" value="5" />
+          <entry key="project.closed" value="63" />
+          <entry key="project.open.time.0" value="12" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.15" value="1" />
-          <entry key="project.open.time.4" value="6" />
-          <entry key="project.open.time.5" value="12" />
-          <entry key="project.open.time.6" value="8" />
-          <entry key="project.open.time.7" value="4" />
+          <entry key="project.open.time.4" value="10" />
+          <entry key="project.open.time.5" value="23" />
+          <entry key="project.open.time.6" value="9" />
+          <entry key="project.open.time.7" value="7" />
           <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="41" />
+          <entry key="project.opened" value="67" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="csv" value="1" />
           <entry key="png" value="1" />
-          <entry key="py" value="254" />
+          <entry key="py" value="392" />
           <entry key="pyi" value="1" />
           <entry key="txt" value="1" />
         </counts>
@@ -40,48 +60,43 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Image" value="1" />
-          <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="254" />
+          <entry key="PLAIN_TEXT" value="2" />
+          <entry key="Python" value="392" />
           <entry key="PythonStub" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="22" />
-          <entry key="py" value="17414" />
+          <entry key="py" value="22732" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="22" />
-          <entry key="Python" value="17414" />
+          <entry key="Python" value="22732" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Attention_QKV/DenseNet_AttQKV_HM.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Results/Plot_from_folder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-257">
-              <caret line="145" column="24" selection-start-line="145" selection-start-column="24" selection-end-line="145" selection-end-column="24" />
-              <folding>
-                <marker date="1561048421970" expanded="true" signature="6834:6840" ph="..." />
-                <marker date="1561048421970" expanded="true" signature="7354:7607" ph="..." />
-                <marker date="1561048421970" expanded="true" signature="7515:7607" ph="..." />
-              </folding>
+            <state relative-caret-position="291">
+              <caret line="202" column="34" selection-start-line="202" selection-start-column="34" selection-end-line="202" selection-end-column="34" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Attention_QKV/Model_trainer_attQKV_HM.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Results/Plot_NN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="228" column="13" selection-start-line="228" selection-start-column="13" selection-end-line="228" selection-end-column="13" />
+            <state relative-caret-position="188">
+              <caret line="223" column="45" selection-start-line="223" selection-start-column="45" selection-end-line="223" selection-end-column="45" />
               <folding>
-                <element signature="e#0#12#0" expanded="true" />
+                <marker date="1565012276548" expanded="true" signature="3033:8073" ph="..." />
               </folding>
             </state>
           </provider>
@@ -99,6 +114,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>self.kernel</find>
+      <find>self.gradients</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -113,7 +129,6 @@
         <option value="$PROJECT_DIR$/Results/4 Positional ML/Plotter.py" />
         <option value="$PROJECT_DIR$/Results/5 Attention() ML/Plotter.py" />
         <option value="$PROJECT_DIR$/Datase_stratification/PADChest_join_labels.py" />
-        <option value="$PROJECT_DIR$/Custome_losses.py" />
         <option value="$PROJECT_DIR$/Attention/Embeddings/Embedding_Net.py" />
         <option value="$PROJECT_DIR$/Attention/Trainable_Model_att.py" />
         <option value="$PROJECT_DIR$/Results/3 Positional LR/2/plotter.py" />
@@ -123,35 +138,41 @@
         <option value="$PROJECT_DIR$/LR/DenseNet_LR.py" />
         <option value="$PROJECT_DIR$/Attention/Model_trainer_att.py" />
         <option value="$PROJECT_DIR$/HeatMap/Test_heat_Map.py" />
-        <option value="$PROJECT_DIR$/Baseline/Model_trainer.py" />
         <option value="$PROJECT_DIR$/LR/With_HM/DenseNet_LR.py" />
         <option value="$PROJECT_DIR$/LR/Trainable_Model_LR.py" />
-        <option value="$PROJECT_DIR$/LR/With_HM/Create_HM.py" />
-        <option value="$PROJECT_DIR$/Datase_stratification/PADChest_create_labels_position.py" />
         <option value="$PROJECT_DIR$/Baseline/Trainable_model.py" />
         <option value="$PROJECT_DIR$/Baseline/With_HM/DenseNet_HM.py" />
         <option value="$PROJECT_DIR$/LR/With_HM/DenseNet_LOC_HM.py" />
         <option value="$PROJECT_DIR$/Baseline/With_HM/Create_HM.py" />
         <option value="$PROJECT_DIR$/Baseline/With_HM/Model_trainer.py" />
-        <option value="$PROJECT_DIR$/PADChest_DataLoading.py" />
         <option value="$PROJECT_DIR$/LR/Model_trainer_loc.py" />
         <option value="$PROJECT_DIR$/Attention/DenseNet_Att.py" />
-        <option value="$PROJECT_DIR$/Prediction_scores.py" />
         <option value="$PROJECT_DIR$/Baseline/With_HM/Trainable_model.py" />
         <option value="$PROJECT_DIR$/LR/With_HM/Trainable_Model_LOC_HM.py" />
         <option value="$PROJECT_DIR$/Datase_stratification/Label_counter.py" />
-        <option value="$PROJECT_DIR$/Results/Plot_NN.py" />
-        <option value="$PROJECT_DIR$/LR/With_HM/Model_trainer_LOC_HM.py" />
-        <option value="$PROJECT_DIR$/Playground.py" />
-        <option value="$PROJECT_DIR$/Attention/With_HM/DenseNet_Att_HM.py" />
-        <option value="$PROJECT_DIR$/Attention_QKV/Trainable_Model_attQKV_HM.py" />
-        <option value="$PROJECT_DIR$/Attention_QKV/Create_HM.py" />
-        <option value="$PROJECT_DIR$/Results/Plot_from_folder.py" />
-        <option value="$PROJECT_DIR$/Attention/With_HM/Create_HM.py" />
-        <option value="$PROJECT_DIR$/Attention/With_HM/Trainable_Model_att_HM.py" />
         <option value="$PROJECT_DIR$/Attention/With_HM/Model_trainer_att_HM.py" />
-        <option value="$PROJECT_DIR$/Attention_QKV/DenseNet_AttQKV_HM.py" />
+        <option value="$PROJECT_DIR$/Attention_QKV/Trainable_Model_attQKV_HM.py" />
+        <option value="$PROJECT_DIR$/Attention/With_HM/Trainable_Model_att_HM.py" />
+        <option value="$PROJECT_DIR$/Custome_losses.py" />
+        <option value="$PROJECT_DIR$/Attention/With_HM/Create_HM.py" />
+        <option value="$PROJECT_DIR$/Attention_QKV/Create_HM.py" />
+        <option value="$PROJECT_DIR$/LR/With_HM/Create_HM.py" />
+        <option value="$PROJECT_DIR$/Attention/With_HM/DenseNet_Att_HM.py" />
         <option value="$PROJECT_DIR$/Attention_QKV/Model_trainer_attQKV_HM.py" />
+        <option value="$PROJECT_DIR$/PADChest_DataLoading.py" />
+        <option value="$PROJECT_DIR$/Baseline/Model_trainer.py" />
+        <option value="$PROJECT_DIR$/Playground.py" />
+        <option value="$PROJECT_DIR$/Prediction_scores.py" />
+        <option value="$PROJECT_DIR$/LR/With_HM/Model_trainer_LOC_HM.py" />
+        <option value="$PROJECT_DIR$/Attention_QKV_2/Trainable_Model_attQKV_HM.py" />
+        <option value="$PROJECT_DIR$/Attention_QKV_2/Create_HM.py" />
+        <option value="$PROJECT_DIR$/Attention_QKV_2/Model_trainer_attQKV_HM.py" />
+        <option value="$PROJECT_DIR$/Datase_stratification/PADChest_create_labels_position.py" />
+        <option value="$PROJECT_DIR$/Attention_QKV/DenseNet_AttQKV_HM.py" />
+        <option value="$PROJECT_DIR$/Attention_QKV_2/DenseNet_AttQKV_HM.py" />
+        <option value="$PROJECT_DIR$/Scores_playground.py" />
+        <option value="$PROJECT_DIR$/Results/Plot_NN.py" />
+        <option value="$PROJECT_DIR$/Results/Plot_from_folder.py" />
       </list>
     </option>
   </component>
@@ -176,23 +197,7 @@
             <path>
               <item name="CheXNet_aproach" type="b2602c69:ProjectViewProjectNode" />
               <item name="CheXNet_aproach" type="462c0819:PsiDirectoryNode" />
-              <item name="Attention" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CheXNet_aproach" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CheXNet_aproach" type="462c0819:PsiDirectoryNode" />
-              <item name="Attention" type="462c0819:PsiDirectoryNode" />
-              <item name="With_HM" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CheXNet_aproach" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CheXNet_aproach" type="462c0819:PsiDirectoryNode" />
               <item name="Attention_QKV" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CheXNet_aproach" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CheXNet_aproach" type="462c0819:PsiDirectoryNode" />
-              <item name="Results" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -203,15 +208,15 @@
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/maest/OneDrive/DTU/Semestre 4/Thesis/Code/CheXNet_aproach/Datase_stratification/Dataset_splitter.py" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../PX" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\maest\OneDrive\DTU\Semestre 4\Thesis\Code\CheXNet_aproach\Attention_QKV_2" />
       <recent name="C:\Users\maest\OneDrive\DTU\Semestre 4\Thesis\Code\CheXNet_aproach\Attention_QKV" />
       <recent name="C:\Users\maest\OneDrive\DTU\Semestre 4\Thesis\Code\CheXNet_aproach\Attention\With_HM" />
       <recent name="C:\Users\maest\OneDrive\DTU\Semestre 4\Thesis\Code\CheXNet_aproach\LR\With_HM" />
       <recent name="C:\Users\maest\OneDrive\DTU\Semestre 4\Thesis\Code\CheXNet_aproach\Baseline\With_HM" />
-      <recent name="C:\Users\maest\OneDrive\DTU\Semestre 4\Thesis\Code\CheXNet_aproach\Attention" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\maest\OneDrive\DTU\Semestre 4\Thesis\Code\CheXNet_aproach\Results\5 Attention() ML\multi_att_2" />
@@ -230,8 +235,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Model_trainer_att_HM">
-    <configuration name="DenseNet_AttQKV_HM" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.Plot_from_folder">
+    <configuration name="Model_trainer_attQKV_HM (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CheXNet_aproach" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -239,11 +244,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Attention_QKV" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Attention_QKV_2" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Attention_QKV/DenseNet_AttQKV_HM.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Attention_QKV_2/Model_trainer_attQKV_HM.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -265,27 +270,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Attention_QKV/Model_trainer_attQKV_HM.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Model_trainer_att_HM" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="CheXNet_aproach" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Attention/With_HM" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Attention/With_HM/Model_trainer_att_HM.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -336,20 +320,41 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Scores_playground" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="CheXNet_aproach" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Scores_playground.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.Plot_from_folder" />
-      <item itemvalue="Python.Model_trainer_att_HM" />
-      <item itemvalue="Python.Playground" />
       <item itemvalue="Python.Model_trainer_attQKV_HM" />
-      <item itemvalue="Python.DenseNet_AttQKV_HM" />
+      <item itemvalue="Python.Scores_playground" />
+      <item itemvalue="Python.Playground" />
+      <item itemvalue="Python.Model_trainer_attQKV_HM (1)" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Model_trainer_att_HM" />
-        <item itemvalue="Python.Model_trainer_attQKV_HM" />
         <item itemvalue="Python.Plot_from_folder" />
+        <item itemvalue="Python.Scores_playground" />
+        <item itemvalue="Python.Model_trainer_attQKV_HM (1)" />
         <item itemvalue="Python.Playground" />
-        <item itemvalue="Python.DenseNet_AttQKV_HM" />
+        <item itemvalue="Python.Model_trainer_attQKV_HM" />
       </list>
     </recent_temporary>
   </component>
@@ -368,14 +373,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22604097" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.35177305" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32907802" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.30070922" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -412,72 +416,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Results/1 Baseline_ChexNet/plotter.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Results/5 Attention() ML/multi_att_2/plotter.py" />
-    <entry file="file://$PROJECT_DIR$/Results/3 Positional LR/1/Plotter.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Results/4 Positional ML/2/plotter.py" />
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/torch/functional.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-15260" />
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/torchvision/transforms/transforms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="194" column="20" selection-start-line="194" selection-start-column="20" selection-end-line="194" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/torchvision/transforms/functional.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Results/4 Positional ML/2/LR_incorrect/plotter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="39" selection-start-line="2" selection-end-line="10" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Attention/Model_trainer_att.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="113" column="65" selection-start-line="113" selection-start-column="65" selection-end-line="113" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Baseline/With_HM/CheXNet.py" />
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/numpy/core/_methods.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-98">
-          <caret line="79" selection-start-line="79" selection-end-line="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/numpy/lib/function_base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="1127" selection-start-line="1127" selection-end-line="1127" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Datase_stratification/PADChest_strtification_patientWise.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="16" column="112" selection-start-line="16" selection-start-column="99" selection-end-line="16" selection-end-column="112" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HeatMap/Test_heat_Map.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="45" column="8" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/torch/cuda/nccl.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
@@ -499,132 +437,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LR/With_HM/Create_HM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1480">
-          <caret line="74" column="14" selection-start-line="74" selection-start-column="14" selection-end-line="74" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LR/Trainable_Model_LR.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="45" column="51" selection-start-line="45" selection-start-column="51" selection-end-line="45" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Datase_stratification/PADChest_create_labels_info.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Datase_stratification/PADChest_create_labels_position.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="116" column="76" selection-start-line="116" selection-start-column="65" selection-end-line="116" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Baseline/Trainable_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="90" column="30" selection-start-line="90" selection-start-column="30" selection-end-line="90" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Baseline/With_HM/DenseNet_HM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2280">
-          <caret line="125" column="4" selection-start-line="125" selection-start-column="4" selection-end-line="126" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Baseline/With_HM/Create_HM.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2400">
           <caret line="120" selection-start-line="120" selection-end-line="120" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PADChest_DataLoading.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="113" column="69" selection-start-line="113" selection-start-column="69" selection-end-line="113" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Prediction_scores.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LR/With_HM/Trainable_Model_LOC_HM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1540">
-          <caret line="81" column="12" selection-start-line="81" selection-start-column="12" selection-end-line="85" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Baseline/With_HM/Trainable_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2540">
-          <caret line="77" column="40" lean-forward="true" selection-start-line="77" selection-start-column="40" selection-end-line="77" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Datase_stratification/PADChest_join_labels.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-40">
-          <caret line="13" column="11" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Datase_stratification/Dataset_splitter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1820">
-          <caret line="93" column="14" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LR/Model_trainer_loc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1180">
-          <caret line="69" column="4" selection-start-line="69" selection-start-column="4" selection-end-line="69" selection-end-column="122" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Baseline/Model_trainer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1660">
-          <caret line="93" column="4" selection-start-line="93" selection-start-column="4" selection-end-line="95" selection-end-column="137" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Datase_stratification/Label_counter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="617">
-          <caret line="45" selection-start-line="45" selection-end-line="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Results/Plot_NN.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Baseline/With_HM/Model_trainer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="164" column="4" selection-start-line="164" selection-start-column="4" selection-end-line="165" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Attention/DenseNet_Att.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3963">
-          <caret line="223" column="24" lean-forward="true" selection-start-line="219" selection-start-column="11" selection-end-line="228" selection-end-column="54" />
         </state>
       </provider>
     </entry>
@@ -635,20 +451,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LR/DenseNet_LR.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="143" selection-start-line="143" selection-end-line="143" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Playground.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="27" selection-start-line="27" selection-end-line="27" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/torch/__init__.pyi">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="142">
@@ -656,94 +458,303 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/LR/DenseNet_LR.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="640">
+          <caret line="143" selection-start-line="143" selection-end-line="143" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Attention/With_HM/Trainable_Model_att_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="214" column="44" lean-forward="true" selection-start-line="214" selection-start-column="44" selection-end-line="214" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Attention/With_HM/Model_trainer_att_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="617">
+          <caret line="113" column="153" selection-start-line="113" selection-start-column="153" selection-end-line="113" selection-end-column="153" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/torch/nn/modules/loss.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1146">
+          <caret line="507" column="17" selection-start-line="507" selection-end-line="594" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Custome_losses.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="174" column="8" selection-start-line="174" selection-start-column="8" selection-end-line="174" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/torch/nn/modules/module.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="910" column="8" selection-start-line="910" selection-start-column="8" selection-end-line="910" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Attention_QKV/Create_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2520">
+          <caret line="126" column="32" selection-start-line="126" selection-start-column="23" selection-end-line="126" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/matplotlib/pyplot.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Attention/DenseNet_Att.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4458">
+          <caret line="223" column="24" lean-forward="true" selection-start-line="219" selection-start-column="11" selection-end-line="228" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Baseline/With_HM/Trainable_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="327" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Attention_QKV/Trainable_Model_attQKV_HM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="543">
-          <caret line="294" column="77" selection-start-line="294" selection-start-column="77" selection-end-line="294" selection-end-column="77" />
+        <state relative-caret-position="617">
+          <caret line="196" selection-start-line="196" selection-end-line="196" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Datase_stratification/Dataset_splitter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1057">
+          <caret line="93" column="14" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Datase_stratification/PADChest_csv_cleaning.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Datase_stratification/PADChest_create_labels_info.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LR/Trainable_Model_LR.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="32" column="6" lean-forward="true" selection-start-line="32" selection-start-column="4" selection-end-line="128" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LR/Model_trainer_loc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="35" selection-start-line="35" selection-end-line="35" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Datase_stratification/Label_counter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="611">
+          <caret line="45" selection-start-line="45" selection-end-line="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Datase_stratification/PADChest_hm_LRUMDP_opacity.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Datase_stratification/PADChest_join_labels.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-55">
+          <caret line="27" column="39" lean-forward="true" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="594" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LR/With_HM/Trainable_Model_LOC_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1000">
+          <caret line="81" column="12" selection-start-line="81" selection-start-column="12" selection-end-line="85" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Baseline/With_HM/DenseNet_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="70" column="8" selection-start-line="70" selection-start-column="8" selection-end-line="70" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Baseline/With_HM/Model_trainer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1697">
+          <caret line="88" column="26" selection-start-line="88" selection-start-column="26" selection-end-line="88" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Attention_QKV/Model_trainer_attQKV_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="1" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/sklearn/metrics/ranking.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="266" column="8" selection-start-line="266" selection-start-column="8" selection-end-line="266" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Prediction_scores.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="617">
+          <caret line="122" column="42" selection-start-line="122" selection-start-column="42" selection-end-line="122" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Playground.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="760">
+          <caret line="38" column="16" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Baseline/Trainable_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="16" column="38" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Attention_QKV_2/Trainable_Model_attQKV_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="4" column="20" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Attention_QKV_2/Model_trainer_attQKV_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-63">
+          <caret line="122" column="66" selection-start-line="122" selection-start-column="66" selection-end-line="123" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Datase_stratification/PADChest_create_labels_position.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="118" column="26" selection-start-line="118" selection-start-column="26" selection-end-line="118" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Datase_stratification/PADChest_strtification_patientWise.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3567">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PADChest_DataLoading.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="398" column="33" selection-start-line="398" selection-start-column="20" selection-end-line="398" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Baseline/CheXNet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1989" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Baseline/Model_trainer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1300">
+          <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LR/With_HM/DenseNet_LOC_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1780">
+          <caret line="158" column="4" selection-start-line="158" selection-start-column="4" selection-end-line="158" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LR/With_HM/Model_trainer_LOC_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="132" selection-start-line="132" selection-end-line="132" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LR/With_HM/Create_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-797">
+          <caret line="12" selection-start-line="12" selection-end-line="12" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Attention_QKV_2/DenseNet_AttQKV_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="418" column="49" selection-start-line="415" selection-start-column="102" selection-end-line="418" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Attention/With_HM/DenseNet_Att_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="264" column="4" selection-start-line="264" selection-start-column="4" selection-end-line="264" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scores_playground.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="67" column="82" selection-start-line="67" selection-start-column="82" selection-end-line="67" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Attention_QKV_2/Create_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="93" column="14" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Attention/With_HM/Create_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="38" column="26" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Attention_QKV/DenseNet_AttQKV_HM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="260" selection-start-line="260" selection-end-line="260" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Results/Plot_NN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="223" column="45" selection-start-line="223" selection-start-column="45" selection-end-line="223" selection-end-column="45" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
+            <marker date="1565012276548" expanded="true" signature="3033:8073" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Results/Plot_from_folder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="167" column="56" selection-start-line="167" selection-start-column="56" selection-end-line="167" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Attention/With_HM/DenseNet_Att_HM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="263" column="16" lean-forward="true" selection-start-line="263" selection-start-column="16" selection-end-line="263" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Attention/With_HM/Model_trainer_att_HM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="1" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Attention/With_HM/Trainable_Model_att_HM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5540">
-          <caret line="281" column="22" selection-start-line="281" selection-start-column="22" selection-end-line="281" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LR/With_HM/Model_trainer_LOC_HM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="1" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Attention/With_HM/Create_HM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-905">
-          <caret line="75" column="85" selection-start-line="75" selection-start-column="85" selection-end-line="75" selection-end-column="85" />
-          <folding>
-            <marker date="1561047010379" expanded="true" signature="2161:2162" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Attention_QKV/Create_HM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1305">
-          <caret line="66" column="79" selection-start-line="66" selection-start-column="79" selection-end-line="66" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LR/With_HM/DenseNet_LOC_HM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="93" column="53" lean-forward="true" selection-start-line="93" selection-start-column="53" selection-end-line="93" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Attention_QKV/DenseNet_AttQKV_HM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-257">
-          <caret line="145" column="24" selection-start-line="145" selection-start-column="24" selection-end-line="145" selection-end-column="24" />
-          <folding>
-            <marker date="1561048421970" expanded="true" signature="6834:6840" ph="..." />
-            <marker date="1561048421970" expanded="true" signature="7354:7607" ph="..." />
-            <marker date="1561048421970" expanded="true" signature="7515:7607" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Attention_QKV/Model_trainer_attQKV_HM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="228" column="13" selection-start-line="228" selection-start-column="13" selection-end-line="228" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="291">
+          <caret line="202" column="34" selection-start-line="202" selection-start-column="34" selection-end-line="202" selection-end-column="34" />
         </state>
       </provider>
     </entry>

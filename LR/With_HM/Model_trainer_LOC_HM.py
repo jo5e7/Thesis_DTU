@@ -125,13 +125,12 @@ if __name__ == '__main__':
     test_dataset = PadChestDataset_loc(csv_test, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_test_loc, testing=False, pos_labels_always=True)
     val_dataset = PadChestDataset_loc(csv_val, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_test_loc, testing=False, pos_labels_always=True)
 
-    sampler = get_WeightedRandomSampler(csv_train, radiographic_findings_opacity, False)
+    #sampler = get_WeightedRandomSampler(csv_train, radiographic_findings_opacity, False)
     train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
                                                    drop_last=True)
-    train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, sampler=sampler, num_workers=4,
-                                                   drop_last=True)
-    test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
-                                                   drop_last=True)
+    #train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, sampler=sampler, num_workers=4,
+    #                                               drop_last=True)
+
     val_dataloader = torch.utils.data.DataLoader(val_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
                                                    drop_last=True)
 
@@ -139,6 +138,7 @@ if __name__ == '__main__':
     # Loss functions
 
     BCE = nn.BCEWithLogitsLoss()
+
     Focal = Custome_losses.FocalLoss(logits=True)
 
     # Trainable
@@ -150,65 +150,49 @@ if __name__ == '__main__':
 
 
     #
-
-
     densenet = get_densenet(radiographic_findings_opacity, locations_labels, type=169, all_in_1_reduction=False)
-    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
+    BCE_alpha = Custome_losses.BCE_alpha(logits=True, alpha=1.5)
     sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
     trainable_1 = Trainable_Model_LR(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
-                                     loss_criterion_2=BCE, train_loader=train_dataloader,
+                                     loss_criterion_2=BCE_alpha, train_loader=train_dataloader,
                                      test_loader=test_dataloader, val_loader=val_dataloader,
-                                     name='BCE_SGD0.001_a1_MLrAlwaysPos_BCEPos_WRS',
-                                     description='alpha = 1')
+                                     name='BCE_SGD0.001_a1.5_MLrAlwaysPos_BCEPos',
+                                     description='alpha = 1.5')
     trainable_models.append(trainable_1)
     trainable_1.train_LR()
 
     densenet = get_densenet(radiographic_findings_opacity, locations_labels, type=169, all_in_1_reduction=False)
-    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
-    sgd = optim.SGD(densenet.parameters(), lr=0.003, momentum=0.9)
+    BCE_alpha = Custome_losses.BCE_alpha(logits=True, alpha=0.5)
+    sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
     trainable_1 = Trainable_Model_LR(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
-                                     loss_criterion_2=BCE, train_loader=train_dataloader,
+                                     loss_criterion_2=BCE_alpha, train_loader=train_dataloader,
                                      test_loader=test_dataloader, val_loader=val_dataloader,
-                                     name='BCE_SGD0.003_a1_MLr_AlwaysPos_BCEPos_WRS',
-                                     description='alpha = 1')
+                                     name='BCE_SGD0.001_a0.5_MLrAlwaysPos_BCEPos',
+                                     description='alpha = 0.5')
     trainable_models.append(trainable_1)
     trainable_1.train_LR()
 
     densenet = get_densenet(radiographic_findings_opacity, locations_labels, type=169, all_in_1_reduction=False)
-    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
-    sgd = optim.SGD(densenet.parameters(), lr=0.005, momentum=0.9)
+    BCE_alpha = Custome_losses.BCE_alpha(logits=True, alpha=0.25)
+    sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
     trainable_1 = Trainable_Model_LR(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
-                                     loss_criterion_2=BCE, train_loader=train_dataloader,
+                                     loss_criterion_2=BCE_alpha, train_loader=train_dataloader,
                                      test_loader=test_dataloader, val_loader=val_dataloader,
-                                     name='BCE_SGD0.005_a1_MLr_AlwaysPos_BCEPos_WRS',
-                                     description='alpha = 1')
+                                     name='BCE_SGD0.001_a0.25_MLrAlwaysPos_BCEPos',
+                                     description='alpha = 0.25')
     trainable_models.append(trainable_1)
     trainable_1.train_LR()
 
     densenet = get_densenet(radiographic_findings_opacity, locations_labels, type=169, all_in_1_reduction=False)
-    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
-    sgd = optim.SGD(densenet.parameters(), lr=0.008, momentum=0.9)
+    BCE_alpha = Custome_losses.BCE_alpha(logits=True, alpha=0.1)
+    sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
     trainable_1 = Trainable_Model_LR(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
-                                     loss_criterion_2=BCE, train_loader=train_dataloader,
+                                     loss_criterion_2=BCE_alpha, train_loader=train_dataloader,
                                      test_loader=test_dataloader, val_loader=val_dataloader,
-                                     name='BCE_SGD0.008_a1_MLr_AlwaysPos_BCEPos_WRS',
-                                     description='alpha = 1')
+                                     name='BCE_SGD0.001_a0.1_MLrAlwaysPos_BCEPos',
+                                     description='alpha = 0.1')
     trainable_models.append(trainable_1)
     trainable_1.train_LR()
-
-    densenet = get_densenet(radiographic_findings_opacity, locations_labels, type=169, all_in_1_reduction=False)
-    BCE_non_zero = Custome_losses.BCE_for_non_zero(logits=True, alpha=1, groups=location_groups)
-    sgd = optim.SGD(densenet.parameters(), lr=0.01, momentum=0.9)
-    trainable_1 = Trainable_Model_LR(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
-                                     loss_criterion_2=BCE, train_loader=train_dataloader,
-                                     test_loader=test_dataloader, val_loader=val_dataloader,
-                                     name='BCE_SGD0.01_a1_MLr_AlwaysPos_BCEPos_WRS',
-                                     description='alpha = 1')
-    trainable_models.append(trainable_1)
-    trainable_1.train_LR()
-
-
-
 
 
 

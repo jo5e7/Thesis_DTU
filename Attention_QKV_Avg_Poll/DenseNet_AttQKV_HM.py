@@ -38,11 +38,9 @@ class AttentionNet(nn.Module):
             x = self.c4(x)
             x = self.relu(x)
         x = self.c5(x)
-
-
         return self.sig(x)
 
-class DenseNet_att_QKV_HM(nn.Module):
+class DenseNet_att_QKV_2_HM(nn.Module):
     r"""Densenet-BC model class, based on
     `"Densely Connected Convolutional Networks" <https://arxiv.org/pdf/1608.06993.pdf>`_
 
@@ -61,7 +59,7 @@ class DenseNet_att_QKV_HM(nn.Module):
                  bp_position=False, hidden_layers_att=1, Heads=4, dq=16, dv=16, kernel_att=3, stride_att=1,
                  non_linearity_att='softmax', self_att=False):
 
-        super(DenseNet_att_QKV_HM, self).__init__()
+        super(DenseNet_att_QKV_2_HM, self).__init__()
 
         self.bp_position = bp_position
         self.hidden_layers_att = hidden_layers_att
@@ -112,11 +110,7 @@ class DenseNet_att_QKV_HM(nn.Module):
         self.conv_reducer_4 = nn.Conv2d(16, 8, 1)
         self.con_relu_4 = nn.ReLU()
 
-
-
-
         #Guide attention
-
         self.conv_embedding = AttentionNet(1664, self.dq, self.hidden_layers_att, self.kernel_att, self.stride_att)
 
         if self.self_att is True:
@@ -126,7 +120,8 @@ class DenseNet_att_QKV_HM(nn.Module):
 
         self.conv_get_QV = nn.Conv2d(1664, self.dq + self.dv, self.kernel_att, self.stride_att, self.padding_att)
 
-        self.conv_reducer_att_output = nn.Conv2d(int((self.dv)), int(4*self.Nh), 1)
+        self.concat_linear_transform = nn.Conv2d(self.dv, self.dv, kernel_size=1, stride=1)
+
         self.softmax_att = nn.Softmax()
         self.sigmoid_att = nn.Sigmoid()
 
@@ -134,11 +129,9 @@ class DenseNet_att_QKV_HM(nn.Module):
         # Linear layer for localization
         self.classifier_locations = nn.Linear(2048, 7)
 
-        # Official init from torch repo.
 
         # Linear layer for radiographic finding
-        self.classifier = nn.Linear(4 * self.Nh * 16 * 16, 1)
-        #self.classifier = nn.Linear(832, 1)
+        self.classifier = nn.Linear(self.dv, 1)
 
         if self.non_linearity_att == 'sigmoid':
             self.bn = torch.nn.BatchNorm2d(self.Nh)
@@ -279,16 +272,13 @@ class DenseNet_att_QKV_HM(nn.Module):
         # print(attention_layer.shape)
 
         out = self.stack_heads_2d(out)
+        #out = self.concat_linear_transform(out)
         if (no_grad is False) and (self.training is False):
             print('Gradients Hooked')
             h = out.register_hook(self.activations_hook)
 
-        out = self.conv_reducer_att_output(out)
-        out = F.relu(out, inplace=True)
-        out = out.view(out.size(0), -1)
-
-
-        #out_att = F.adaptive_avg_pool2d(out_att, (1, 1)).view(out_att.size(0), -1)
+        out = F.relu(out)
+        out = F.adaptive_avg_pool2d(out, (1, 1)).view(out.size(0), -1)
 
 
         radiographical_findings = self.classifier(out)
@@ -310,9 +300,10 @@ class DenseNet_att_QKV_HM(nn.Module):
             flat_K, embedding = self.get_K_self_att(out, self.dq, self.Nh)
             flat_Q, V = self.get_QV(out, self.dq, self.dv, self.Nh)
 
+
         # At this point Q_flat and K_Flat shape (Batch, Heads, Features, W*H)
 
-        flat_Z = torch.matmul(flat_Q.transpose(2, 3), flat_K)
+        flat_Z = torch.matmul(flat_Q.transpose(2,3), flat_K)
 
         B_z, Heads_z, H_z, W_z = flat_Z.size()
 
@@ -320,25 +311,27 @@ class DenseNet_att_QKV_HM(nn.Module):
             flat_Z = torch.sigmoid(flat_Z)
         else:
             flat_Z = F.softmax(flat_Z, dim=-1)
-        # print('Z', Z.shape)
+        #print('Z', Z.shape)
 
-        # print('Emb', embedding)
-        # print('FlatQ', flat_Q)
-        # print('flatK', flat_K)
-        # print('flat_Z', flat_Z)
-        # print('Z', Z)
-        # print('V', V)
-        # print(flat_Z.shape)
-        # print(V.shape)
+        #print('Emb', embedding)
+        #print('FlatQ', flat_Q)
+        #print('flatK', flat_K)
+        #print('flat_Z', flat_Z)
+        #print('Z', Z)
+        #print('V', V)
+        #print(flat_Z.shape)
+        #print(V.shape)
 
         out = torch.matmul(flat_Z, V.transpose(2, 3))
-        # out_att = torch.matmul(flat_Z, V)
+        #out_att = torch.matmul(flat_Z, V)
         out = torch.reshape(out, (B_z, self.Nh, self.dv // self.Nh, 16, 16))
-        # print('einsum', out_att)
+        #print('einsum', out_att)
 
         Bo, Headso, Fo, H, W = out.size()
-        # print('out', out.shape)
-        # print(Bo, Headso, Fo, H, W)
+        #print('out', out.shape)
+        #print(Bo, Headso, Fo, H, W)
+
+
 
         # Dimentional reduction
         out_pos = self.conv_reducer_1(embedding)
@@ -351,14 +344,17 @@ class DenseNet_att_QKV_HM(nn.Module):
         out_pos = self.con_relu_4(out_pos)
         out_pos = out_pos.view(out_pos.shape[0], -1)
         locations = self.classifier_locations(out_pos)
-        # print(out_pos.shape)
-        # print(attention_layer.shape)
+        #print(out_pos.shape)
+        #print(attention_layer.shape)
 
         # attention
         # print(attention_layer.shape)
 
         out = self.stack_heads_2d(out)
-        return out
+        #out = self.concat_linear_transform(out)
+
+
+        return features
 
 
 
@@ -371,7 +367,7 @@ def densenet_att_QKV_169(pretrained=False, bp_elementwise=True, hidden_layers_at
     Args:
         pretrained (bool): If True, returns a model pre-trained on ImageNet
     """
-    model = DenseNet_att_QKV_HM(num_init_features=64, growth_rate=32, block_config=(6, 12, 32, 32), bp_position=bp_elementwise,
+    model = DenseNet_att_QKV_2_HM(num_init_features=64, growth_rate=32, block_config=(6, 12, 32, 32), bp_position=bp_elementwise,
                                   hidden_layers_att=hidden_layers_att, dq=dq, dv=dv, Heads=Att_heads,
                                 kernel_att=kernel_att, stride_att=stride_att, non_linearity_att=non_linearity_att,
                                 self_att=self_att, **kwargs)
@@ -407,7 +403,7 @@ def densenet_att_QKV_169(pretrained=False, bp_elementwise=True, hidden_layers_at
     return model
 
 
-def loadSD_densenet_attQKV_hm_169(pretrained=True, bp_elementwise=True, hidden_layers_att=1, model_state_dict='',
+def loadSD_densenet_attQKV_2_hm_169(pretrained=True, bp_elementwise=True, hidden_layers_att=1, model_state_dict='',
                                   dq=16, dv=16, Att_heads=4,
                                   kernel_att=3, stride_att=1, non_linearity_att='softmax', self_att=False,
                                   **kwargs):
@@ -417,7 +413,7 @@ def loadSD_densenet_attQKV_hm_169(pretrained=True, bp_elementwise=True, hidden_l
     Args:
         pretrained (bool): If True, returns a model pre-trained on ImageNet
     """
-    model = DenseNet_att_QKV_HM(num_init_features=64, growth_rate=32, block_config=(6, 12, 32, 32), hidden_layers_att=hidden_layers_att,
+    model = DenseNet_att_QKV_2_HM(num_init_features=64, growth_rate=32, block_config=(6, 12, 32, 32), hidden_layers_att=hidden_layers_att,
                                   bp_position=bp_elementwise, dq=dq, dv=dv, Heads=Att_heads,
                             kernel_att=kernel_att, stride_att=stride_att, non_linearity_att=non_linearity_att,
                                 self_att=self_att, **kwargs)

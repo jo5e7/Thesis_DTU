@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn import metrics
 import torch
+from pprint import pprint
 
 
 def get_micro_f1_score(true_labels, predicted_labels, threshold=0.5):
@@ -64,6 +65,85 @@ def get_micro_roc_auc_score(true_labels, predicted_labels):
     predicted_labels.flatten()
     score = metrics.roc_auc_score(true_labels, predicted_labels, 'micro')
     return score
+
+def get_micro_roc_auc_score_for_all_opacity(true_labels, predicted_labels, opacity_labels, labels_names, threshold=.5):
+    true_labels = np.array(true_labels)
+    predicted_labels = np.array(predicted_labels)
+    true_labels.flatten()
+    predicted_labels.flatten()
+
+    opacity_labels_true = []
+    opacity_labels_predicted = []
+    for l in labels_names:
+        opacity_labels_true.append([])
+        opacity_labels_predicted.append([])
+
+    for i in range(len(true_labels)):
+        tl = true_labels[i]
+        pl = predicted_labels[i]
+
+        if (tl == 0) & (pl <= threshold):
+            for j in range(len(opacity_labels_true)):
+                opacity_labels_true[j].append(0)
+                opacity_labels_predicted[j].append(pl)
+        elif (tl == 0) & (pl > threshold):
+            for j in range(len(opacity_labels_true)):
+                opacity_labels_true[j].append(0)
+                opacity_labels_predicted[j].append(pl)
+        elif (tl == 1) & (pl <= threshold):
+            for j in range(len(opacity_labels_true)):
+                if opacity_labels[i][j] == 1:
+                    opacity_labels_true[j].append(1)
+                    opacity_labels_predicted[j].append(pl)
+                else:
+                    opacity_labels_true[j].append(0)
+                    opacity_labels_predicted[j].append(pl)
+        elif (tl == 1) & (pl > threshold):
+            for j in range(len(opacity_labels_true)):
+                if opacity_labels[i][j] == 1:
+                    opacity_labels_true[j].append(1)
+                    opacity_labels_predicted[j].append(pl)
+                else:
+                    opacity_labels_true[j].append(0)
+                    opacity_labels_predicted[j].append(pl)
+
+    results_dict = {}
+
+    empty_classes = []
+    all_zeros = []
+
+    for i in range(len(opacity_labels_true)):
+        print(labels_names[i])
+        print(opacity_labels_true[i])
+        print(opacity_labels_predicted[i])
+
+        if (len(opacity_labels_true[i]) == 0) | (len(opacity_labels_predicted[i]) == 0):
+            empty_classes.append(labels_names[i])
+
+        if 1 not in opacity_labels_true[i]:
+            all_zeros.append(labels_names[i])
+
+    for name in empty_classes:
+        empty_index = labels_names.index(name)
+        del labels_names[empty_index]
+        del opacity_labels_true[empty_index]
+        del opacity_labels_predicted[empty_index]
+
+    for name in all_zeros:
+        empty_index = labels_names.index(name)
+        del labels_names[empty_index]
+        del opacity_labels_true[empty_index]
+        del opacity_labels_predicted[empty_index]
+
+    for l in range(len(labels_names)):
+        print(labels_names[l])
+        print(opacity_labels_true[l])
+        print(opacity_labels_predicted[l])
+        print(metrics.roc_auc_score(opacity_labels_true[l], opacity_labels_predicted[l], 'micro'))
+        results_dict[labels_names[l]] = metrics.roc_auc_score(opacity_labels_true[l], opacity_labels_predicted[l], 'micro')
+        print(results_dict)
+
+    return results_dict
 
 def get_macro_roc_auc_score(true_labels, predicted_labels, weights = None):
     #true_labels = np.array(true_labels)

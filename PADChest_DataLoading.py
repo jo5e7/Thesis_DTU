@@ -352,3 +352,69 @@ class Normalize_loc(object):
 
     def __repr__(self):
         return self.__class__.__name__ + '(mean={0}, std={1})'.format(self.mean, self.std)
+
+
+class PadChestDataset_loc_with_inputs(Dataset):
+    """Face Landmarks dataset."""
+
+    def __init__(self, csv_file, labels, position_labels, root_dir, transform=None, testing=False, pos_labels_always=False, original_labels=[]):
+        """
+        Args:
+            csv_file (string): Path to the csv file with annotations.
+            root_dir (string): Directory with all the images.
+            transform (callable, optional): Optional transform to be applied
+                on a sample.
+        """
+        self.pad_chest_df = pd.read_csv(csv_file)
+        if testing:
+            zero_df = self.pad_chest_df["ImageDir"] == 0
+            self.pad_chest_df = self.pad_chest_df[zero_df]
+            self.pad_chest_df = self.pad_chest_df.reset_index(drop=True)
+
+        self.root_dir = root_dir
+        self.transform = transform
+        self.labels = labels
+        self.position_labels = position_labels
+        self.pos_labels_always = pos_labels_always
+        self.original_labels = original_labels
+
+    def __len__(self):
+        return len(self.pad_chest_df)
+
+    def __getitem__(self, idx):
+        img_name = os.path.join(self.root_dir,
+                                self.pad_chest_df.loc[idx, "ImageID"])
+
+        labels_output = self.pad_chest_df.loc[idx, self.labels]
+        labels_output = labels_output.tolist()
+
+        original_labels = self.pad_chest_df.loc[idx, self.original_labels]
+        original_labels = original_labels.tolist()
+
+        position_labels_output = self.pad_chest_df.loc[idx, self.position_labels]
+        position_labels_output = position_labels_output.tolist()
+
+        # Positional labels only if there is a radiographical finding
+        if not self.pos_labels_always:
+            if 0 in labels_output:
+                for i in range(len(position_labels_output)):
+                    position_labels_output[i] = 0
+        #print(idx, labels_output)
+        #print(idx, position_labels_output)
+
+        #image = io.imread(img_name)
+        #image = np.stack((image,) * 3, axis=-1)
+
+        image = Image.open(img_name).convert("RGB")
+
+        #image.show()
+        #plt.imshow(image, interpolation='nearest')
+        #plt.show()
+
+
+        sample = {'image': image, 'labels_output': labels_output, 'position_labels_output': position_labels_output}
+        if self.transform:
+            sample = self.transform(sample)
+
+        #sample = {'image': image, 'labels': labels_output}
+        return sample['image'], torch.FloatTensor(sample['labels_output']), torch.FloatTensor(original_labels)

@@ -7,32 +7,17 @@ from collections import OrderedDict
 from torchvision.models.densenet import _DenseBlock, _DenseLayer, _Transition, model_urls
 
 class AttentionNet(nn.Module):
-    def __init__(self, size, hidden_layers=1):
+    def __init__(self, size):
         super(AttentionNet, self).__init__()
-        self.hidden_layers = hidden_layers
-
         self.l1 = nn.Linear(size, size)
-        self.relu = nn.ReLU()
+        self.relu1 = nn.ReLU()
         self.l2 = nn.Linear(size, size)
-        self.l3 = nn.Linear(size, size)
-        self.l4 = nn.Linear(size, size)
-        self.l5 = nn.Linear(size, size)
         self.sig = nn.Sigmoid()
 
     def forward(self, x):
         x = self.l1(x)
-        x = self.relu(x)
-        if self.hidden_layers >= 2:
-            x = self.l2(x)
-            x = self.relu(x)
-        if self.hidden_layers >= 3:
-            x = self.l3(x)
-            x = self.relu(x)
-        if self.hidden_layers >= 4:
-            x = self.l4(x)
-            x = self.relu(x)
-        x = self.l5(x)
-
+        x = self.relu1(x)
+        x = self.l2(x)
 
         return self.sig(x)
 
@@ -55,10 +40,11 @@ class DenseNet_att(nn.Module):
     """
 
     def __init__(self, growth_rate=32, block_config=(6, 12, 24, 16),
-                 num_init_features=64, bn_size=4, drop_rate=0, num_classes=1000):
+                 num_init_features=64, bn_size=4, drop_rate=0, num_classes=1000, bp_elementwise=False):
 
         super(DenseNet_att, self).__init__()
 
+        self.bp_elementwise = bp_elementwise
 
         # First convolution
         self.features = nn.Sequential(OrderedDict([
@@ -83,7 +69,7 @@ class DenseNet_att(nn.Module):
         # Final batch norm
         self.features.add_module('norm5', nn.BatchNorm2d(num_features))
 
-        #Attention
+        #Guide attention
         self.attention = AttentionNet(1664)
         # Linear layer for localization
         self.classifier_locations = nn.Linear(num_features, 2)
@@ -111,13 +97,19 @@ class DenseNet_att(nn.Module):
         attention_input = out.detach()
         attention_layer = self.attention(attention_input)
 
-        out_aux = out.detach()
-        out = out * attention_layer
-        attention_layer = attention_layer * out_aux
+        if self.bp_elementwise:
+            out = out * attention_layer
 
-        radiographical_findings = self.classifier(out)
-        locations = self.classifier_locations(attention_layer)
-        return radiographical_findings, locations
+        else:
+            with torch.no_grad():
+                out = out * attention_layer
+
+        attention_layer = out * attention_layer
+
+
+        RF = self.classifier(out)
+        LR = self.classifier_locations(attention_layer)
+        return RF, LR
 
 class DenseNet_multi_att(nn.Module):
     r"""Densenet-BC model class, based on
@@ -134,15 +126,11 @@ class DenseNet_multi_att(nn.Module):
     """
 
     def __init__(self, growth_rate=32, block_config=(6, 12, 24, 16),
-                 num_init_features=64, bn_size=4, drop_rate=0, num_classes=1000,
-                 bp_position=False, all_in_1_reduction=False, hidden_layers_att=1):
+                 num_init_features=64, bn_size=4, drop_rate=0, num_classes=1000, bp_elementwise=False):
 
         super(DenseNet_multi_att, self).__init__()
 
-        self.bp_position = bp_position
-        self.all_in_1_reduction = all_in_1_reduction
-        self.hidden_layers_att = hidden_layers_att
-
+        self.bp_elementwise = bp_elementwise
 
         # First convolution
         self.features = nn.Sequential(OrderedDict([
@@ -167,22 +155,8 @@ class DenseNet_multi_att(nn.Module):
         # Final batch norm
         self.features.add_module('norm5', nn.BatchNorm2d(num_features))
 
-        # Convolution to reduce dimesion
-        self.conv_reducer_1 = nn.Conv2d(1664, 64, 1)
-        self.con_relu_1 = nn.ReLU()
-        self.conv_reducer_2 = nn.Conv2d(64, 32, 1)
-        self.con_relu_2 = nn.ReLU()
-        self.conv_reducer_3 = nn.Conv2d(32, 16, 1)
-        self.con_relu_3 = nn.ReLU()
-        self.conv_reducer_4 = nn.Conv2d(16, 8, 1)
-        self.con_relu_4 = nn.ReLU()
-
-        self.conv_reducer_all_in_1 = nn.Conv2d(1664, 8, 1)
-
-        #Attention
-        self.multu_attention = AttentionNet(16, self.hidden_layers_att)
-
-
+        #Guide attention
+        self.multu_attention = AttentionNet(16)
         # Linear layer for localization
         self.classifier_locations = nn.Linear(num_features, 2)
 
@@ -203,42 +177,27 @@ class DenseNet_multi_att(nn.Module):
     def forward(self, x):
         features = self.features(x)
         out = F.relu(features, inplace=True)
-
-        # Embeddings from features to positions
-        if self.bp_position:
-            attention_layer = self.multu_attention(out)
-        else:
-            attention_input = out.detach()
-            attention_layer = self.multu_attention(attention_input)
-
-        # Dimentional reduction
-        if self.all_in_1_reduction:
-            out_pos = self.conv_reducer_all_in_1(attention_layer)
-            out_pos = self.con_relu_1(out_pos)
-            pass
-        else:
-            out_pos = self.conv_reducer_1(attention_layer)
-            out_pos = self.con_relu_1(out_pos)
-            out_pos = self.conv_reducer_2(out_pos)
-            out_pos = self.con_relu_2(out_pos)
-            out_pos = self.conv_reducer_3(out_pos)
-            out_pos = self.con_relu_3(out_pos)
-            out_pos = self.conv_reducer_4(out_pos)
-            out_pos = self.con_relu_4(out_pos)
-        out_pos = out_pos.view(out_pos.shape[0], -1)
-        locations = self.classifier_locations(out_pos)
-        #print(out_pos.shape)
-        #print(attention_layer.shape)
+        # print(out.shape)
 
         # attention
+        attention_input = out.detach()
+        attention_layer = self.multu_attention(attention_input)
         # print(attention_layer.shape)
 
-        out = out * attention_layer
-        out = F.adaptive_avg_pool2d(out, (1, 1)).view(features.size(0), -1)
-        #attention_layer = F.adaptive_avg_pool2d(attention_layer, (1, 1)).view(features.size(0), -1)
-        radiographical_findings = self.classifier(out)
+        if self.bp_elementwise:
+            out = out * attention_layer
+        else:
+            with torch.no_grad():
+                out = out * attention_layer
 
-        return radiographical_findings, locations
+        # print(attention_layer.shape)
+        attention_layer = out * attention_layer
+
+        out = F.adaptive_avg_pool2d(out, (1, 1)).view(features.size(0), -1)
+        attention_layer = F.adaptive_avg_pool2d(attention_layer, (1, 1)).view(features.size(0), -1)
+        RF = self.classifier(out)
+        LR = self.classifier_locations(attention_layer)
+        return RF, LR
 
 
 def densenet_att_121(pretrained=False, bp_elementwise=False, **kwargs):
@@ -282,8 +241,8 @@ def densenet_att_169(pretrained=False, bp_elementwise=False, **kwargs):
         pretrained (bool): If True, returns a model pre-trained on ImageNet
     """
     model = DenseNet_att(num_init_features=64, growth_rate=32, block_config=(6, 12, 32, 32), bp_elementwise=bp_elementwise,
-                         hiddel_layers_att=1,
                      **kwargs)
+    model.attention = AttentionNet(1664)
     mModel_dict = model.state_dict()
 
     if pretrained:
@@ -307,17 +266,16 @@ def densenet_att_169(pretrained=False, bp_elementwise=False, **kwargs):
     return model
 
 
-def densenet_multi_att_169(pretrained=False, bp_position=False, all_in_1_reduction=False, hidden_layers_att=1, **kwargs):
+def densenet_multi_att_169(pretrained=False, bp_elementwise=False, **kwargs):
     r"""Densenet-121 model from
     `"Densely Connected Convolutional Networks" <https://arxiv.org/pdf/1608.06993.pdf>`_
 
     Args:
         pretrained (bool): If True, returns a model pre-trained on ImageNet
     """
-    model = DenseNet_multi_att(num_init_features=64, growth_rate=32, block_config=(6, 12, 32, 32), bp_position=bp_position,
-                               all_in_1_reduction=all_in_1_reduction, hidden_layers_att=hidden_layers_att,
+    model = DenseNet_multi_att(num_init_features=64, growth_rate=32, block_config=(6, 12, 32, 32), bp_elementwise=bp_elementwise,
                      **kwargs)
-    model.multu_attention = AttentionNet(16, hidden_layers_att)
+    model.multu_attention = AttentionNet(16)
     mModel_dict = model.state_dict()
 
     if pretrained:
@@ -337,7 +295,5 @@ def densenet_multi_att_169(pretrained=False, bp_position=False, all_in_1_reducti
 
         mModel_dict.update(state_dict)
         model.load_state_dict(mModel_dict)
-        model.classifier_locations.in_features = 16384
-        model.classifier_locations.in_features = 2048
 
     return model

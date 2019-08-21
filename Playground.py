@@ -33,3 +33,7 @@ print(a)
 
 #a[2] = a[2] * 3
 #a[3] = a[3] * 4
+
+empty_dict = {}
+empty_dict['a'] = 0.75
+print(empty_dict)

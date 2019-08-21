@@ -11,7 +11,7 @@ from torchvision.transforms import Resize, RandomRotation, ToTensor, Normalize, 
 import torch.nn.functional as F
 from torchvision.transforms import functional as FVision
 import cv2
-from Attention_QKV.DenseNet_AttQKV_HM import DenseNet_att_QKV_HM, loadSD_densenet_attQKV_hm_169
+from Attention_QKV_Avg_Poll.DenseNet_AttQKV_HM import DenseNet_att_QKV_HM, loadSD_densenet_attQKV_hm_169
 
 class UnNormalize(object):
     def __init__(self, mean, std):

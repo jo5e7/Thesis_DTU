@@ -65,6 +65,7 @@ if __name__ == '__main__':
     parser.add_argument('--train_csv')
     parser.add_argument('--test_csv')
     parser.add_argument('--val_csv')
+    parser.add_argument('--hm_csv')
     parser.add_argument('--batch_size')
     args = parser.parse_args()
 
@@ -75,10 +76,12 @@ if __name__ == '__main__':
     csv_train = r"C:\Users\maest\OneDrive\DTU\Semestre 4\Thesis\Code\CheXNet_aproach\Datase_stratification\PADChest_train_LRUMDP_opacity.csv"
     csv_test = r"C:\Users\maest\OneDrive\DTU\Semestre 4\Thesis\Code\CheXNet_aproach\Datase_stratification\PADChest_test_LRUMDP_opacity.csv"
     csv_val = r"C:\Users\maest\OneDrive\DTU\Semestre 4\Thesis\Code\CheXNet_aproach\Datase_stratification\PADChest_val_LRUMDP_opacity.csv"
+    csv_hm = r"C:\Users\maest\OneDrive\DTU\Semestre 4\Thesis\Code\CheXNet_aproach\Datase_stratification\PADChest_hm_LRUMDP_opacity.csv"
     if vars(args)['train_csv'] is not None:
         csv_train = vars(args)['train_csv']
         csv_test = vars(args)['test_csv']
         csv_val = vars(args)['val_csv']
+        csv_hm = vars(args)['hm_csv']
 
     batch_size = 4
     if vars(args)['batch_size'] is not None:
@@ -109,6 +112,7 @@ if __name__ == '__main__':
     train_dataset = PadChestDataset_loc(csv_train, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_train_loc, testing=False, pos_labels_always=True)
     test_dataset = PadChestDataset_loc(csv_test, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_test_loc, testing=False, pos_labels_always=True)
     val_dataset = PadChestDataset_loc(csv_val, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_test_loc, testing=False, pos_labels_always=True)
+    hm_dataset = PadChestDataset_loc(csv_hm, radiographic_findings_opacity, locations_labels, root_folder, transform=transforms_test_loc)
 
     train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
                                                    drop_last=True)
@@ -116,6 +120,7 @@ if __name__ == '__main__':
                                                    drop_last=True)
     val_dataloader = torch.utils.data.DataLoader(val_dataset, batch_size=batch_size, shuffle=True, num_workers=4,
                                                    drop_last=True)
+    hm_loader = torch.utils.data.DataLoader(hm_dataset, batch_size=1, num_workers=1)
 
 
     # Loss functions
@@ -141,7 +146,7 @@ if __name__ == '__main__':
     sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
     trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                       loss_criterion_2=BCE, train_loader=train_dataloader,
-                                      test_loader=test_dataloader, val_loader=val_dataloader,
+                                      test_loader=test_dataloader, val_loader=val_dataloader, hm_loader=hm_loader,
                                       name='BCE_SGD0.001_a1_MLr_AlwaysPos_BCEPos_BPpos_HiddenL1',
                                       description='alpha = 1', bp_att=bp_att, hidden_layers_att=hidden_lyrs,
                                       kernel_att=kernel_att, stride_att=stride_att)
@@ -158,7 +163,7 @@ if __name__ == '__main__':
     sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
     trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                       loss_criterion_2=BCE, train_loader=train_dataloader,
-                                      test_loader=test_dataloader, val_loader=val_dataloader,
+                                      test_loader=test_dataloader, val_loader=val_dataloader, hm_loader=hm_loader,
                                       name='BCE_SGD0.001_a1_MLr_AlwaysPos_BCEPos_BPpos_HiddenL2',
                                       description='alpha = 1', bp_att=bp_att, hidden_layers_att=hidden_lyrs,
                                       kernel_att=kernel_att, stride_att=stride_att)
@@ -175,7 +180,7 @@ if __name__ == '__main__':
     sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
     trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                       loss_criterion_2=BCE, train_loader=train_dataloader,
-                                      test_loader=test_dataloader, val_loader=val_dataloader,
+                                      test_loader=test_dataloader, val_loader=val_dataloader, hm_loader=hm_loader,
                                       name='BCE_SGD0.001_a1_MLr_AlwaysPos_BCEPos_BPpos_HiddenL3',
                                       description='alpha = 1', bp_att=bp_att, hidden_layers_att=hidden_lyrs,
                                       kernel_att=kernel_att, stride_att=stride_att)
@@ -192,7 +197,7 @@ if __name__ == '__main__':
     sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
     trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                       loss_criterion_2=BCE, train_loader=train_dataloader,
-                                      test_loader=test_dataloader, val_loader=val_dataloader,
+                                      test_loader=test_dataloader, val_loader=val_dataloader, hm_loader=hm_loader,
                                       name='BCE_SGD0.001_a1_MLr_AlwaysPos_BCEPos_BPpos_HiddenL4',
                                       description='alpha = 1', bp_att=bp_att, hidden_layers_att=hidden_lyrs,
                                       kernel_att=kernel_att, stride_att=stride_att)
@@ -209,7 +214,7 @@ if __name__ == '__main__':
     sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
     trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                       loss_criterion_2=BCE, train_loader=train_dataloader,
-                                      test_loader=test_dataloader, val_loader=val_dataloader,
+                                      test_loader=test_dataloader, val_loader=val_dataloader, hm_loader=hm_loader,
                                       name='BCE_SGD0.001_a1_MLr_AlwaysPos_BCEPos_HiddenL1',
                                       description='alpha = 1', bp_att=bp_att, hidden_layers_att=hidden_lyrs,
                                       kernel_att=kernel_att, stride_att=stride_att)
@@ -226,7 +231,7 @@ if __name__ == '__main__':
     sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
     trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                       loss_criterion_2=BCE, train_loader=train_dataloader,
-                                      test_loader=test_dataloader, val_loader=val_dataloader,
+                                      test_loader=test_dataloader, val_loader=val_dataloader, hm_loader=hm_loader,
                                       name='BCE_SGD0.001_a1_MLr_AlwaysPos_BCEPos_HiddenL2',
                                       description='alpha = 1', bp_att=bp_att, hidden_layers_att=hidden_lyrs,
                                       kernel_att=kernel_att, stride_att=stride_att)
@@ -243,7 +248,7 @@ if __name__ == '__main__':
     sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
     trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                       loss_criterion_2=BCE, train_loader=train_dataloader,
-                                      test_loader=test_dataloader, val_loader=val_dataloader,
+                                      test_loader=test_dataloader, val_loader=val_dataloader, hm_loader=hm_loader,
                                       name='BCE_SGD0.001_a1_MLr_AlwaysPos_BCEPos_HiddenL3',
                                       description='alpha = 1', bp_att=bp_att, hidden_layers_att=hidden_lyrs,
                                       kernel_att=kernel_att, stride_att=stride_att)
@@ -260,7 +265,7 @@ if __name__ == '__main__':
     sgd = optim.SGD(densenet.parameters(), lr=0.001, momentum=0.9)
     trainable_1 = Trainable_Model_Att(model=densenet, optimizer=sgd, loss_criterion_1=BCE,
                                       loss_criterion_2=BCE, train_loader=train_dataloader,
-                                      test_loader=test_dataloader, val_loader=val_dataloader,
+                                      test_loader=test_dataloader, val_loader=val_dataloader, hm_loader=hm_loader,
                                       name='BCE_SGD0.001_a1_MLr_AlwaysPos_BCEPos_HiddenL4',
                                       description='alpha = 1', bp_att=bp_att, hidden_layers_att=hidden_lyrs,
                                       kernel_att=kernel_att, stride_att=stride_att)

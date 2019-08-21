@@ -17,12 +17,15 @@ class AttentionNet(nn.Module):
         self.c1 = nn.Conv2d(channels, channels, kernel_size=self.kernel_att, stride=self.stride_att,
                             padding=self.padding_att)
         self.relu = nn.ReLU()
-        self.c2 = nn.Conv2d(channels, channels, kernel_size=self.kernel_att, stride=self.stride_att,
-                            padding=self.padding_att)
-        self.c3 = nn.Conv2d(channels, channels, kernel_size=self.kernel_att, stride=self.stride_att,
-                            padding=self.padding_att)
-        self.c4 = nn.Conv2d(channels, channels, kernel_size=self.kernel_att, stride=self.stride_att,
-                            padding=self.padding_att)
+        if self.hidden_layers >= 2:
+            self.c2 = nn.Conv2d(channels, channels, kernel_size=self.kernel_att, stride=self.stride_att,
+                                padding=self.padding_att)
+        if self.hidden_layers >= 3:
+            self.c3 = nn.Conv2d(channels, channels, kernel_size=self.kernel_att, stride=self.stride_att,
+                                padding=self.padding_att)
+        if self.hidden_layers >= 4:
+            self.c4 = nn.Conv2d(channels, channels, kernel_size=self.kernel_att, stride=self.stride_att,
+                                padding=self.padding_att)
         self.c5 = nn.Conv2d(channels, channels, kernel_size=self.kernel_att, stride=self.stride_att,
                             padding=self.padding_att)
         self.sig = nn.Sigmoid()
@@ -63,6 +66,7 @@ class DenseNet_multi_att_HM(nn.Module):
                  bp_position=False, all_in_1_reduction=False, hidden_layers_att=1, kernel_att=3, stride_att=1):
 
         super(DenseNet_multi_att_HM, self).__init__()
+        #self.gradients = None
 
         self.bp_position = bp_position
         self.all_in_1_reduction = all_in_1_reduction
@@ -107,7 +111,7 @@ class DenseNet_multi_att_HM(nn.Module):
 
         self.conv_reducer_all_in_1 = nn.Conv2d(1664, 8, 1)
 
-        #Attention
+        #Guide attention
         self.multu_attention = AttentionNet(1664, self.hidden_layers_att, self.kernel_att, self.stride_att)
 
 
@@ -179,7 +183,40 @@ class DenseNet_multi_att_HM(nn.Module):
         return self.gradients
 
     def get_activations(self, x):
-        return self.features(x)
+        features = self.features(x)
+        out = F.relu(features, inplace=True)
+
+        # Embeddings from features to positions
+        if self.bp_position:
+            attention_layer = self.multu_attention(out)
+        else:
+            attention_input = out.detach()
+            attention_layer = self.multu_attention(attention_input)
+
+        # Dimentional reduction
+        if self.all_in_1_reduction:
+            out_pos = self.conv_reducer_all_in_1(attention_layer)
+            out_pos = self.con_relu_1(out_pos)
+            pass
+        else:
+            out_pos = self.conv_reducer_1(attention_layer)
+            out_pos = self.con_relu_1(out_pos)
+            out_pos = self.conv_reducer_2(out_pos)
+            out_pos = self.con_relu_2(out_pos)
+            out_pos = self.conv_reducer_3(out_pos)
+            out_pos = self.con_relu_3(out_pos)
+            out_pos = self.conv_reducer_4(out_pos)
+            out_pos = self.con_relu_4(out_pos)
+        out_pos = out_pos.view(out_pos.shape[0], -1)
+        locations = self.classifier_locations(out_pos)
+        # print(out_pos.shape)
+        # print(attention_layer.shape)
+
+        # attention
+        # print(attention_layer.shape)
+
+        out = out * attention_layer
+        return out
 
 
 def densenet_att_hm_169(pretrained=False, all_in_1_reduction=False, bp_elementwise=True, hidden_layers_att=1,
